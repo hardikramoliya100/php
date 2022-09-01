@@ -1,4 +1,3 @@
 <?php include_once('header.php') ?>
-<h2>about page</h2>
-</body>
-</html>
+
+<div class="mt-4 text-center"><h1>hello <?php echo $_COOKIE['uname']; ?></h1></div>

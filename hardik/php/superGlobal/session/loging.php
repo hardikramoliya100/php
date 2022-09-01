@@ -3,11 +3,11 @@ require_once('header.php');
 
 if (isset($_POST['username'])) {
 
-    if ($_POST['UserName'] == "tops" && $_POST['password'] == '123') {
+    if ($_POST['username'] == $_COOKIE['uname'] && $_POST['password'] == $_COOKIE['pass']) {
 
-        $_SESSION['UserName'] = $_POST['username'];
-        $_SESSION['UserData'] = array("uname" => $_POST['username'], "pass" => $_POST['password']);
-        header("location:home.php");
+         $_SESSION['UserName'] = $_POST['username'];
+         $_SESSION['UserData'] = array("uname" => $_POST['username'], "pass" => $_POST['password']);
+        header("location:about.php");
 
     } else {
         echo "invalid user";
@@ -27,7 +27,7 @@ if (isset($_POST['username'])) {
             <div class="card-body">
                 <form method="post">
                     <div class="mt-2">
-                        <input type="text" placeholder="Enter User Name" name="usrename" class="form-control" id="username">
+                        <input type="text" placeholder="Enter User Name" name="username" class="form-control" id="username">
                     </div>
                     <div class="mt-2">
                         <input type="text" placeholder="Enter Password" name="password" class="form-control" id="password">
@@ -35,6 +35,10 @@ if (isset($_POST['username'])) {
                     <div class="mt-2">
                         <input type="submit" name="btn-loging" class="btn btn-primary" value="Loging">
                         <input type="reset" class="btn btn-danger" value="cancel">
+                    </div>
+
+                    <div>
+                        <a href="registresan.php">Don't Have Account</a>
                     </div>
                 </form>
             </div>
