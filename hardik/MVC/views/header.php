@@ -57,11 +57,11 @@
                       <li class="nav-item dropdown active">
                           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Pages <span class="fa fa-angle-down"></span>
+                              Account <span class="fa fa-angle-down"></span>
                           </a>
                           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                              <a class="dropdown-item active" href="about">About us</a>
-                              <a class="dropdown-item @@contact__active" href="contact.html">Contact us</a>
+                              <a class="dropdown-item active" href="loging">Loging</a>
+                              <!-- <a class="dropdown-item @@contact__active" href="contact.html">Contact us</a> -->
                           </div>
                       </li>
                   </ul>

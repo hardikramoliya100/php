@@ -21,11 +21,17 @@ class Controller{
                     include_once("views/footer.php");
                     break;
                 
-                case '/about':
-                    echo "about";
-                    // include_once("views/header.php");
-                    // include_once("views/maincontent.php");
-                    // include_once("views/maincontent.php");
+                case '/loging':
+                    include_once("views/headersubpage.php");
+                    include_once("views/loging.php");
+                    include_once("views/footer.php");
+                    
+                    break;
+                case '/registretion':
+                    include_once("views/headersubpage.php");
+                    include_once("views/registretion.php");
+                    include_once("views/footer.php");
+                    
                     break;
                 
                 default:
