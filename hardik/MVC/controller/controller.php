@@ -1,9 +1,11 @@
 <?php
+include_once("model/model.php");
 
-class Controller{
+class Controller extends Model{
     public $base_url="";
     function __construct()
     {
+        parent :: __construct();
         // echo "<pre>";
         // print_r($_SERVER);
         $AeeofReq =explode("/",$_SERVER['REQUEST_URI']);
@@ -31,13 +33,27 @@ class Controller{
                     include_once("views/headersubpage.php");
                     include_once("views/registretion.php");
                     include_once("views/footer.php");
+                    echo "<pre>";
+                    print_r($_REQUEST);
+                    if (isset($_POST['registration'])) {
+                        $FetchAllUserData = $this->insert('user',array("username"=>$_POST['username'],"password"=>$_POST['password'],"email"=>$_POST['email'],"mobile"=>$_POST['mobile'],"gender"=>$_POST['gender'],));
+                    }
                     
                     break;
-                
+                    case '/showallusre':
+
+                        echo "showalluser";
+                        echo "<pre>";
+                        $FetchAllUserData = $this->select("user");
+                        print_r($FetchAllUserData);
+                        break;
+                    
                 default:
-                    # code...
+                    
                     break;
             }
+        }else{
+            header("location:home");
         }
     }
 
