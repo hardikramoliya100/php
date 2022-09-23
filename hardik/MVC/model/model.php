@@ -46,7 +46,7 @@ class Model{
 
         // Fetch multiple data with object formate START
         while($fdata = $SQLEx->fetch_object()){
-            $Fetchdata[] = $fdata; //store data in array 
+        $Fetchdata[] = $fdata; //store data in array 
         }
         // Fetch multiple data with object formate  END
         // echo "<pre>";
@@ -62,19 +62,56 @@ class Model{
     return $data;
        // Conditiond for getting data form DB END
     }
+    public function login($uname,$upass){
+        $SQL = 'SELECT * FROM `user` WHERE (`username`="'.$uname.'" OR `email` ="'.$uname.'" OR `mobile` ="'.$uname.'") AND password ="'.$upass.'"';
+        $SQLEx =$this->dbconnection->query($SQL); 
+        // echo "<pre>";
+        // print_r($SQLEx);
+        
+        if($SQLEx->num_rows > 0){
+
+        while($fdata = $SQLEx->fetch_object()){
+        $Fetchdata[] = $fdata; //store data in array 
+        }
+
+        $data["msg"]="Succes";
+        $data["data"]=$Fetchdata;
+        $data["code"]=1;
+    }else{
+        $data["msg"]="Try again";
+        $data["data"]=0;
+        $data["code"]=0;
+    }
+    return $data;
+     
+    }
     public function upddte(){
         $SQL ="";
     }
     public function insert($tbl,$data){
-        echo "<pro>";
-        print_r($data);
-        print_r(array_keys($data));
+       
+        // echo "<pro>";
+        // print_r($data);
+        // print_r(array_keys($data));
         $clam = implode(",",array_keys($data));
         $vals = implode("','",$data);
         
-        echo "INSERT INTO user(username,password,email,mobile,gender)VALUES('ab','bn','ab','bn','ab')";
-        echo "<br>";
-        echo $SQL = "INSERT INTO $tbl($clam) VALUES('$vals')";
+        // echo "INSERT INTO user(username,password,email,mobile,gender)VALUES('ab','bn','ab','bn','ab')";
+        // echo "<br>";
+        $SQL = "INSERT INTO $tbl($clam) VALUES('$vals')";
+        
+      
+        $SQLEx =$this->dbconnection->query($SQL); 
+        if ($SQLEx > 0) {
+        $data["msg"]="Succes";
+        $data["data"]=1;
+        $data["code"]=1;
+    }else{
+        $data["msg"]="Try again";
+        $data["data"]=0;
+        $data["code"]=0;
+        }
+        return $data;
     }
     public function delete(){
         $SQL ="";

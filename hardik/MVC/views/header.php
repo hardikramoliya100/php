@@ -61,6 +61,8 @@
                           </a>
                           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                               <a class="dropdown-item active" href="loging">Loging</a>
+                              <hr>
+                              <a class="dropdown-item active" href="logout">Logout</a>
                               <!-- <a class="dropdown-item @@contact__active" href="contact.html">Contact us</a> -->
                           </div>
                       </li>

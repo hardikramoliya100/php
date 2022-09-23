@@ -1,19 +1,17 @@
 <?php
+session_start();
 include_once("model/model.php");
 
 class Controller extends Model{
     public $base_url="";
     function __construct()
     {
+        ob_start();
         parent :: __construct();
-        // echo "<pre>";
-        // print_r($_SERVER);
         $AeeofReq =explode("/",$_SERVER['REQUEST_URI']);
-        // print_r($AeeofReq);
-        // echo "<br>http://localhost/php/hardik/MVC/<br>";
         $this->base_url = $_SERVER['REQUEST_SCHEME']."://".$_SERVER['SERVER_NAME']."/".$AeeofReq[1]."/".$AeeofReq[2]."/".$AeeofReq[3];
         $this->base_url_asset = $this->base_url."/assets";
-        // exit;
+        
 
         if (isset($_SERVER['PATH_INFO'])) {
             switch ($_SERVER['PATH_INFO']) {
@@ -24,22 +22,86 @@ class Controller extends Model{
                     break;
                 
                 case '/loging':
-                    include_once("views/headersubpage.php");
-                    include_once("views/loging.php");
-                    include_once("views/footer.php");
+                    if(isset($_SESSION['userdata']) == ""){
+
+                        include_once("views/headersubpage.php");
+                        include_once("views/loging.php");
+                        include_once("views/footer.php");
+                        if(isset($_POST['login'])){
+                            if($_POST['username'] != "" &&  $_POST['password'] != ""){
+                                $LoginData = $this->login($_POST['username'] ,$_POST['password']);
+                                // echo "<pre>";
+                                // print_r($LoginData);
+                                if ($LoginData['code'] == 1) {
+                                    $_SESSION['userdata'] = $LoginData['data'][0];
+                                    if($LoginData['data'][0]->Roleid == 1){
+                                        header("location:admindashboard");
+                                    }else{
+                                        header("location:home");
+                                    }
+    
+                                } else {
+                                    echo "<script>alert('Invalid User !!!!') </script>";
+                                }
+                                
+    
+                            }else{
+                                echo "<script>alert('User name and password is Required !!!!') </script>";
+                            }
+                        }
+                    }else{
+                        echo "<script>alert('Already Login !!!!') </script>";
+                    }
                     
                     break;
                 case '/registretion':
                     include_once("views/headersubpage.php");
                     include_once("views/registretion.php");
                     include_once("views/footer.php");
-                    echo "<pre>";
-                    print_r($_REQUEST);
+                    // echo "<pre>";
+                    // print_r($_REQUEST);
                     if (isset($_POST['registration'])) {
-                        $FetchAllUserData = $this->insert('user',array("username"=>$_POST['username'],"password"=>$_POST['password'],"email"=>$_POST['email'],"mobile"=>$_POST['mobile'],"gender"=>$_POST['gender'],));
+                        $hobb = implode(',',$_POST['hobbies']);
+                        // $InsertArr = array("username"=>$_POST['username'],
+                        // "fullname"=>$_POST['fullname'],
+                        // "password"=>$_POST['password'],
+                        // "email"=>$_POST['email'],
+                        // "hobby"=>$hobb,
+                        // "mobile"=>$_POST['mobile'],
+                        // "gender"=>$_POST['gender'],);
+                        echo "<pre>";
+                        array_pop($_POST);
+                        unset($_POST['hobbies']);
+                        $InsertArr = array_merge($_POST,array("hobby"=>$hobb));
+                        
+                        $RegistUserData = $this->insert('user',$InsertArr
+                        );
+                        if($RegistUserData['code'] == 1){
+                            header("location:loging");
+                        }else{
+                            echo "Error While inserting";
+                        }
+
                     }
                     
                     break;
+                    case '/admindashboard':
+                        if(isset($_SESSION['userdata']) != ""){
+
+                            include_once("views/admin/header.php");
+                            include_once("views/admin/dashboard.php");
+                            include_once("views/admin/footer.php");
+                        }else{
+                            header("location:loging");
+                            echo "<script>alert('You Are Not Loging !!!!') </script>";
+                        }
+                       
+                        break;
+                    case '/logout':
+                        include_once("views/logout.php");
+                       
+                        break;
+
                     case '/showallusre':
 
                         echo "showalluser";
@@ -55,6 +117,7 @@ class Controller extends Model{
         }else{
             header("location:home");
         }
+        ob_flush();
     }
 
 }

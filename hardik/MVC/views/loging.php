@@ -10,6 +10,9 @@
                             Loging
                         </div>
                         <div class="card-body">
+                            <form method="post">
+
+                            
                             <div class="row">
                                 <div class="col">
                                     <input type="text" placeholder="Enter User Name or Email" class="form-control" name="username" id="username">
@@ -31,6 +34,7 @@
                                    <a href="registretion">Click here for new account</a>
                                 </div>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
