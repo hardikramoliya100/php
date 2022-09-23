@@ -4,6 +4,22 @@
     License: Creative Commons Attribution 3.0 Unported
     License URL: http://creativecommons.org/licenses/by/3.0/
     -->
+
+    <?php
+    
+    if(!isset($_SESSION['userdata']))
+    {
+        header("location:loging");
+    }
+  
+    if(isset($_SESSION['userdata'])){
+        if(($_SESSION['userdata']->Roleid != 1)){
+            header("location:loging");
+
+        }    
+   }
+    
+    ?>
     <!DOCTYPE HTML>
     <html>
     

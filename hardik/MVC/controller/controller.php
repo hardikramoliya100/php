@@ -22,7 +22,7 @@ class Controller extends Model{
                     break;
                 
                 case '/loging':
-                    if(isset($_SESSION['userdata']) == ""){
+                    
 
                         include_once("views/headersubpage.php");
                         include_once("views/loging.php");
@@ -49,9 +49,7 @@ class Controller extends Model{
                                 echo "<script>alert('User name and password is Required !!!!') </script>";
                             }
                         }
-                    }else{
-                        echo "<script>alert('Already Login !!!!') </script>";
-                    }
+                    
                     
                     break;
                 case '/registretion':
@@ -86,15 +84,15 @@ class Controller extends Model{
                     
                     break;
                     case '/admindashboard':
-                        if(isset($_SESSION['userdata']) != ""){
+                        // if(isset($_SESSION['userdata']) != ""){
 
                             include_once("views/admin/header.php");
                             include_once("views/admin/dashboard.php");
                             include_once("views/admin/footer.php");
-                        }else{
-                            header("location:loging");
-                            echo "<script>alert('You Are Not Loging !!!!') </script>";
-                        }
+                        // }else{
+                        //     header("location:loging");
+                        //     echo "<script>alert('You Are Not Loging !!!!') </script>";
+                        // }
                        
                         break;
                     case '/logout':
