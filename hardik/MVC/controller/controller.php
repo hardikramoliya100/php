@@ -67,7 +67,7 @@ class Controller extends Model{
                         // "hobby"=>$hobb,
                         // "mobile"=>$_POST['mobile'],
                         // "gender"=>$_POST['gender'],);
-                        echo "<pre>";
+                        // echo "<pre>";
                         array_pop($_POST);
                         unset($_POST['hobbies']);
                         $InsertArr = array_merge($_POST,array("hobby"=>$hobb));
@@ -119,8 +119,9 @@ class Controller extends Model{
                             
                             $RegistUserData = $this->insert('user',$InsertArr
                             );
+                            
+                            header("location:allusers");
                         }
-                        header("location:allusers");
                         
                         include_once("views/admin/header.php");
                         include_once("views/admin/addnewuser.php");
@@ -128,20 +129,24 @@ class Controller extends Model{
 
                         break;
                         case '/edituser':
-                        $FetchAllUserData = $this->select('user',array("id"=>$_GET['userid'] ,"status"=>1));
+                        $EditUserData = $this->select('user',array("id"=>$_GET['userid'] ,"status"=>1));
+                        $AllCountryData = $this->select('country');
+
                                                        
                         include_once("views/admin/header.php");
                         include_once("views/admin/edituser.php");
                         include_once("views/admin/footer.php");
 
                         if (isset($_POST['edit'])){
+                            $hobb = implode(',',$_POST['hobbies']);
                             // echo "<pre>";
                             array_pop($_POST);
-                            // print_r($_POST);
-                            $updatArr = $_POST;
+                            unset($_POST['hobbies']);
+                            $updatArr = array_merge($_POST,array("hobby"=>$hobb));
 
-                            $FetchAllUserData = $this->update('user',array("id"=>$_GET['userid'] ,"status"=>1),$updatArr);
-
+                            $EditUserData = $this->update('user',array("id"=>$_GET['userid'] ,"status"=>1),$updatArr);
+                            
+                            header("location:allusers");
 
                         }
 

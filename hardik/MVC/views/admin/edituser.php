@@ -24,28 +24,44 @@
                                             <div class="card-header text-center">
                                                 EDIT USER
                                             </div>
+                                            <?php
+                                            // echo "<pre>";
+                                            // print_r($EditUserData);
+                                            ?>
                                             <div class="card-body">
-                                                <?php 
-                                                foreach ($FetchAllUserData['data'] as $key => $value) {
+                                                <?php
+                                                foreach ($EditUserData['data'] as $key => $value) {
                                                 ?>
                                                     <form method="post" enctype="multipart/form-data">
 
                                                         <div class="row">
+                                                            <div class="col">
+                                                                <label for="username">User Name</label>
+                                                            </div>
                                                             <div class="col">
                                                                 <input type="text" value="<?php echo $value->username; ?>" class="form-control" name="username" id="username">
                                                             </div>
                                                         </div>
                                                         <div class="row mt-3">
                                                             <div class="col">
+                                                                <label for="fullname">Full Name</label>
+                                                            </div>
+                                                            <div class="col">
                                                                 <input type="text" value="<?php echo $value->fullname; ?>" class="form-control" name="fullname" id="fullname">
                                                             </div>
                                                         </div>
                                                         <div class="row mt-3">
                                                             <div class="col">
+                                                                <label for="email">Email</label>
+                                                            </div>
+                                                            <div class="col">
                                                                 <input type="email" value="<?php echo $value->email; ?>" class="form-control" name="email" id="email">
                                                             </div>
                                                         </div>
                                                         <div class="row mt-3">
+                                                            <div class="col">
+                                                                <label for="mobile">Mobile</label>
+                                                            </div>
                                                             <div class="col">
                                                                 <input type="text" value="<?php echo $value->mobile; ?>" class="form-control" name="mobile" id="mobile">
                                                             </div>
@@ -63,29 +79,78 @@
                                                                 <option value="3">Surat</option>
                                                             </select>
                                                         </div> -->
-                                                        <!-- <div class="row mt-3">
-                                                            <div class="col">
-                                                                <input type="radio" name="gender" value="Male" id="male"> <label for="male"> Male</label>
-                                                                <input type="radio" name="gender" value="Female" id="female"> <label for="female"> Female</label>
-                                                            </div>
-                                                        </div> -->
-                                                        <!-- <div class="row mt-3">
-                                                            <div class="col">
-                                                                <input type="checkbox" name="hobbies[]" value="cricket" id="cricket"> <label for="cricket"> cricket</label>
-                                                                <input type="checkbox" name="hobbies[]" value="music" id="music"> <label for="music"> music</label>
-                                                                <input type="checkbox" name="hobbies[]" value="gaming" id="gaming"> <label for="music"> gaming</label>
-                                                            </div>
-                                                        </div> -->
                                                         <div class="row mt-3">
                                                             <div class="col">
-                                                                <input type="text" value="<?php echo $value->password; ?>" class="form-control" name="password" id="password">
+                                                                <label for="gender">Gender</label>
+                                                            </div>
+                                                            <div class="col">
+                                                                <input type="radio" <?php if ($value->gender == "Male") {
+                                                                                        echo "checked";
+                                                                                    }  ?> name="gender" value="Male" id="male"> <label for="male"> Male</label>
+                                                                <input type="radio" <?php if ($value->gender == "Female") {
+                                                                                        echo "checked";
+                                                                                    }  ?> name="gender" value="Female" id="female"> <label for="female"> Female</label>
                                                             </div>
                                                         </div>
                                                         <!-- <div class="row mt-3">
-                                    <div class="col">
-                                        <input type="file"  class="" name="profile_pic" id="profile_pic">
-                                    </div>
-                                </div> -->
+                                                            <div class="col">
+                                                                <label for="hobbies[]">Hoddy</label>
+                                                            </div> -->
+                                                            <div class="col">
+                                                                <input type="checkbox" <?php $arr = explode(",", $value->hobby);
+                                                                                        if ($arr[0] == "cricket" || $arr[1] == "cricket") {
+                                                                                            echo "checked";
+                                                                                        }  ?> name="hobbies[]" value="cricket" id="cricket"> <label for="cricket"> cricket</label>
+                                                                <input type="checkbox" <?php $arr = explode(",", $value->hobby);
+                                                                                        if ($arr[0] == "music" || $arr[1] == "music") {
+                                                                                            echo "checked";
+                                                                                        }  ?> name="hobbies[]" value="music" id="music"> <label for="music"> music</label>
+                                                                <input type="checkbox" <?php $arr = explode(",", $value->hobby);
+                                                                                        if ($arr[0] == "gaming" || $arr[1] == "gaming") {
+                                                                                            echo "checked";
+                                                                                        }  ?> name="hobbies[]" value="gaming" id="gaming"> <label for="gaming"> gaming</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-2">
+                                                                <label for="country">country</label>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <select name="country" id="country">
+                                                                    <?php
+                                                                    foreach ($AllCountryData['data'] as $countrykey => $countryvalue) {?>
+                                                                        
+                                                                        <option value="<?php echo $countryvalue->country_id;?>"><?php echo $countryvalue->country_name;?></option>                            
+                                                                    <?php }; ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-2">
+                                                                <label for="state">State</label>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <select name="state" id="state">
+                                                                    
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-2">
+                                                                <label for="city">city</label>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <select name="city" id="city">
+
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- <div class="row mt-3">
+                                                        <div class="col">
+                                                        <input type="file"  class="" name="profile_pic" id="profile_pic">
+                                                        </div>
+                                                        </div> -->
 
                                                         <div class="row mt-3 ">
                                                             <div class="col text-center">
@@ -94,7 +159,7 @@
                                                             </div>
                                                         </div>
                                                     </form>
-                                                <?php 
+                                                <?php
                                                 } ?>
                                             </div>
                                         </div>
