@@ -25,16 +25,26 @@ class Model{
         // echo "<pre>";
         // print_r($this->dbconnection);
     }
-    public function select($tbl){
+    public function select($tbl,$where="")
+    {
         // SELECT Query START
         $SQL ="SELECT * FROM $tbl";
+        if($where != ""){
+
+            $SQL .=" WHERE ";
+            foreach ($where as $key => $value) {
+                $SQL .= "$key = $value AND ";
+            }
+            $SQL = rtrim($SQL," AND ");
+        }
+        
         // SELECT Query END
         // Execute SELECT Query on datadase START
         $SQLEx =$this->dbconnection->query($SQL); 
         // Execute SELECT Query on datadase END
         
-        echo "<pre>";
-        print_r($SQLEx);
+        // echo "<pre>";
+        // print_r($SQLEx);
         // Conditiond for getting data form DB START
         if($SQLEx->num_rows > 0){
             
@@ -85,8 +95,22 @@ class Model{
     return $data;
      
     }
-    public function upddte(){
-        $SQL ="";
+    public function update($tbl,$whr,$udata){
+        
+
+        $SQL = "UPDATE $tbl SET ";
+        foreach ($udata as $key => $value) {
+            $SQL .= " $key = '$value' ,";
+        }
+        $SQL = rtrim($SQL," ,");
+        $SQL .= " WHERE";
+        foreach ($whr as $key => $value) {
+            $SQL .= " $key = $value AND ";
+        }
+        $SQL = rtrim($SQL," AND ");
+        echo "<br>";
+        echo $SQL;
+
     }
     public function insert($tbl,$data){
        
@@ -113,8 +137,29 @@ class Model{
         }
         return $data;
     }
-    public function delete(){
-        $SQL ="";
+    public function delete($tbl,$whr){
+        $SQL = "DELETE  FROM $tbl";
+        $SQL .=" WHERE";
+        foreach ($whr as $key => $value) {
+            $SQL .= " $key = $value AND ";
+        }
+        $SQL = rtrim($SQL," AND ");
+        // echo $SQL;
+        $SQLEx =$this->dbconnection->query($SQL); 
+        
+        if($SQLEx> 0){
+
+        
+
+        $data["msg"]="Succes";
+        $data["data"]=1;
+        $data["code"]=1;
+    }else{
+        $data["msg"]="Try again";
+        $data["data"]=0;
+        $data["code"]=0;
+    }
+    return $data;
     }
 
 }

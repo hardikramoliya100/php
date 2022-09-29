@@ -84,15 +84,12 @@ class Controller extends Model{
                     
                     break;
                     case '/admindashboard':
-                        // if(isset($_SESSION['userdata']) != ""){
+                       
 
                             include_once("views/admin/header.php");
                             include_once("views/admin/dashboard.php");
                             include_once("views/admin/footer.php");
-                        // }else{
-                        //     header("location:loging");
-                        //     echo "<script>alert('You Are Not Loging !!!!') </script>";
-                        // }
+                        
                        
                         break;
                     case '/logout':
@@ -100,15 +97,65 @@ class Controller extends Model{
                        
                         break;
 
-                    case '/showallusre':
+                    case '/allusers':
 
-                        echo "showalluser";
-                        echo "<pre>";
-                        $FetchAllUserData = $this->select("user");
-                        print_r($FetchAllUserData);
+                        $FetchAllUserData = $this->select('user',array("Roleid"=>2 ,"status"=>1));
+
+                        
+                        include_once("views/admin/header.php");
+                        include_once("views/admin/allusersview.php");
+                        include_once("views/admin/footer.php");
+
                         break;
-                    
-                default:
+                        
+                        case '/addnewuser':
+                            
+                            if (isset($_POST['registration'])) {
+                                $hobb = implode(',',$_POST['hobbies']);
+                                echo "<pre>";
+                                array_pop($_POST);
+                                unset($_POST['hobbies']);
+                            $InsertArr = array_merge($_POST,array("hobby"=>$hobb));
+                            
+                            $RegistUserData = $this->insert('user',$InsertArr
+                            );
+                        }
+                        header("location:allusers");
+                        
+                        include_once("views/admin/header.php");
+                        include_once("views/admin/addnewuser.php");
+                        include_once("views/admin/footer.php");
+
+                        break;
+                        case '/edituser':
+                        $FetchAllUserData = $this->select('user',array("id"=>$_GET['userid'] ,"status"=>1));
+                                                       
+                        include_once("views/admin/header.php");
+                        include_once("views/admin/edituser.php");
+                        include_once("views/admin/footer.php");
+
+                        if (isset($_POST['edit'])){
+                            // echo "<pre>";
+                            array_pop($_POST);
+                            // print_r($_POST);
+                            $updatArr = $_POST;
+
+                            $FetchAllUserData = $this->update('user',array("id"=>$_GET['userid'] ,"status"=>1),$updatArr);
+
+
+                        }
+
+                        break;
+
+                        case '/deleteuser':
+                            echo "<pre>";
+                            print_r($_REQUEST);
+                            print_r($_GET);
+                            $FetchAllUserData = $this->delete('user',array("id"=>$_GET['userid'] ,"status"=>1));
+                            header(("location:allusers"));
+                            break;
+                        
+                        default:
                     
                     break;
             }

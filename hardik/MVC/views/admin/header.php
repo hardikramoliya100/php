@@ -91,12 +91,12 @@
                                 </li>
                                 <li class="treeview">
                                     <a href="#">
-                                        <i class="fa fa-laptop"></i>
-                                        <span>Components</span>
+                                        <i class="fa fa-users"></i>
+                                        <span>Users</span>
                                         <i class="fa fa-angle-left pull-right"></i>
                                     </a>
                                     <ul class="treeview-menu">
-                                        <li><a href="grids.html"><i class="fa fa-angle-right"></i> Grids</a></li>
+                                        <li><a href="allusers"><i class="fa fa-angle-right"></i> All Users</a></li>
                                         <li><a href="media.html"><i class="fa fa-angle-right"></i> Media Css</a></li>
                                     </ul>
                                 </li>
