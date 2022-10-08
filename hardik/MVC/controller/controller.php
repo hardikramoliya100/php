@@ -106,7 +106,7 @@ class Controller extends Model{
                         include_once("views/admin/allusersview.php");
                         include_once("views/admin/footer.php");
 
-                        break;
+                        break; 
                         
                         case '/addnewuser':
                             $AllCountryData = $this->select('tbl_countries');
