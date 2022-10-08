@@ -2,7 +2,7 @@
     <div class="main-page">
         <div class="col_3">
             <div class="clearfix"> </div>
-        </div>
+        </div> 
 
         <div class="charts">
             <div class="mid-content-top charts-grids">
