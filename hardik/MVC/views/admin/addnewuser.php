@@ -55,9 +55,15 @@
                                                     <div class="row mt-3">
                                                         <select name="city" class="form-control" id="city">
                                                             <option value="">---Select City---</option>
-                                                            <option value="1">Ahemdabad</option>
+                                                            
+                                                            <?php
+                                                            foreach ($AllCitiesData['data'] as $citieskey => $citiesvalue) { ?>
+                                                                <option value="<?php echo $citiesvalue->name; ?>"><?php echo $citiesvalue->name; ?></option>
+                                                                
+                                                            <?php }; ?>
+                                                            <!-- <option value="1">Ahemdabad</option>
                                                             <option value="2">Baroda</option>
-                                                            <option value="3">Surat</option>
+                                                            <option value="3">Surat</option> -->
                                                         </select>
                                                     </div>
                                                     <div class="row mt-3">

@@ -100,7 +100,7 @@ class Controller extends Model{
                     case '/allusers':
 
                         $FetchAllUserData = $this->select('user',array("Roleid"=>2 ,"status"=>1));
-
+                                               
                         
                         include_once("views/admin/header.php");
                         include_once("views/admin/allusersview.php");
@@ -109,6 +109,14 @@ class Controller extends Model{
                         break;
                         
                         case '/addnewuser':
+                            $AllCountryData = $this->select('tbl_countries');
+                            $AllStatesData = $this->select('tbl_states');
+                            $AllCitiesData = $this->select('tbl_cities');
+                            include_once("views/admin/header.php");
+                            include_once("views/admin/addnewuser.php");
+                            include_once("views/admin/footer.php");
+
+
                             
                             if (isset($_POST['registration'])) {
                                 $hobb = implode(',',$_POST['hobbies']);
@@ -123,9 +131,6 @@ class Controller extends Model{
                             header("location:allusers");
                         }
                         
-                        include_once("views/admin/header.php");
-                        include_once("views/admin/addnewuser.php");
-                        include_once("views/admin/footer.php");
 
                         break;
                         case '/edituser':
@@ -175,4 +180,3 @@ class Controller extends Model{
 }
 
 $Controller = new Controller;
-?>

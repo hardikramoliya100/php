@@ -92,31 +92,31 @@
                                                                                     }  ?> name="gender" value="Female" id="female"> <label for="female"> Female</label>
                                                             </div>
                                                         </div>
-                                                        <!-- <div class="row mt-3">
-                                                            <div class="col">
-                                                                <label for="hobbies[]">Hoddy</label>
-                                                            </div> -->
-                                                        <div class="col">
-                                                            <input type="checkbox" <?php $arr = explode(",", $value->hobby);
-                                                                                    if (in_array("cricket", $arr)) {
-                                                                                        echo "checked";
-                                                                                    }  ?> name="hobbies[]" value="cricket" id="cricket"> <label for="cricket"> cricket</label>
-                                                            <input type="checkbox" <?php $arr = explode(",", $value->hobby);
-                                                                                    if (in_array("music", $arr)) {
-                                                                                        echo "checked";
-                                                                                    }  ?> name="hobbies[]" value="music" id="music"> <label for="music"> music</label>
-                                                            <input type="checkbox" <?php $arr = explode(",", $value->hobby);
-                                                                                    if (in_array("gaming", $arr)) {
-                                                                                        echo "checked";
-                                                                                    }  ?> name="hobbies[]" value="gaming" id="gaming"> <label for="gaming"> gaming</label>
+                                                        <div class="row">
+                                                            <div class="col-md-12 mt-3">
+                                                                <input type="checkbox" <?php $arr = explode(",", $value->hobby);
+                                                                                        if (in_array("cricket", $arr)) {
+                                                                                            echo "checked";
+                                                                                        }  ?> name="hobbies[]" value="cricket" id="cricket"> <label for="cricket"> cricket</label>
+                                                                <input type="checkbox" <?php $arr = explode(",", $value->hobby);
+                                                                                        if (in_array("music", $arr)) {
+                                                                                            echo "checked";
+                                                                                        }  ?> name="hobbies[]" value="music" id="music"> <label for="music"> music</label>
+                                                                <input type="checkbox" <?php $arr = explode(",", $value->hobby);
+                                                                                        if (in_array("gaming", $arr)) {
+                                                                                            echo "checked";
+                                                                                        }  ?> name="hobbies[]" value="gaming" id="gaming"> <label for="gaming"> gaming</label>
+
+                                                            </div>
                                                         </div>
+
                                             </div>
-                                            <div class="row mt-3">
-                                                <div class="col-md-2">
+                                            <div class="row ">
+                                                <div class="col-md-2 mt-3">
                                                     <label for="country">country</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <select name="country" id="country">
+                                                    <select name="country" id="country" class="form-control">
                                                         <option value="">Select country</option>
                                                         <?php
                                                         foreach ($AllCountryData['data'] as $countrykey => $countryvalue) { ?>
@@ -133,7 +133,7 @@
                                                     <label for="state">State</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <select name="state" id="state">
+                                                    <select name="state" id="state" class="form-control">
                                                         <option value="">Select State</option>
                                                         <?php
                                                         foreach ($AllStatesData['data'] as $stateskey => $statesvalue) { ?>
@@ -151,7 +151,7 @@
                                                     <label for="city">city</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <select name="city" id="city">
+                                                    <select name="city" id="city" class="form-control">
                                                         <option value="">Select City</option>
                                                         <?php
                                                         foreach ($AllCitiesData['data'] as $citieskey => $citiesvalue) { ?>
@@ -166,10 +166,10 @@
                                             </div>
 
                                             <div class="row mt-3">
-                                                <div class="col-md-2">
+                                                <div class="col-md-4">
                                                     <label for="profile_pic">Profile Pic</label>
                                                 </div>
-                                                <div class="col">
+                                                <div class="col-md-8">
                                                     <input type="file" class="" name="profile_pic" id="profile_pic">
                                                 </div>
                                             </div>
