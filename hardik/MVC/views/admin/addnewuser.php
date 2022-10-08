@@ -65,7 +65,7 @@
                                                             <option value="2">Baroda</option>
                                                             <option value="3">Surat</option> -->
                                                         </select>
-                                                    </div>
+                                                    </div> 
                                                     <div class="row mt-3">
                                                         <div class="col">
                                                             <input type="radio" name="gender" value="Male" id="male"> <label for="male"> Male</label>
