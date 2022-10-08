@@ -111,7 +111,8 @@ class Model
         $SQL = rtrim($SQL, " AND ");
 
 
-
+        echo $SQL;
+        
         $SQLEx = $this->dbconnection->query($SQL);
         if ($SQLEx > 0) {
             $data["msg"] = "Succes";

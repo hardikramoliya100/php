@@ -130,7 +130,9 @@ class Controller extends Model{
                         break;
                         case '/edituser':
                         $EditUserData = $this->select('user',array("id"=>$_GET['userid'] ,"status"=>1));
-                        $AllCountryData = $this->select('country');
+                        $AllCountryData = $this->select('tbl_countries');
+                        $AllStatesData = $this->select('tbl_states');
+                        $AllCitiesData = $this->select('tbl_cities');
 
                                                        
                         include_once("views/admin/header.php");
