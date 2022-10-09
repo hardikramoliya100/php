@@ -170,6 +170,7 @@
                                                     <label for="profile_pic">Profile Pic</label>
                                                 </div>
                                                 <div class="col-md-8">
+                                                    <input type="text" value="<?php echo $value->profile_pic;?>" name="old_profile_pic" id="old_profile_pic">
                                                     <input type="file" class="" name="profile_pic" id="profile_pic">
                                                 </div>
                                             </div>
