@@ -194,9 +194,9 @@ class Controller extends Model
                         unset($_POST['hobbies']);
                         unset($_POST['old_profile_pic']);
 
-                        echo "<pre>";
-                        print_r($GLOBALS);
-                        echo "</pre>";
+                        // echo "<pre>";
+                        // print_r($GLOBALS);
+                        // echo "</pre>";
 
                         if (isset($_FILES['profile_pic'])) {
                             if ($_FILES['profile_pic']['error'] == 0) {
@@ -223,7 +223,7 @@ class Controller extends Model
 
                         $EditUserData = $this->update('user', array("id" => $_GET['userid'], "status" => 1), $updatArr);
 
-                        // header("location:allusers");
+                        header("location:allusers");
                     }
 
                     break;

@@ -15,12 +15,14 @@
                             
                             <div class="row">
                                 <div class="col">
-                                    <input type="text" onblur="checkreq(this)" placeholder="Enter User Name or Email" class="form-control" name="username" id="username">
+                                    <input type="text" onblur="checkreq(this,'usernameerrer')" placeholder="Enter User Name or Email" class="form-control" name="username" id="username">
+                                    <span id="usernameerrer"></span>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
-                                    <input type="text" onblur="checkreq(this)" placeholder="Enter password"  class="form-control" name="password" id="password">
+                                    <input type="text" onblur="checkreq(this,'passworderrer')" placeholder="Enter password"  class="form-control" name="password" id="password">
+                                    <span id="passworderrer"></span>
                                 </div>
                             </div>
                             <div class="row mt-3 ">
@@ -44,9 +46,32 @@
     </div>
 </section>
 <script>
-    function checkreq(e){
+    document.getElementById('username').addEventListener("keyup",function(){
+
+        var RegX = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
+        if (RegX.test(this.value)) {
+            console.log("inside if");
+            document.getElementById("usernameerrer").innerHTML = ""
+            
+            
+        } else {
+            console.log("inside else");
+            document.getElementById("usernameerrer").innerHTML = "Invalid formate"
+            
+        }
+    })
+   
+
+    function checkreq(e,spn){
         // uname = document.getElementById(e)
-        console.log(e.value);
+        // console.log(e.value);
+        if (e.value == "") {
+            document.getElementById(spn).innerHTML = "This fild is requerd !!"
+            // console.log("this fild is requerd !!");
+        } else {
+            
+            console.log("Done");
+        }
 
     }
 </script>
