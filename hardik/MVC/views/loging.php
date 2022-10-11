@@ -15,12 +15,12 @@
                             
                             <div class="row">
                                 <div class="col">
-                                    <input type="text" placeholder="Enter User Name or Email" class="form-control" name="username" id="username">
+                                    <input type="text" onblur="checkreq(this)" placeholder="Enter User Name or Email" class="form-control" name="username" id="username">
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
-                                    <input type="text" placeholder="Enter password"  class="form-control" name="password" id="password">
+                                    <input type="text" onblur="checkreq(this)" placeholder="Enter password"  class="form-control" name="password" id="password">
                                 </div>
                             </div>
                             <div class="row mt-3 ">
@@ -43,3 +43,10 @@
         </div>
     </div>
 </section>
+<script>
+    function checkreq(e){
+        // uname = document.getElementById(e)
+        console.log(e.value);
+
+    }
+</script>

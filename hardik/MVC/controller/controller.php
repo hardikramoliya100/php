@@ -68,12 +68,17 @@ class Controller extends Model
                         // echo "<pre>";
                         array_pop($_POST);
                         unset($_POST['hobbies']);
+                        
                         if (isset($_FILES['profile_pic'])) {
                             if ($_FILES['profile_pic']['error'] == 0) {
                                 if ($_FILES['profile_pic']['size'] < 20284189) {
                                     
                                     $tmp_name = $_FILES['profile_pic']['tmp_name'];
-                                    $name = $_FILES['profile_pic']['name'];
+
+                                    $img_name = $_FILES['profile_pic']['name'];
+                                    $rand1 = rand(10000,100000);
+                                    $ext = pathinfo($_FILES['profile_pic']['name'],PATHINFO_EXTENSION);
+                                    $name =$rand1.".".$ext;
                                     move_uploaded_file($tmp_name, "uploads/$name");
                                 } else {
                                     $name = "default.jpg";
@@ -144,7 +149,10 @@ class Controller extends Model
                                 if ($_FILES['profile_pic']['size'] < 20284189) {
 
                                     $tmp_name = $_FILES['profile_pic']['tmp_name'];
-                                    $name = $_FILES['profile_pic']['name'];
+                                    $img_name = $_FILES['profile_pic']['name'];
+                                    $rand1 = rand(10000,100000);
+                                    $ext = pathinfo($_FILES['profile_pic']['name'],PATHINFO_EXTENSION);
+                                    $name =$rand1.".".$ext;
                                     move_uploaded_file($tmp_name, "uploads/$name");
                                 } else {
                                     $name = "default.jpg";
@@ -186,16 +194,19 @@ class Controller extends Model
                         unset($_POST['hobbies']);
                         unset($_POST['old_profile_pic']);
 
-                        // echo "<pre>";
-                        // print_r($GLOBALS);
-                        // echo "</pre>";
+                        echo "<pre>";
+                        print_r($GLOBALS);
+                        echo "</pre>";
 
                         if (isset($_FILES['profile_pic'])) {
                             if ($_FILES['profile_pic']['error'] == 0) {
                                 if ($_FILES['profile_pic']['size'] < 20284189) {
 
                                     $tmp_name = $_FILES['profile_pic']['tmp_name'];
-                                    $name = $_FILES['profile_pic']['name'];
+                                    $img_name = $_FILES['profile_pic']['name'];
+                                    $rand1 = rand(10000,100000);
+                                    $ext = pathinfo($_FILES['profile_pic']['name'],PATHINFO_EXTENSION);
+                                    $name =$rand1.".".$ext;
                                     move_uploaded_file($tmp_name, "uploads/$name");
                                 } else {
                                     $name = "default.jpg";
@@ -212,7 +223,7 @@ class Controller extends Model
 
                         $EditUserData = $this->update('user', array("id" => $_GET['userid'], "status" => 1), $updatArr);
 
-                        header("location:allusers");
+                        // header("location:allusers");
                     }
 
                     break;
