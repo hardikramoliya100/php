@@ -55,17 +55,17 @@
                                                     <div class="row mt-3">
                                                         <select name="city" class="form-control" id="city">
                                                             <option value="">---Select City---</option>
-                                                            
+
                                                             <?php
                                                             foreach ($AllCitiesData['data'] as $citieskey => $citiesvalue) { ?>
                                                                 <option value="<?php echo $citiesvalue->name; ?>"><?php echo $citiesvalue->name; ?></option>
-                                                                
+
                                                             <?php }; ?>
                                                             <!-- <option value="1">Ahemdabad</option>
                                                             <option value="2">Baroda</option>
                                                             <option value="3">Surat</option> -->
                                                         </select>
-                                                    </div> 
+                                                    </div>
                                                     <div class="row mt-3">
                                                         <div class="col">
                                                             <input type="radio" name="gender" value="Male" id="male"> <label for="male"> Male</label>
@@ -84,16 +84,16 @@
                                                             <input type="password" placeholder="Enter password" class="form-control" name="password" id="password">
                                                         </div>
                                                     </div>
-                                                    <!-- <div class="row mt-3">
-                                    <div class="col">
-                                        <input type="file"  class="" name="profile_pic" id="profile_pic">
-                                    </div>
-                                </div> -->
+                                                    <div class="row mt-3">
+                                                        <div class="col">
+                                                            <input type="file" class="" name="profile_pic" id="profile_pic">
+                                                        </div>
+                                                    </div>
 
                                                     <div class="row mt-3 ">
                                                         <div class="col text-center">
                                                             <input type="submit" class="btn btn-primary" name="registration" id="registration">
-                                                            
+
                                                         </div>
                                                     </div>
                                                 </form>

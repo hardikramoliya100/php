@@ -63,11 +63,11 @@
                                         <input type="password" placeholder="Enter password"  class="form-control" name="password" id="password">
                                     </div>
                                 </div>
-                                <!-- <div class="row mt-3">
+                                <div class="row mt-3">
                                     <div class="col">
                                         <input type="file"  class="" name="profile_pic" id="profile_pic">
                                     </div>
-                                </div> -->
+                                </div>
                                 
                                 <div class="row mt-3 ">
                                     <div class="col text-center">

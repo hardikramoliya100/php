@@ -68,8 +68,25 @@ class Controller extends Model
                         // echo "<pre>";
                         array_pop($_POST);
                         unset($_POST['hobbies']);
-                        $InsertArr = array_merge($_POST, array("hobby" => $hobb));
-
+                        if (isset($_FILES['profile_pic'])) {
+                            if ($_FILES['profile_pic']['error'] == 0) {
+                                if ($_FILES['profile_pic']['size'] < 20284189) {
+                                    
+                                    $tmp_name = $_FILES['profile_pic']['tmp_name'];
+                                    $name = $_FILES['profile_pic']['name'];
+                                    move_uploaded_file($tmp_name, "uploads/$name");
+                                } else {
+                                    $name = "default.jpg";
+                                }
+                            } else {
+                                $name = $_REQUEST['old_profile_pic'];
+                            }
+                        } else {
+                            
+                            $name = "default.jpg";
+                        }
+                        
+                        $InsertArr = array_merge($_POST, array("hobby" => $hobb,"profile_pic"=>$name));
                         $RegistUserData = $this->insert(
                             'user',
                             $InsertArr
@@ -122,7 +139,24 @@ class Controller extends Model
                         echo "<pre>";
                         array_pop($_POST);
                         unset($_POST['hobbies']);
-                        $InsertArr = array_merge($_POST, array("hobby" => $hobb));
+                        if (isset($_FILES['profile_pic'])) {
+                            if ($_FILES['profile_pic']['error'] == 0) {
+                                if ($_FILES['profile_pic']['size'] < 20284189) {
+
+                                    $tmp_name = $_FILES['profile_pic']['tmp_name'];
+                                    $name = $_FILES['profile_pic']['name'];
+                                    move_uploaded_file($tmp_name, "uploads/$name");
+                                } else {
+                                    $name = "default.jpg";
+                                }
+                            } else {
+                                $name = $_REQUEST['old_profile_pic'];
+                            }
+                        } else {
+
+                            $name = "default.jpg";
+                        }
+                        $InsertArr = array_merge($_POST, array("hobby" => $hobb, "profile_pic" => $name));
 
                         $RegistUserData = $this->insert(
                             'user',
@@ -155,6 +189,7 @@ class Controller extends Model
                         // echo "<pre>";
                         // print_r($GLOBALS);
                         // echo "</pre>";
+
                         if (isset($_FILES['profile_pic'])) {
                             if ($_FILES['profile_pic']['error'] == 0) {
                                 if ($_FILES['profile_pic']['size'] < 20284189) {
@@ -175,10 +210,9 @@ class Controller extends Model
 
                         $updatArr = array_merge($_POST, array("hobby" => $hobb, "profile_pic" => $name));
 
-                        $EditUserData = $this->update('user',array("id"=>$_GET['userid'] ,"status"=>1),$updatArr);
+                        $EditUserData = $this->update('user', array("id" => $_GET['userid'], "status" => 1), $updatArr);
 
-                        // header("location:allusers");
-
+                        header("location:allusers");
                     }
 
                     break;
