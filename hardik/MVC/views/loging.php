@@ -50,12 +50,12 @@
 
         var RegX = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
         if (RegX.test(this.value)) {
-            console.log("inside if");
+            // console.log("inside if");
             document.getElementById("usernameerrer").innerHTML = ""
             
             
         } else {
-            console.log("inside else");
+            // console.log("inside else");
             document.getElementById("usernameerrer").innerHTML = "Invalid formate"
             
         }

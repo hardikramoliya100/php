@@ -78,7 +78,7 @@ class Controller extends Model
                                     $img_name = $_FILES['profile_pic']['name'];
                                     $rand1 = rand(10000,100000);
                                     $ext = pathinfo($_FILES['profile_pic']['name'],PATHINFO_EXTENSION);
-                                    $name =$rand1.".".$ext;
+                                    $name =$rand1.date("d_m_y_h_i_s_A").".".$ext;
                                     move_uploaded_file($tmp_name, "uploads/$name");
                                 } else {
                                     $name = "default.jpg";
@@ -152,7 +152,7 @@ class Controller extends Model
                                     $img_name = $_FILES['profile_pic']['name'];
                                     $rand1 = rand(10000,100000);
                                     $ext = pathinfo($_FILES['profile_pic']['name'],PATHINFO_EXTENSION);
-                                    $name =$rand1.".".$ext;
+                                    $name =$rand1.date("d_m_y_h_i_s_A").".".$ext;
                                     move_uploaded_file($tmp_name, "uploads/$name");
                                 } else {
                                     $name = "default.jpg";
@@ -206,7 +206,7 @@ class Controller extends Model
                                     $img_name = $_FILES['profile_pic']['name'];
                                     $rand1 = rand(10000,100000);
                                     $ext = pathinfo($_FILES['profile_pic']['name'],PATHINFO_EXTENSION);
-                                    $name =$rand1.".".$ext;
+                                    $name =$rand1.date("d_m_y_h_i_s_A").".".$ext;
                                     move_uploaded_file($tmp_name, "uploads/$name");
                                 } else {
                                     $name = "default.jpg";
@@ -232,8 +232,14 @@ class Controller extends Model
                     echo "<pre>";
                     print_r($_REQUEST);
                     print_r($_GET);
+                    $EditUserData = $this->select('user', array("id" => $_GET['userid'], "status" => 1));
+                    // echo "<pre>";
+                    // print_r($EditUserData['data'][0]->profile_pic);
+                    // echo "</pre>";
+                    // $picname = $EditUserData['data'][0]->profile_pic;
+                    // unlink("../uplode/$picname");
                     $FetchAllUserData = $this->delete('user', array("id" => $_GET['userid'], "status" => 1));
-                    header(("location:allusers"));
+                    // header(("location:allusers"));
                     break;
 
                 default:
