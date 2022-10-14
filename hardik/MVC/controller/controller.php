@@ -223,7 +223,7 @@ class Controller extends Model
 
                         $EditUserData = $this->update('user', array("id" => $_GET['userid'], "status" => 1), $updatArr);
 
-                        header("location:allusers");
+                        // header("location:allusers");
                     }
 
                     break;
@@ -239,8 +239,26 @@ class Controller extends Model
                     // $picname = $EditUserData['data'][0]->profile_pic;
                     // unlink("../uplode/$picname");
                     $FetchAllUserData = $this->delete('user', array("id" => $_GET['userid'], "status" => 1));
-                    // header(("location:allusers"));
+                    header(("location:allusers"));
                     break;
+                case '/allcountry':
+                    $AllCountryData = $this->select('tbl_countries');
+                    // print_r($AllCountryData);                    
+                    echo json_encode($AllCountryData);
+
+                    break;
+                case '/allstate':
+                    $AllStatesData = $this->select('tbl_states');
+                    echo json_encode($AllStatesData);
+
+                    break;
+                case '/allcity':
+                    $AllCitiesData = $this->select('tbl_cities');
+                    echo json_encode($AllCitiesData);
+
+                    break;
+
+
 
                 default:
 

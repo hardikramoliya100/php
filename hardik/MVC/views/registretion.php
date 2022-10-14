@@ -19,22 +19,26 @@
 
                                 <div class="row">
                                     <div class="col">
-                                        <input type="text" placeholder="Enter User Name " class="form-control" name="username" id="username">
+                                        <input type="text" onblur="chackreq(this,'usernameerrer')" placeholder="Enter User Name " class="form-control" name="username" id="username">
+                                        <span id="usernameerrer"></span>
                                     </div>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col">
-                                        <input type="text" placeholder="Enter full Name" class="form-control" name="fullname" id="fullname">
+                                        <input type="text" onblur="chackreq(this,'fullnameerrer')" placeholder="Enter full Name" class="form-control" name="fullname" id="fullname">
+                                        <span id="fullnameerrer"></span>
                                     </div>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col">
-                                        <input type="email" placeholder="Enter Email Id"  class="form-control" name="email" id="email">
+                                        <input type="email" onblur="chackreq(this,'emailerrer')" placeholder="Enter Email Id"  class="form-control" name="email" id="email">
+                                        <span id="emailerrer"></span>
                                     </div>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col">
-                                        <input type="tel" placeholder="Enter Mobil Number"  class="form-control" name="mobile" id="mobile">
+                                        <input type="tel" onblur="chackreq(this,'mobileerrer')" placeholder="Enter Mobil Number"  class="form-control" name="mobile" id="mobile">
+                                        <span id="mobileerrer"></span>
                                     </div>
                                 </div>
                                 <div class="row mt-3">
@@ -60,7 +64,8 @@
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col">
-                                        <input type="password" placeholder="Enter password"  class="form-control" name="password" id="password">
+                                        <input type="password" onblur="chackreq(this,'passworderrer')" placeholder="Enter password"  class="form-control" name="password" id="password">
+                                        <span id="passworderrer"></span>
                                     </div>
                                 </div>
                                 <div class="row mt-3">
@@ -85,3 +90,14 @@
         </div>
     </div>
 </section>
+<script>
+    function chackreq(e,spn){
+
+        if (e.value != "") {
+            document.getElementById(spn).innerHTML = "";
+        } else {
+            document.getElementById(spn).innerHTML = "This item is Requerd !!";
+        }
+        
+    }
+</script>

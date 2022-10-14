@@ -116,16 +116,25 @@
                                                     <label for="country">country</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <select name="country" id="country" class="form-control">
-                                                        <option value="">Select country</option>
-                                                        <?php
-                                                        foreach ($AllCountryData['data'] as $countrykey => $countryvalue) { ?>
-
-                                                            <option value="<?php echo $countryvalue->name; ?>" <?php if ($countryvalue->name == $value->country) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>><?php echo $countryvalue->name; ?></option>
-                                                        <?php }; ?>
+                                                    <select name="country"  id="country" class="form-control">
+                                                        
                                                     </select>
+                                                    <script>
+                                                        $.ajax({
+                                                            url:"http://localhost/php/hardik/MVC/allcountry",
+                                                            success:function(contry){
+                                                                data = JSON.parse(contry)
+                                                                // console.log(data.data);
+                                                                htmloption = "<option>Select country</option>"
+                                                                data.data.forEach(element => {
+                                                                    // console.log(element);
+                                                                    htmloption += "<option>"+element.name +"</option>"
+                                                                });
+                                                                // console.log(htmloption);
+                                                                $("#country").html(htmloption);
+                                                            }
+                                                        })
+                                                    </script>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -135,15 +144,24 @@
                                                 <div class="col-md-8">
                                                     <select name="state" id="state" class="form-control">
                                                         <option value="">Select State</option>
-                                                        <?php
-                                                        foreach ($AllStatesData['data'] as $stateskey => $statesvalue) { ?>
-
-                                                            <option value="<?php echo $statesvalue->name; ?>" <?php if ($statesvalue->name == $value->state) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>><?php echo $statesvalue->name; ?></option>
-                                                        <?php }; ?>
-
+                                                       
                                                     </select>
+                                                    <script>
+                                                        $.ajax({
+                                                            url:"http://localhost/php/hardik/MVC/allstate",
+                                                            success:function(state){
+                                                                data = JSON.parse(state)
+                                                                // console.log(data.data);
+                                                                htmloption = "<option>Select state</option>"
+                                                                data.data.forEach(element => {
+                                                                    // console.log(element);
+                                                                    htmloption += "<option>"+element.name +"</option>"
+                                                                });
+                                                                // console.log(htmloption);
+                                                                $("#state").html(htmloption);
+                                                            }
+                                                        })
+                                                    </script>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -153,15 +171,25 @@
                                                 <div class="col-md-8">
                                                     <select name="city" id="city" class="form-control">
                                                         <option value="">Select City</option>
-                                                        <?php
-                                                        foreach ($AllCitiesData['data'] as $citieskey => $citiesvalue) { ?>
-
-                                                            <option value="<?php echo $citiesvalue->name; ?>" <?php if ($citiesvalue->name == $value->city) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>><?php echo $citiesvalue->name; ?></option>
-                                                        <?php }; ?>
+                                                       
 
                                                     </select>
+                                                    <script>
+                                                        $.ajax({
+                                                            url:"http://localhost/php/hardik/MVC/allcity",
+                                                            success:function(city){
+                                                                data = JSON.parse(city)
+                                                                htmloption = "<option>select city</option>"
+
+                                                                data.data.forEach(element => {
+                                                                    htmloption += "<option>"+element.name+"</option>"
+                                                                    
+                                                                });
+                                                                // console.log(htmloption);
+                                                                $("#city").html(htmloption);
+                                                            }
+                                                        })
+                                                    </script>
                                                 </div>
                                             </div>
 

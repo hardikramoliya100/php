@@ -144,42 +144,42 @@
 
 </html>
 <script>
-  document.getElementById('email').addEventListener("keyup",function(){
+  document.getElementById('email').addEventListener("keyup", function() {
 
     var RegX = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
     if (RegX.test(this.value)) {
       document.getElementById("emailerrer").innerHTML = "";
-      
-      
+
+
     } else {
       document.getElementById("emailerrer").innerHTML = "invalid item";
-      
+
     }
 
   })
 
-  document.getElementById('mobile').addEventListener("keyup",function(){
+  document.getElementById('mobile').addEventListener("keyup", function() {
 
     var MobileX = /^[0-9]{10}$/
     if (MobileX.test(this.value)) {
       document.getElementById("mobileerrer").innerHTML = "";
-      
-      
+
+
     } else {
       document.getElementById("mobileerrer").innerHTML = "invalid item";
-      
+
     }
 
   })
 
   function chackreq(e, spn) {
-    if (e.value == "") {
-      document.getElementById(spn).innerHTML = "This item is Requerd !!";
-
-    } else {
+    if (e.value != "") {
       document.getElementById(spn).innerHTML = "";
 
+    } else {
+      document.getElementById(spn).innerHTML = "This item is Requerd !!";
     }
+
 
   }
 </script>
