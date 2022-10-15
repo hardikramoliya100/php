@@ -193,20 +193,20 @@
 
                                                     </select>
                                                     <script>
-                                                        // $.ajax({
-                                                        //     url:"http://localhost/php/hardik/MVC/allcity",
-                                                        //     success:function(city){
-                                                        //         data = JSON.parse(city)
-                                                        //         htmloption = "<option>select city</option>"
+                                                        $.ajax({
+                                                            url:"http://localhost/php/hardik/MVC/allcity",
+                                                            success:function(city){
+                                                                data = JSON.parse(city)
+                                                                htmloption = "<option>select city</option>"
 
-                                                        //         data.data.forEach(element => {
-                                                        //             htmloption += "<option>"+element.name+"</option>"
+                                                                data.data.forEach(element => {
+                                                                    htmloption += "<option>"+element.name+"</option>"
                                                                     
-                                                        //         });
-                                                        //         // console.log(htmloption);
-                                                        //         $("#city").html(htmloption);
-                                                        //     }
-                                                        // })
+                                                                });
+                                                                // console.log(htmloption);
+                                                                $("#city").html(htmloption);
+                                                            }
+                                                        })
                                                     </script>
                                                 </div>
                                             </div>
