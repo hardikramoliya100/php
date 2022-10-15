@@ -72,6 +72,41 @@ class Model
         return $data;
         // Conditiond for getting data form DB END
     }
+    public function select_join($tbl, $join_data, $where = "")
+    {
+        $SQL = "SELECT * FROM $tbl";
+        foreach ($join_data as $jkey => $jvalue) {
+            $SQL .= " JOIN $jkey ON $jvalue";
+        }
+        if ($where != "") {
+
+            $SQL .= " WHERE ";
+            foreach ($where as $key => $value) {
+                $SQL .= "$key = $value AND ";
+            }
+            $SQL = rtrim($SQL, " AND ");
+        }
+
+        // echo $SQL;
+        // exit;
+
+        $SQLEx = $this->dbconnection->query($SQL);
+        if ($SQLEx->num_rows > 0) {
+
+            while ($fdata = $SQLEx->fetch_object()) {
+                $Fetchdata[] = $fdata;  
+            }
+            $data["msg"] = "Succes";
+            $data["data"] = $Fetchdata;
+            $data["code"] = 1;
+        } else {
+            $data["msg"] = "Try again";
+            $data["data"] = 0;
+            $data["code"] = 0;
+        }
+        return $data;
+        // Conditiond for getting data form DB END
+    }
     public function login($uname, $upass)
     {
         $SQL = 'SELECT * FROM `user` WHERE (`username`="' . $uname . '" OR `email` ="' . $uname . '" OR `mobile` ="' . $uname . '") AND password ="' . $upass . '"';

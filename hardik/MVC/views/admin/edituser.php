@@ -117,23 +117,29 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <select name="country"  id="country" class="form-control">
-                                                        
+                                                    <option value="">Select Contry</option>
+                                                     <?php
+                                                     foreach ($AllCountryData['data'] as $countrykey => $countryvalue) { ?>
+                                                        <option <?php if ($value->country_id == $countryvalue->id) {
+                                                            echo "selected";
+                                                        } ?> value="<?php echo $countryvalue->id; ?>"><?php echo $countryvalue->name; ?></option>
+                                                     <?php } ?>
                                                     </select>
                                                     <script>
-                                                        $.ajax({
-                                                            url:"http://localhost/php/hardik/MVC/allcountry",
-                                                            success:function(contry){
-                                                                data = JSON.parse(contry)
-                                                                // console.log(data.data);
-                                                                htmloption = "<option>Select country</option>"
-                                                                data.data.forEach(element => {
-                                                                    // console.log(element);
-                                                                    htmloption += "<option>"+element.name +"</option>"
-                                                                });
-                                                                // console.log(htmloption);
-                                                                $("#country").html(htmloption);
-                                                            }
-                                                        })
+                                                        // $.ajax({
+                                                        //     url:"http://localhost/php/hardik/MVC/allcountry",
+                                                        //     success:function(contry){
+                                                        //         data = JSON.parse(contry)
+                                                        //         // console.log(data.data);
+                                                        //         htmloption = "<option>Select country</option>"
+                                                        //         data.data.forEach(element => {
+                                                        //             // console.log(element);
+                                                        //             htmloption += "<option>"+element.name +"</option>"
+                                                        //         });
+                                                        //         // console.log(htmloption);
+                                                        //         $("#country").html(htmloption);
+                                                        //     }
+                                                        // })
                                                     </script>
                                                 </div>
                                             </div>
@@ -144,23 +150,29 @@
                                                 <div class="col-md-8">
                                                     <select name="state" id="state" class="form-control">
                                                         <option value="">Select State</option>
+                                                        <?php
+                                                     foreach ($AllStatesData['data'] as $Stateskey => $Statesvalue) { ?>
+                                                        <option <?php if ($value->state_id == $Statesvalue->id) {
+                                                            echo "selected";
+                                                        } ?> value="<?php echo $Statesvalue->id; ?>"><?php echo $Statesvalue->name; ?></option>
+                                                     <?php } ?>
                                                        
                                                     </select>
                                                     <script>
-                                                        $.ajax({
-                                                            url:"http://localhost/php/hardik/MVC/allstate",
-                                                            success:function(state){
-                                                                data = JSON.parse(state)
-                                                                // console.log(data.data);
-                                                                htmloption = "<option>Select state</option>"
-                                                                data.data.forEach(element => {
-                                                                    // console.log(element);
-                                                                    htmloption += "<option>"+element.name +"</option>"
-                                                                });
-                                                                // console.log(htmloption);
-                                                                $("#state").html(htmloption);
-                                                            }
-                                                        })
+                                                        // $.ajax({
+                                                        //     url:"http://localhost/php/hardik/MVC/allstate",
+                                                        //     success:function(state){
+                                                        //         data = JSON.parse(state)
+                                                        //         // console.log(data.data);
+                                                        //         htmloption = "<option>Select state</option>"
+                                                        //         data.data.forEach(element => {
+                                                        //             // console.log(element);
+                                                        //             htmloption += "<option>"+element.name +"</option>"
+                                                        //         });
+                                                        //         // console.log(htmloption);
+                                                        //         $("#state").html(htmloption);
+                                                        //     }
+                                                        // })
                                                     </script>
                                                 </div>
                                             </div>
@@ -171,24 +183,30 @@
                                                 <div class="col-md-8">
                                                     <select name="city" id="city" class="form-control">
                                                         <option value="">Select City</option>
+                                                        <?php
+                                                     foreach ($AllCitiesData['data'] as $citykey => $cityvalue) { ?>
+                                                        <option <?php if ($value->city == $cityvalue->id) {
+                                                            echo "selected";
+                                                        } ?> value="<?php echo $cityvalue->id; ?>"><?php echo $cityvalue->name; ?></option>
+                                                     <?php } ?>
                                                        
 
                                                     </select>
                                                     <script>
-                                                        $.ajax({
-                                                            url:"http://localhost/php/hardik/MVC/allcity",
-                                                            success:function(city){
-                                                                data = JSON.parse(city)
-                                                                htmloption = "<option>select city</option>"
+                                                        // $.ajax({
+                                                        //     url:"http://localhost/php/hardik/MVC/allcity",
+                                                        //     success:function(city){
+                                                        //         data = JSON.parse(city)
+                                                        //         htmloption = "<option>select city</option>"
 
-                                                                data.data.forEach(element => {
-                                                                    htmloption += "<option>"+element.name+"</option>"
+                                                        //         data.data.forEach(element => {
+                                                        //             htmloption += "<option>"+element.name+"</option>"
                                                                     
-                                                                });
-                                                                // console.log(htmloption);
-                                                                $("#city").html(htmloption);
-                                                            }
-                                                        })
+                                                        //         });
+                                                        //         // console.log(htmloption);
+                                                        //         $("#city").html(htmloption);
+                                                        //     }
+                                                        // })
                                                     </script>
                                                 </div>
                                             </div>

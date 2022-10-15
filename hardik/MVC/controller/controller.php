@@ -68,17 +68,17 @@ class Controller extends Model
                         // echo "<pre>";
                         array_pop($_POST);
                         unset($_POST['hobbies']);
-                        
+
                         if (isset($_FILES['profile_pic'])) {
                             if ($_FILES['profile_pic']['error'] == 0) {
                                 if ($_FILES['profile_pic']['size'] < 20284189) {
-                                    
+
                                     $tmp_name = $_FILES['profile_pic']['tmp_name'];
 
                                     $img_name = $_FILES['profile_pic']['name'];
-                                    $rand1 = rand(10000,100000);
-                                    $ext = pathinfo($_FILES['profile_pic']['name'],PATHINFO_EXTENSION);
-                                    $name =$rand1.date("d_m_y_h_i_s_A").".".$ext;
+                                    $rand1 = rand(10000, 100000);
+                                    $ext = pathinfo($_FILES['profile_pic']['name'], PATHINFO_EXTENSION);
+                                    $name = $rand1 . date("d_m_y_h_i_s_A") . "." . $ext;
                                     move_uploaded_file($tmp_name, "uploads/$name");
                                 } else {
                                     $name = "default.jpg";
@@ -87,11 +87,11 @@ class Controller extends Model
                                 $name = $_REQUEST['old_profile_pic'];
                             }
                         } else {
-                            
+
                             $name = "default.jpg";
                         }
-                        
-                        $InsertArr = array_merge($_POST, array("hobby" => $hobb,"profile_pic"=>$name));
+
+                        $InsertArr = array_merge($_POST, array("hobby" => $hobb, "profile_pic" => $name));
                         $RegistUserData = $this->insert(
                             'user',
                             $InsertArr
@@ -150,9 +150,9 @@ class Controller extends Model
 
                                     $tmp_name = $_FILES['profile_pic']['tmp_name'];
                                     $img_name = $_FILES['profile_pic']['name'];
-                                    $rand1 = rand(10000,100000);
-                                    $ext = pathinfo($_FILES['profile_pic']['name'],PATHINFO_EXTENSION);
-                                    $name =$rand1.date("d_m_y_h_i_s_A").".".$ext;
+                                    $rand1 = rand(10000, 100000);
+                                    $ext = pathinfo($_FILES['profile_pic']['name'], PATHINFO_EXTENSION);
+                                    $name = $rand1 . date("d_m_y_h_i_s_A") . "." . $ext;
                                     move_uploaded_file($tmp_name, "uploads/$name");
                                 } else {
                                     $name = "default.jpg";
@@ -177,7 +177,12 @@ class Controller extends Model
 
                     break;
                 case '/edituser':
-                    $EditUserData = $this->select('user', array("id" => $_GET['userid'], "status" => 1));
+                    // $EditUserData = $this->select('user', array("id" => $_GET['userid'], "status" => 1));
+                    $EditUserData = $this->select_join('user', 
+                    array("tbl_cities" => "tbl_cities.id = user.city", 
+                    "tbl_states" => "tbl_states.id = tbl_cities.state_id", 
+                    "tbl_countries" => "tbl_countries.id = tbl_states.country_id"),
+                    array("user.id" => $_GET['userid'], "status" => 1));
                     $AllCountryData = $this->select('tbl_countries');
                     $AllStatesData = $this->select('tbl_states');
                     $AllCitiesData = $this->select('tbl_cities');
@@ -204,9 +209,9 @@ class Controller extends Model
 
                                     $tmp_name = $_FILES['profile_pic']['tmp_name'];
                                     $img_name = $_FILES['profile_pic']['name'];
-                                    $rand1 = rand(10000,100000);
-                                    $ext = pathinfo($_FILES['profile_pic']['name'],PATHINFO_EXTENSION);
-                                    $name =$rand1.date("d_m_y_h_i_s_A").".".$ext;
+                                    $rand1 = rand(10000, 100000);
+                                    $ext = pathinfo($_FILES['profile_pic']['name'], PATHINFO_EXTENSION);
+                                    $name = $rand1 . date("d_m_y_h_i_s_A") . "." . $ext;
                                     move_uploaded_file($tmp_name, "uploads/$name");
                                 } else {
                                     $name = "default.jpg";
