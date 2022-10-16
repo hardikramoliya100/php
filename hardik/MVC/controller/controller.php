@@ -228,7 +228,7 @@ class Controller extends Model
 
                         $EditUserData = $this->update('user', array("id" => $_GET['userid'], "status" => 1), $updatArr);
 
-                        // header("location:allusers");
+                        header("location:allusers");
                     }
 
                     break;
