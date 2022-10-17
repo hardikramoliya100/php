@@ -85,7 +85,7 @@ class Model
                 $SQL .= "$key = $value AND ";
             }
             $SQL = rtrim($SQL, " AND ");
-        } 
+        }  
 
         // echo $SQL;
         // exit;

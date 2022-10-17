@@ -186,7 +186,9 @@ class Controller extends Model
                     $AllCountryData = $this->select('tbl_countries');
                     $AllStatesData = $this->select('tbl_states');
                     $AllCitiesData = $this->select('tbl_cities');
-
+                    
+                    print_r($EditUserData);
+                    // exit;
 
                     include_once("views/admin/header.php");
                     include_once("views/admin/edituser.php");

@@ -29,6 +29,7 @@
                                             // print_r($EditUserData);
                                             ?>
                                             <div class="card-body">
+                                                
                                                 <?php
                                                 foreach ($EditUserData['data'] as $key => $value) {
                                                 ?>
@@ -116,7 +117,7 @@
                                                     <label for="country">country</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <select name="country"  id="country" class="form-control">
+                                                    <select name="country"  id="country" class="form-control" onchange="getstateid(this)">
                                                     <option value="">Select Contry</option>
                                                      <?php
                                                      foreach ($AllCountryData['data'] as $countrykey => $countryvalue) { ?>
@@ -126,6 +127,7 @@
                                                      <?php } ?>
                                                     </select>
                                                     <script>
+                                                        function getstateid(e)
                                                         // $.ajax({
                                                         //     url:"http://localhost/php/hardik/MVC/allcountry",
                                                         //     success:function(contry){
@@ -193,20 +195,20 @@
 
                                                     </select>
                                                     <script>
-                                                        $.ajax({
-                                                            url:"http://localhost/php/hardik/MVC/allcity",
-                                                            success:function(city){
-                                                                data = JSON.parse(city)
-                                                                htmloption = "<option>select city</option>"
+                                                        // $.ajax({
+                                                        //     url:"http://localhost/php/hardik/MVC/allcity",
+                                                        //     success:function(city){
+                                                        //         data = JSON.parse(city)
+                                                        //         htmloption = "<option>select city</option>"
 
-                                                                data.data.forEach(element => {
-                                                                    htmloption += "<option>"+element.name+"</option>"
+                                                        //         data.data.forEach(element => {
+                                                        //             htmloption += "<option>"+element.name+"</option>"
                                                                     
-                                                                });
-                                                                // console.log(htmloption);
-                                                                $("#city").html(htmloption);
-                                                            }
-                                                        })
+                                                        //         });
+                                                        //         // console.log(htmloption);
+                                                        //         $("#city").html(htmloption);
+                                                        //     }
+                                                        // })
                                                     </script>
                                                 </div>
                                             </div>
