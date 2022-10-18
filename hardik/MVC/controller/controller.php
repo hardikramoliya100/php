@@ -187,9 +187,11 @@ class Controller extends Model
                     $AllStatesData = $this->select('tbl_states');
                     $AllCitiesData = $this->select('tbl_cities');
                     
-                    print_r($EditUserData);
                     // exit;
-
+                    // echo "<pre>";
+                    // print_r($EditUserData);
+                    // echo "</pre>";
+                    
                     include_once("views/admin/header.php");
                     include_once("views/admin/edituser.php");
                     include_once("views/admin/footer.php");
@@ -262,6 +264,16 @@ class Controller extends Model
                 case '/allcity':
                     $AllCitiesData = $this->select('tbl_cities');
                     echo json_encode($AllCitiesData);
+
+                    break;
+                case '/getstateid':
+                    $AllStatesDatabycountryid = $this->select('tbl_states',array("country_id" => $_REQUEST['contryid']));
+                    echo json_encode($AllStatesDatabycountryid);
+
+                    break;
+                case '/getcityid':
+                    $AllCitiesDatabystateid = $this->select('tbl_cities',array("state_id"=>$_REQUEST['stateid']));
+                    echo json_encode($AllCitiesDatabystateid);
 
                     break;
 

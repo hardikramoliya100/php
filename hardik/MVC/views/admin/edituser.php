@@ -127,21 +127,50 @@
                                                      <?php } ?>
                                                     </select>
                                                     <script>
-                                                        function getstateid(e)
-                                                        // $.ajax({
-                                                        //     url:"http://localhost/php/hardik/MVC/allcountry",
-                                                        //     success:function(contry){
-                                                        //         data = JSON.parse(contry)
-                                                        //         // console.log(data.data);
-                                                        //         htmloption = "<option>Select country</option>"
-                                                        //         data.data.forEach(element => {
-                                                        //             // console.log(element);
-                                                        //             htmloption += "<option>"+element.name +"</option>"
-                                                        //         });
-                                                        //         // console.log(htmloption);
-                                                        //         $("#country").html(htmloption);
-                                                        //     }
-                                                        // })
+                                                        function getstateid(e){
+                                                            // console.log(e);
+                                                            // console.log(e.value);
+                                                            
+                                                            $.ajax({
+                                                                url:"getstateid",
+                                                                method:"post",
+                                                                data:{"contryid":e.value},
+                                                                success:function(state){
+                                                                data = JSON.parse(state)
+                                                                // console.log(data.data);
+                                                                htmloption = "<option>Select state</option>"
+                                                                data.data.forEach(element => {
+                                                                    // console.log(element);
+                                                                    htmloption += '<option value='+element.id+'>'+element.name +"</option>"
+                                                                });
+                                                                // console.log(htmloption);
+                                                                $("#state").html(htmloption);
+                                                                
+                                                                }
+                                                            })
+                                                        }
+                                                        function getscityid(e){
+                                                            // console.log(e);
+                                                            // console.log(e.value);
+                                                            
+                                                            $.ajax({
+                                                                url:"getcityid",
+                                                                method:"post",
+                                                                data:{"stateid":e.value},
+                                                                success:function(city){
+                                                                data = JSON.parse(city)
+                                                                // console.log(data.data);
+                                                                htmloption = "<option>Select city</option>"
+                                                                data.data.forEach(element => {
+                                                                    // console.log(element);
+                                                                    htmloption += '<option value='+element.id+'>'+element.name +"</option>"
+                                                                });
+                                                                // console.log(htmloption);
+                                                                $("#city").html(htmloption);
+                                                                
+                                                                }
+                                                            })
+                                                        }
                                                     </script>
                                                 </div>
                                             </div>
@@ -150,7 +179,7 @@
                                                     <label for="state">State</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <select name="state" id="state" class="form-control">
+                                                    <select name="state" id="state" class="form-control" onchange="getscityid(this)">
                                                         <option value="">Select State</option>
                                                         <?php
                                                      foreach ($AllStatesData['data'] as $Stateskey => $Statesvalue) { ?>
