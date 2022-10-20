@@ -98,7 +98,7 @@ class Model
             }
             $data["msg"] = "Succes";
             $data["data"] = $Fetchdata;
-            $data["code"] = 1; 
+            $data["code"] = 1;  
         } else {
             $data["msg"] = "Try again";
             $data["data"] = 0;

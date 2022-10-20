@@ -150,7 +150,6 @@
                                                             })
                                                         }
                                                         function getscityid(e){ 
-                                                            // console.log(e);
                                                             // console.log(e.value);
                                                             
                                                             $.ajax({
