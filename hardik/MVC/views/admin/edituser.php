@@ -108,7 +108,7 @@
                                                                                             echo "checked";
                                                                                         }  ?> name="hobbies[]" value="gaming" id="gaming"> <label for="gaming"> gaming</label>
 
-                                                            </div>  
+                                                            </div>   
                                                         </div>
 
                                             </div>
