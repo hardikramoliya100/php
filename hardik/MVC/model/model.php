@@ -105,7 +105,7 @@ class Model
             $data["code"] = 0;
         }
         return $data;
-        // Conditiond for getting data form DB END    
+        // Conditiond for getting data form DB END     
     }
     public function login($uname, $upass)
     {

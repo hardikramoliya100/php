@@ -270,7 +270,7 @@ class Controller extends Model
                     $AllStatesDatabycountryid = $this->select('tbl_states',array("country_id" => $_REQUEST['contryid']));
                     echo json_encode($AllStatesDatabycountryid);
 
-                    break;  
+                    break;   
                 case '/getcityid':
                     $AllCitiesDatabystateid = $this->select('tbl_cities',array("state_id"=>$_REQUEST['stateid']));
                     echo json_encode($AllCitiesDatabystateid);
