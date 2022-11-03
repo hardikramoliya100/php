@@ -189,7 +189,7 @@ class Model
     public function delete($tbl, $whr)
     {
         $SQL = "DELETE  FROM $tbl";
-        $SQL .= " WHERE";
+        $SQL .= " WHERE"; 
         foreach ($whr as $key => $value) {
             $SQL .= " $key = $value AND ";
         }
