@@ -17,11 +17,14 @@ class fackproduct extends Seeder
      */
     public function run(Faker $faker)
     {
-        DB::table('products')->insert([
-            'titel' =>  $faker->name,
-            'discription' =>  $faker->address,
-            'price' => rand(10,1000),
-            'quantity' => rand(10,100),
-        ]);
+        for ($i=0; $i <15 ; $i++) { 
+            
+            DB::table('products')->insert([
+                'titel' =>  $faker->name,
+                'discription' =>  $faker->address,
+                'price' => rand(10,1000),
+                'quantity' => rand(10,100),
+            ]);
+        }
     }
 }

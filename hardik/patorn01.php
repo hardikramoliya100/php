@@ -46,4 +46,30 @@ for ($i=0; $i<5 ; $i++) {
     
 }
 
+echo "<br>";
+for ($i=0; $i <5 ; $i++) { 
+    for ($j=0; $j <5 ; $j++) { 
+        if ($i<$j) {
+            echo " * ";
+        }else{
+            echo " _ ";
+        }
+    }
+    echo "<br>";
+}
+
+echo "<br>";
+
+for ($i=1; $i <=5 ; $i++) {
+     
+    for ($j=1; $j <=5 ; $j++) { 
+        if ($j<=(5-$i)) {
+            echo " # ";
+        }else {
+            echo " * ";
+        }
+    }
+    echo "<br>";
+}
+
 ?>
