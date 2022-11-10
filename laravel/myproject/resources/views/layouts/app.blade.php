@@ -70,6 +70,7 @@
                             </li>
                         @endguest
                     </ul>
+                    <a href="allproduct">product</a>
                 </div>
             </div>
         </nav>

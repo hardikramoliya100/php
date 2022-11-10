@@ -12,9 +12,11 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(product $product)
     {
-        //
+        // dd($product->get());
+        $productdata = $product->get();
+        return view('showallproduct',compact(['productdata']));
     }
 
     /**
