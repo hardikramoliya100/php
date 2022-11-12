@@ -5,7 +5,14 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">All Product</div>
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-10">
+                            All Product
+                        </div>
+                        <div class="col-md-2"><a class="btn btn-sm btn-info text-light" href="addnewproduct">Add New</a></div>
+                    </div>
+                </div>
 
                 <div class="card-body">
                     <table class="table table-bordered">

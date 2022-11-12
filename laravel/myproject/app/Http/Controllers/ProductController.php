@@ -18,7 +18,7 @@ class ProductController extends Controller
         $productdata = $product->get();
         return view('showallproduct',compact(['productdata']));
     }
-
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -26,7 +26,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        // dd("test");
+        $catagoriesdata = ['something'];
+        return view('addproduct',compact(['catagoriesdata']));
     }
 
     /**
