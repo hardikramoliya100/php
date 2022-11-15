@@ -37,9 +37,15 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,product $product)
     {
-        //
+        // dd($request->all());
+        $product->title = $request->title;
+        $product->discription = $request->discription;
+        $product->price = $request->price;
+        $product->quantity = $request->quantity;
+        $product->save();
+        return redirect("allproduct");
     }
 
     /**

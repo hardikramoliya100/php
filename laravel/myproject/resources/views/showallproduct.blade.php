@@ -38,7 +38,7 @@
                         @endphp
                         <tr>
                             <th>{{ $sr }}</th>
-                            <th>{{ $data->titel }}</th>
+                            <th>{{ $data->title }}</th>
                             <th>{{ $data->discription }}</th>
                             <th>{{ $data->price }}</th>
                             <th>{{ $data->quantity }}</th>

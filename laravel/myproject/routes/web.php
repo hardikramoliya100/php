@@ -23,6 +23,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::view('/test', 'mypage');
 Route::get('/allproduct', [App\Http\Controllers\ProductController::class, 'index']);
 Route::get('/addnewproduct', [App\Http\Controllers\ProductController::class, 'create']);
+Route::post('/storeproduct', [App\Http\Controllers\ProductController::class, 'store']);
 // Route::get('/test', function(){
     // echo "home";
     // });
