@@ -24,6 +24,10 @@ Route::view('/test', 'mypage');
 Route::get('/allproduct', [App\Http\Controllers\ProductController::class, 'index']);
 Route::get('/addnewproduct', [App\Http\Controllers\ProductController::class, 'create']);
 Route::post('/storeproduct', [App\Http\Controllers\ProductController::class, 'store']);
+Route::get('/deleteproduct/{prodid?}', [App\Http\Controllers\ProductController::class, 'destroy']);
+Route::get('/editproduct/{prodid?}', [App\Http\Controllers\ProductController::class, 'edit']);
+Route::post('/saveeditedproduct/{prodid?}', [App\Http\Controllers\ProductController::class, 'update']);
+Route::get('/pdf', [App\Http\Controllers\ProductController::class, 'createPDF']);
 // Route::get('/test', function(){
     // echo "home";
     // });

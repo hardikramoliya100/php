@@ -11,19 +11,20 @@
                             All Product
                         </div>
                         <div class="col-md-2"><a class="btn btn-sm btn-info text-light" href="addnewproduct">Add New</a></div>
+                        <div class="col-md-2"><a class="btn btn-sm btn-primary text-light" href="pdf">PDF</a></div>
                     </div>
                 </div>
 
                 <div class="card-body">
                     <table class="table table-bordered">
-                        <thead>
+                        <thead class="bg-dark text-light ">
                             <tr>
                                 <th>Sr</th>
                                 <th>title</th>
                                 <th>Description</th>
                                 <th>Price</th>
                                 <th>Quntity</th>
-                                <th>Action</th>
+                                <th class="col col-lg-2">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,7 +43,10 @@
                             <th>{{ $data->discription }}</th>
                             <th>{{ $data->price }}</th>
                             <th>{{ $data->quantity }}</th>
-                            <th>{{ $data->id }}</th>
+                            <th>
+                                <a href="editproduct/{{ $data->id }}" class="btn btn-primary btn-sm">Edit</a>
+                                <a href="deleteproduct/{{ $data->id }} "class="btn btn-danger btn-sm">Delete</a>
+                            </th>
                         </tr>
 
                         @endforeach
