@@ -3,6 +3,10 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
+        <div class="form-group">
+            <label for="bank_name">Bank Name</label>
+            {{ Form::selectBank("bank_name",null,["class"=>"form-control"]) }}
+        </div>
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
@@ -45,7 +49,7 @@
                             <th>{{ $data->quantity }}</th>
                             <th>
                                 <a href="editproduct/{{ $data->id }}" class="btn btn-primary btn-sm">Edit</a>
-                                <a href="deleteproduct/{{ $data->id }} "class="btn btn-danger btn-sm">Delete</a>
+                                <a href="deleteproduct/{{ $data->id }} " class="btn btn-danger btn-sm">Delete</a>
                             </th>
                         </tr>
 
