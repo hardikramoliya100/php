@@ -20,15 +20,16 @@ class ProductController extends Controller
         return view('showallproduct',compact(['productdata']));
     }
 
-    public function createPDF(Request $request,product $product) {
-        // retreive all records from db
-        $data = product::all();
-        dd($data);
-        // share data to view
-        // view()->share('productdata',$data);
-        // $pdf = PDF::loadView('pdf_view', $data);
-        // // // download PDF file with download method
-        // return $pdf->download('pdf_file.pdf');
+    public function generatepdf() {
+        // dd('called');
+        $data = [
+            'title' => 'Welcome to ItSolutionStuff.com',
+            'date' => date('m/d/Y')
+        ];
+          
+        $pdf = PDF::loadView('myPDF', $data);
+    
+        return $pdf->download('costom.pdf');
       }
     
     /**

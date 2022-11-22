@@ -15,7 +15,7 @@
                             All Product
                         </div>
                         <div class="col-md-2"><a class="btn btn-sm btn-info text-light" href="addnewproduct">Add New</a></div>
-                        <div class="col-md-2"><a class="btn btn-sm btn-primary text-light" href="pdf">PDF</a></div>
+                        <div class="col-md-2"><a class="btn btn-sm btn-primary text-light" href="generatepdf">PDF</a></div>
                     </div>
                 </div>
 

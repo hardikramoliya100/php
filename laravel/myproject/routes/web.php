@@ -27,7 +27,8 @@ Route::post('/storeproduct', [App\Http\Controllers\ProductController::class, 'st
 Route::get('/deleteproduct/{prodid?}', [App\Http\Controllers\ProductController::class, 'destroy']);
 Route::get('/editproduct/{prodid?}', [App\Http\Controllers\ProductController::class, 'edit']);
 Route::post('/saveeditedproduct/{prodid?}', [App\Http\Controllers\ProductController::class, 'update']);
-Route::get('/pdf', [App\Http\Controllers\ProductController::class, 'createPDF']);
+Route::get('generatepdf', [App\Http\Controllers\ProductController::class, 'generatePDF']);
+
 // Route::get('/test', function(){
     // echo "home";
     // });
