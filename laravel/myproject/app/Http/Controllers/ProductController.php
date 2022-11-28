@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\product;
 use Illuminate\Http\Request;
+use App\DataTables\UsersDataTable;
+use App\DataTables\productDataTable;
+
 use PDF;
 
 class ProductController extends Controller
@@ -13,11 +16,16 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(product $product)
+    // public function index(product $product)
+    // {
+    //     // dd($product->get());
+    //     $productdata = $product->get();
+    //     return view('showallproduct',compact(['productdata']));
+    // }
+
+    public function index(productDataTable $dataTable,product $product)
     {
-        // dd($product->get());
-        $productdata = $product->get();
-        return view('showallproduct',compact(['productdata']));
+        return $dataTable->render('users.index');
     }
 
     public function generatepdf() {
@@ -72,6 +80,11 @@ class ProductController extends Controller
      * @param  \App\Models\product  $product
      * @return \Illuminate\Http\Response
      */
+    public function datatable(UsersDataTable $dataTable,product $product)
+    {
+        return $dataTable->render('users');
+    }
+
     public function show(product $product)
     {
         //

@@ -11,7 +11,6 @@ class students extends Model
     {
         return $this->hasMany('App\Models\courses','id','course_id');
     }
-
+    
     use HasFactory;
-
 }

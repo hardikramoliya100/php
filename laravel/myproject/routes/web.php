@@ -21,13 +21,16 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::view('/test', 'mypage');
-Route::get('/allproduct', [App\Http\Controllers\ProductController::class, 'index']);
+// Route::get('/allproduct', [App\Http\Controllers\ProductController::c lass, 'index']);
 Route::get('/addnewproduct', [App\Http\Controllers\ProductController::class, 'create']);
 Route::post('/storeproduct', [App\Http\Controllers\ProductController::class, 'store']);
 Route::get('/deleteproduct/{prodid?}', [App\Http\Controllers\ProductController::class, 'destroy']);
 Route::get('/editproduct/{prodid?}', [App\Http\Controllers\ProductController::class, 'edit']);
 Route::post('/saveeditedproduct/{prodid?}', [App\Http\Controllers\ProductController::class, 'update']);
 Route::get('generatepdf', [App\Http\Controllers\ProductController::class, 'generatePDF']);
+
+Route::get('/datatable', [App\Http\Controllers\ProductController::class, 'index'])->name('users.index');
+
 
 // Route::get('/test', function(){
     // echo "home";

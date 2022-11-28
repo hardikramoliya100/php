@@ -37,6 +37,7 @@
             <tr>
               <td>Id</td>
               <td>Name</td>
+              <td>Img</td>
               <td>Phone</td>
               <td>Course_Name</td>
               <td>Teacher_name</td>
@@ -51,13 +52,14 @@
             <tr>
                 <td>{{$s->id}}</td>
                 <td>{{$s->name}}</td>
+                <td>{{$s->img}}</td>
                 <td>{{$s->phone}}</td>
                 <td>{{$s->mycourse[0]->Course_Name}}</td>
                 <td>{{$s->mycourse[0]->Teacher_name}}</td>
                 <td>{{$s->mycourse[0]->Batch_Time}}</td>
                 <td>{{$s->mycourse[0]->Teaching_Day}}</td>
                 <td>
-                  <a href="javascript::void(0)" class="btn btn-success showEditModal ">Edit</a>
+                  <a href="javascript::void(0)" data-id="{{$s->course_id}}" class="btn btn-success showEditModal ">Edit</a>
               </td>
               <td>
                 <a href="deletestudent/{{$s->id}}" class="btn btn-danger  ">Delete</a>
@@ -89,7 +91,7 @@
 
         <!-- Modal body -->
         <div class="modal-body">
-          <form action="savestudent" method="POST" id="form">
+          <form action="savestudent" method="POST" id="form" enctype="multipart/form-data">
             <div class="form-group">
               @csrf
               <label for="">Name</label>
@@ -98,6 +100,10 @@
             <div class="form-group">
               <label for="">Phone_Numder</label>
               <input type="text" class="form-control" name="phone" id="phone">
+            </div>
+            <div class="form-group">
+              <label for="">Image</label>
+              <input type="file" class="form-control" name="img" id="img">
             </div>
             <div class="form-group">
               <label for="">course_id</label>
@@ -111,8 +117,8 @@
 
 
 
-      </div>
-    </div>
+           </div>
+        </div>
   </div>
   <script>
     $(document).ready(function() {
@@ -120,14 +126,15 @@
     });
 
     $('.showEditModal').click(function(e) {
-      course_id = e.target.parentElement.previousElementSibling.innerText
-      phone = e.target.parentElement.previousElementSibling.previousElementSibling.innerText
-      name = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.innerText
-      id = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText
+      phone = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText
+      name = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText
+      id = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText
+      course_id = e.target.getAttribute('data-id')
+      console.log(course_id)
 
+      $('#course_id').val(course_id);
       $('#name').val(name);
       $('#phone').val(phone);
-      $('#course_id').val(course_id);
       $('#submit').val('Edit Student');
       $('.modal-title').text('Edit Student');
       $('#form').attr('action', 'editstudent/' + id);
