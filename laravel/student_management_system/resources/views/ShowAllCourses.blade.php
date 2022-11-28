@@ -17,7 +17,7 @@
 <body>
 
   <div class="jumbotron text-center">
-    <h1 class="bg-danger">Add New course</h1>
+    <h1 class="bg-danger">Add New Course</h1>
     <div class="float-right mr-5">
       <a href="" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add course</a>
     </div>
@@ -53,7 +53,7 @@
               <td>{{$c->Batch_Time }}</td>
               <td>{{$c->Teaching_Day }}</td>
               <td>
-                <a href="javascript::void(0)" class="btn btn-success showEditModal ">Edit</a>
+                <a href="javascript::void(0)" cid="{{$c->id }}" class="btn btn-success showEditModal ">Edit</a>
               </td>
               <td>
                 <a href="deletecourse/{{$c->id}}" class="btn btn-danger  ">Delete</a>
@@ -123,7 +123,9 @@
       Batch_Time = e.target.parentElement.previousElementSibling.previousElementSibling.innerText
       Teacher_name = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.innerText
       Course_Name = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText
-      id = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText
+      // id = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText
+      id = e.target.getAttribute('cid')
+      console.log(id)
 
       $('#Course_Name').val(Course_Name);
       $('#Batch_Time').val(Batch_Time);

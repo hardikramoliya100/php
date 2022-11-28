@@ -52,14 +52,14 @@
             <tr>
                 <td>{{$s->id}}</td>
                 <td>{{$s->name}}</td>
-                <td>{{$s->img}}</td>
+                <td><img src="{{asset('uplode_img')}}/{{$s->img}}" alt="" height="150" width="150"></td>
                 <td>{{$s->phone}}</td>
                 <td>{{$s->mycourse[0]->Course_Name}}</td>
                 <td>{{$s->mycourse[0]->Teacher_name}}</td>
                 <td>{{$s->mycourse[0]->Batch_Time}}</td>
                 <td>{{$s->mycourse[0]->Teaching_Day}}</td>
                 <td>
-                  <a href="javascript::void(0)" data-id="{{$s->course_id}}" class="btn btn-success showEditModal ">Edit</a>
+                  <a href="javascript::void(0)" data-id="{{$s->course_id}}" sid="{{$s->id }}" class="btn btn-success showEditModal ">Edit</a>
               </td>
               <td>
                 <a href="deletestudent/{{$s->id}}" class="btn btn-danger  ">Delete</a>
@@ -107,7 +107,13 @@
             </div>
             <div class="form-group">
               <label for="">course_id</label>
-              <input type="text" class="form-control" name="course_id" id="course_id">
+              <!-- <input type="text" class="form-control" name="course_id" id="course_id"> -->
+              <select name="course_id" id="course_id" class="form-control">
+                <option selected disabled>-</option>
+                @foreach($courses as $cou)
+                <option value="{{$cou->id}}">{{$cou->Course_Name}}</option>
+                @endforeach
+              </select>
             </div>
             <div class="form-group">
               <input type="submit" class="btn btn-primary form-control" id="submit" value="Add student">
@@ -128,8 +134,9 @@
     $('.showEditModal').click(function(e) {
       phone = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText
       name = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText
-      id = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText
+      // id = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText
       course_id = e.target.getAttribute('data-id')
+      id = e.target.getAttribute('sid')
       console.log(course_id)
 
       $('#course_id').val(course_id);
