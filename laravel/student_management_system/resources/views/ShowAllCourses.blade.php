@@ -31,7 +31,7 @@
           <a href="students" class="list-group-item list-group-item-action">Students</a>
         </div>
       </div>
-      <div class="col-10 " >
+      <div class="col-10 ">
         <table class="table table-bordered" id="myTable">
           <thead class="bg-dark text-light">
             <tr>
@@ -45,9 +45,12 @@
             </tr>
           </thead>
           <tbody>
+            @php
+            $a=1;
+            @endphp
             @foreach($courses as $c)
             <tr>
-              <td>{{$c->id }}</td>
+              <td>{{$a}}</td>
               <td>{{$c->Course_Name }}</td>
               <td>{{$c->Teacher_name }}</td>
               <td>{{$c->Batch_Time }}</td>
@@ -60,6 +63,9 @@
 
               </td>
             </tr>
+            @php
+            $a++;
+            @endphp
             @endforeach
           </tbody>
         </table>

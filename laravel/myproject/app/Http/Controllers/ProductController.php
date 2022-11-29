@@ -16,18 +16,20 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function index(product $product)
-    // {
-    //     // dd($product->get());
-    //     $productdata = $product->get();
-    //     return view('showallproduct',compact(['productdata']));
-    // }
-
+    
+    
     public function index(productDataTable $dataTable,product $product)
     {
         return $dataTable->render('users.index');
     }
 
+    public function allproduct(product $product)
+    {
+        // dd($product->get());
+        $productdata = $product->get();
+        return view('showallproduct',compact(['productdata']));
+    }
+    
     public function generatepdf() {
         // dd('called');
         $data = [
@@ -65,6 +67,11 @@ class ProductController extends Controller
         // $product->title = $request->title;
         // $product->discription = $request->discription;
         // $product->price = $request->price;
+        $validated = $request->validate([
+            'title' => 'required|max:255',
+            
+        ]);
+
         $data=$request->except(['_token','btn-save']);
         foreach ($data as $key => $value) {
             $product->$key = $value;
@@ -112,6 +119,8 @@ class ProductController extends Controller
      */
     public function update($prodid,Request $request, product $product)
     {
+        
+    
         // dd($request->all());
         $productdata=$product::find($prodid);
         $data=$request->except(['_token','btn-save']);

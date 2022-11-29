@@ -21,7 +21,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::view('/test', 'mypage');
-// Route::get('/allproduct', [App\Http\Controllers\ProductController::c lass, 'index']);
+Route::get('/allproduct', [App\Http\Controllers\ProductController::class, 'allproduct']);
 Route::get('/addnewproduct', [App\Http\Controllers\ProductController::class, 'create']);
 Route::post('/storeproduct', [App\Http\Controllers\ProductController::class, 'store']);
 Route::get('/deleteproduct/{prodid?}', [App\Http\Controllers\ProductController::class, 'destroy']);

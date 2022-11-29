@@ -48,9 +48,12 @@
             </tr>
           </thead>
           <tbody>
+            @php
+            $a=1;
+            @endphp
             @foreach($students as $s)
             <tr>
-                <td>{{$s->id}}</td>
+                <td>{{$a}}</td>
                 <td>{{$s->name}}</td>
                 <td><img src="{{asset('uplode_img')}}/{{$s->img}}" alt="" height="150" width="150"></td>
                 <td>{{$s->phone}}</td>
@@ -66,6 +69,9 @@
 
               </td>
             </tr>
+            @php
+            $a++;
+            @endphp
             @endforeach
             
           </tbody>
@@ -137,7 +143,7 @@
       // id = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText
       course_id = e.target.getAttribute('data-id')
       id = e.target.getAttribute('sid')
-      console.log(course_id)
+      // console.log(course_id)
 
       $('#course_id').val(course_id);
       $('#name').val(name);

@@ -77,7 +77,9 @@
                         </li>
                         @endguest
                     </ul>
-                    <a href="allproduct">product</a>
+                    <a style="text-decoration:none; color: #000;" href="allproduct">product</a> &nbsp;&nbsp;
+
+                    <a style="text-decoration:none; color: #000;" href="datatable">Admin</a>
                 </div>
             </div>
         </nav>
