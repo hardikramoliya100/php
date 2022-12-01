@@ -36,6 +36,13 @@ class courcesController extends Controller
      */
     public function store(Request $request,courses $courses)
     {
+        $validated = $request->validate([
+            'Course_Name' => 'required',
+            'Teacher_name' => 'required',
+            'Batch_Time' => 'required',
+            'Teaching_Day' => 'required',
+        ]);
+
         $courses->Course_Name = $request->Course_Name;
         $courses->Teacher_name = $request->Teacher_name;
         $courses->Batch_Time = $request->Batch_Time;

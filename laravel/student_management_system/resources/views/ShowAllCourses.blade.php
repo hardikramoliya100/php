@@ -94,23 +94,36 @@
             <div class="form-group">
               @csrf
               <label for="">Course_Name</label>
-              <input type="text" class="form-control" name="Course_Name" id="Course_Name">
+              <input type="text" class="form-control" name="Course_Name" id="Course_Name" onblur="chackreq(this,'cnameerrer')">
+              <span id="cnameerrer"></span>
             </div>
             <div class="form-group">
               <label for="">Teacher_name</label>
-              <input type="text" class="form-control" name="Teacher_name" id="Teacher_name">
+              <input type="text" class="form-control" name="Teacher_name" id="Teacher_name" onblur="chackreq(this,'tnameerrer')">
+              <span id="tnameerrer"></span>
             </div>
             <div class="form-group">
               <label for="">Batch_Time</label>
-              <input type="text" class="form-control" name="Batch_Time" id="Batch_Time">
+              <input type="text" class="form-control" name="Batch_Time" id="Batch_Time" onblur="chackreq(this,'timeerrer')">
+              <span id="timeerrer"></span>
             </div>
             <div class="form-group">
               <label for="">Teaching_Day</label>
-              <input type="text" class="form-control" name="Teaching_Day" id="Teaching_Day">
+              <input type="text" class="form-control" name="Teaching_Day" id="Teaching_Day" onblur="chackreq(this,'dayerrer')">
+              <span id="dayerrer"></span>
             </div>
             <div class="form-group">
               <input type="submit" class="btn btn-primary form-control" id="submit" value="Add course">
             </div>
+            @if ($errors->any())
+            <div class="alert alert-danger">
+              <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+              </ul>
+            </div>
+            @endif
           </form>
         </div>
 
@@ -120,6 +133,16 @@
     </div>
   </div>
   <script>
+    function chackreq(e, spn) {
+      if (e.value == "") {
+        document.getElementById(spn).innerHTML = "This item is Requerd !!";
+      } else {
+        document.getElementById(spn).innerHTML = "";
+
+      }
+    }
+
+
     $(document).ready(function() {
       $('#myTable').DataTable();
     });

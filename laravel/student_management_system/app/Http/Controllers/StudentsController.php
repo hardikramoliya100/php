@@ -38,7 +38,12 @@ class StudentsController extends Controller
      */
     public function store(Request $request, students $students)
     {
-        $imageName='noimg.png';
+        $validated = $request->validate([
+            'name' => 'required',
+            'phone' => 'required',
+        ]);
+
+        $imageName = 'noimg.png';
 
         if ($request->img) {
             $request->validate([
@@ -47,14 +52,13 @@ class StudentsController extends Controller
 
             $imageName = date('mdYHis') . uniqid() . '.' . $request->img->extension();
             request()->img->move(public_path('uplode_img'), $imageName);
-
-            $students->name = $request->name;
-            $students->img = $imageName;
-            $students->phone = $request->phone;
-            $students->course_id = $request->course_id;
-            $students->save();
-            return redirect('students');
         }
+        $students->name = $request->name;
+        $students->img = $imageName;
+        $students->phone = $request->phone;
+        $students->course_id = $request->course_id;
+        $students->save();
+        return redirect('students');
     }
     /**
      * Display the specified resource.
@@ -92,13 +96,13 @@ class StudentsController extends Controller
             $request->validate([
                 'img' => 'nullable|file|image|mimes:jpeg,png,jpg|max:5000',
             ]);
-            if($students->img !='noimg.png'){
-                unlink(public_path('uplode_img')."/".$students->img);
+            if ($students->img != 'noimg.png') {
+                unlink(public_path('uplode_img') . "/" . $students->img);
             }
             $imageName = date('mdYHis') . uniqid() . '.' . $request->img->extension();
             request()->img->move(public_path('uplode_img'), $imageName);
-        }else{
-            $imageName=$students->img;
+        } else {
+            $imageName = $students->img;
         }
         $students->name = $request->name;
         $students->img = $imageName;
@@ -118,8 +122,8 @@ class StudentsController extends Controller
     {
         // dd($students->img);
         $students = $students::find($studentsid);
-        if($students->img !='noimg.png'){
-            unlink(public_path('uplode_img')."/".$students->img);
+        if ($students->img != 'noimg.png') {
+            unlink(public_path('uplode_img') . "/" . $students->img);
         }
         $students->delete();
         return redirect('students');

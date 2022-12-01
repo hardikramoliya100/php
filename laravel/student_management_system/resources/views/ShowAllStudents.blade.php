@@ -29,9 +29,10 @@
         <div class="list-group">
           <a href="courses" class="list-group-item list-group-item-action">courses</a>
           <a href="students" class="list-group-item list-group-item-action">Students</a>
+          <a href="showmarks" class="list-group-item list-group-item-action">Result</a>
         </div>
       </div>
-      <div class="col-10 " >
+      <div class="col-10 ">
         <table class="table table-bordered" id="myTable">
           <thead class="bg-dark text-light">
             <tr>
@@ -45,6 +46,7 @@
               <td>Teaching_Day</td>
               <td>Edit</td>
               <td>Delete</td>
+              <td>Mark</td>
             </tr>
           </thead>
           <tbody>
@@ -53,27 +55,29 @@
             @endphp
             @foreach($students as $s)
             <tr>
-                <td>{{$a}}</td>
-                <td>{{$s->name}}</td>
-                <td><img src="{{asset('uplode_img')}}/{{$s->img}}" alt="" height="150" width="150"></td>
-                <td>{{$s->phone}}</td>
-                <td>{{$s->mycourse[0]->Course_Name}}</td>
-                <td>{{$s->mycourse[0]->Teacher_name}}</td>
-                <td>{{$s->mycourse[0]->Batch_Time}}</td>
-                <td>{{$s->mycourse[0]->Teaching_Day}}</td>
-                <td>
-                  <a href="javascript::void(0)" data-id="{{$s->course_id}}" sid="{{$s->id }}" class="btn btn-success showEditModal ">Edit</a>
+              <td>{{$a}}</td>
+              <td>{{$s->name}}</td>
+              <td><img src="{{asset('uplode_img')}}/{{$s->img}}" alt="" height="150" width="150"></td>
+              <td>{{$s->phone}}</td>
+              <td>{{$s->mycourse[0]->Course_Name}}</td>
+              <td>{{$s->mycourse[0]->Teacher_name}}</td>
+              <td>{{$s->mycourse[0]->Batch_Time}}</td>
+              <td>{{$s->mycourse[0]->Teaching_Day}}</td>
+              <td>
+                <a href="javascript::void(0)" data-id="{{$s->course_id}}" sid="{{$s->id }}" class="btn btn-success showEditModal ">Edit</a>
               </td>
               <td>
                 <a href="deletestudent/{{$s->id}}" class="btn btn-danger  ">Delete</a>
-
+              </td>
+              <td>
+                <a href="javascript::void(0)"  mid="{{$s->id }}" class="btn btn-primary showmarkModal " >Mark</a>
               </td>
             </tr>
             @php
             $a++;
             @endphp
             @endforeach
-            
+
           </tbody>
         </table>
       </div>
@@ -91,7 +95,7 @@
 
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Add course</h4>
+          <h4 class="modal-title">Add Student</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
 
@@ -101,11 +105,13 @@
             <div class="form-group">
               @csrf
               <label for="">Name</label>
-              <input type="text" class="form-control" name="name" id="name">
+              <input type="text" class="form-control" name="name" id="name" onblur="chackreq(this,'nameerrer')">
+              <span id="nameerrer"></span>
             </div>
             <div class="form-group">
               <label for="">Phone_Numder</label>
-              <input type="text" class="form-control" name="phone" id="phone">
+              <input type="text" class="form-control" name="phone" id="phone" onblur="chackreq(this,'phoneerrer')">
+              <span id="phoneerrer"></span>
             </div>
             <div class="form-group">
               <label for="">Image</label>
@@ -123,16 +129,90 @@
             </div>
             <div class="form-group">
               <input type="submit" class="btn btn-primary form-control" id="submit" value="Add student">
+              @if ($errors->any())
+              <div class="alert alert-danger">
+                <ul>
+                  @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                  @endforeach
+                </ul>
+              </div>
+              @endif
             </div>
           </form>
         </div>
 
 
 
-           </div>
-        </div>
+      </div>
+    </div>
   </div>
+
+  <div class="modal" id="mymarkModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-titles">Add Marks</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form action="savemark" method="POST" id="form">
+                        <div class="form-group">
+                            @csrf
+                            <label for="">physics</label>
+                            <input type="number" class="form-control" name="physics" id="physics">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="">maths</label>
+                            <input type="number" class="form-control" name="maths" id="maths">
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">chemisty</label>
+                            <input type="number" class="form-control" name="chemisty" id="chemisty">
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">student_id</label>
+                            <!-- <input type="text" class="form-control" name="student_id" id="student_id" value="aaa"> -->
+                            <select name="student_id" id="student_id" class="form-control">
+                                <option selected disabled>-</option>
+                                @foreach($students as $stu)
+                                <option value="{{$stu->id}}">{{$stu->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary form-control" id="submit" value="Add student">
+
+                        </div>
+                    </form>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
   <script>
+    function chackreq(e, spn) {
+      if (e.value == "") {
+        document.getElementById(spn).innerHTML = "This item is Requerd !!";
+      } else {
+        document.getElementById(spn).innerHTML = "";
+
+      }
+    }
+
     $(document).ready(function() {
       $('#myTable').DataTable();
     });
@@ -155,6 +235,23 @@
 
       $('#myModal').modal('show');
     })
+
+    $('.showmarkModal').click(function(e) {
+            
+            id = e.target.getAttribute('mid')
+            // console.log(course_id)
+
+            $('#student_id').val(id);
+            $('#maths').val();
+            $('#chemisty').val();
+            $('#physics').val();
+            $('#submit').val('Edit Mark');
+            $('.modal-titles').text('Edit Mark');
+            $('#form').attr('action', 'editmark/' + id);
+            $('#form').append('<input type="hidden" name="_method" value="POST" >')
+
+            $('#mymarkModal').modal('show');
+        })
   </script>
 
 </body>
