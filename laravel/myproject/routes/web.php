@@ -22,6 +22,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::view('/test', 'mypage');
 Route::get('/allproduct', [App\Http\Controllers\ProductController::class, 'allproduct']);
+Route::get('/allproduct', [App\Http\Controllers\ProductController::class, 'allproduct']);
 Route::get('/addnewproduct', [App\Http\Controllers\ProductController::class, 'create']);
 Route::post('/storeproduct', [App\Http\Controllers\ProductController::class, 'store']);
 Route::get('/deleteproduct/{prodid?}', [App\Http\Controllers\ProductController::class, 'destroy']);
@@ -31,6 +32,8 @@ Route::get('generatepdf', [App\Http\Controllers\ProductController::class, 'gener
 
 Route::get('/datatable', [App\Http\Controllers\ProductController::class, 'index'])->name('users.index');
 
+Route::view('/getajex', 'ajexview');
+Route::get('/selectallcatogorydata', [App\Http\Controllers\CetagoryController::class, 'index']);
 
 // Route::get('/test', function(){
     // echo "home";
