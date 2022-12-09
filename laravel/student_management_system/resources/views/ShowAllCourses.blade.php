@@ -30,6 +30,7 @@
         <div class="list-group">
           <a href="courses" class="list-group-item list-group-item-action">courses</a>
           <a href="students" class="list-group-item list-group-item-action">Students</a>
+          <a href="showmarks" class="list-group-item list-group-item-action">Result</a>
         </div>
       </div>
       <div class="col-10 ">
@@ -47,28 +48,7 @@
           </thead>
           
           <tbody id="DispCourse">
-            @php
-            $a=1;
-            @endphp
-            @foreach($courses as $c)
-            <tr>
-              <td>{{$a}}</td>
-              <td>{{$c->Course_Name }}</td>
-              <td>{{$c->Teacher_name }}</td>
-              <td>{{$c->Batch_Time }}</td>
-              <td>{{$c->Teaching_Day }}</td>
-              <td>
-                <a href="javascript::void(0)" cid="{{$c->id }}" class="btn btn-success showEditModal ">Edit</a>
-              </td>
-              <td>
-                <a href="deletecourse/{{$c->id}}" class="btn btn-danger  ">Delete</a>
-
-              </td>
-            </tr>
-            @php
-            $a++;
-            @endphp
-            @endforeach
+            
           </tbody>
         </table>
       </div>
@@ -92,9 +72,10 @@
 
         <!-- Modal body -->
         <div class="modal-body">
-          <form action="savecourse" method="POST" id="form">
+          <form action="" method="POST" id="form">
             <div class="form-group">
-              @csrf
+              
+              <input type="text" class="form-control" value={{csrf_token()}} name="_token" id="_token">
               <label for="">Course_Name</label>
               <input type="text" class="form-control" name="Course_Name" id="Course_Name" onblur="chackreq(this,'cnameerrer')">
               <span id="cnameerrer"></span>
@@ -115,7 +96,7 @@
               <span id="dayerrer"></span>
             </div>
             <div class="form-group">
-              <input type="submit" class="btn btn-primary form-control" id="submit" value="Add course">
+              <input type="submit" onclick="savecatagorydata()" class="btn btn-primary form-control" id="save" value="Add course">
             </div>
             @if ($errors->any())
             <div class="alert alert-danger">
@@ -128,13 +109,16 @@
             @endif
           </form>
         </div>
-
-
-
+        
+        
+        
       </div>
     </div>
   </div>
   <script>
+    $(document).ready(function() {
+      $('#myTable').DataTable();
+    });
     function chackreq(e, spn) {
       if (e.value == "") {
         document.getElementById(spn).innerHTML = "This item is Requerd !!";
@@ -144,64 +128,153 @@
       }
     }
     $(window).on('load', function(e) {
-      // alert("load")
-      <?php $a=1; ?>
-      var successCount = 0;
+      
+      fetchdata()
+    })
+
+    function fetchdata(){
       $.ajax({
         url: "showallcourses",
         success: function(response) {
           console.log(response)
           htmltabledata = ""
-          
+          a=1
           response.forEach(element => {
-            successCount++
             htmltabledata += `<tr>
-                <td>{{$a}}</td>
+                <td>${a}</td>
                 <td>${element.Course_Name}</td>
                 <td>${element.Teacher_name}</td>
                 <td>${element.Batch_Time}</td>
                 <td>${element.Teaching_Day}</td>
                 <td>
-                <a href="javascript::void(0)" cid="${element.id}" class="btn btn-success showEditModal ">Edit</a>
+                <button onclick="editdata(${element.id} )" class="btn btn-success">Edit</button>
                 </td>
                 <td>
-                <a href="deletecourse/${element.id}" class="btn btn-danger  ">Delete</a>
+                <button onclick="deletecourse(${element.id})" class="btn btn-danger">delete</button>
                 </td>
                 </tr>`
-                
+                a++
                 
           });
           $("#DispCourse").html(htmltabledata)
         }
       })
-    })
+    }
 
 
-    $(document).ready(function() {
-      $('#myTable').DataTable();
-    });
+
+    function savecatagorydata() {
+        event.preventDefault()
+        
+        var result = {};
+        $.each($('#form').serializeArray(), function() {
+            result[this.name] = this.value;
+        });
+
+        console.log(result)
+       
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            data:result,
+            url:"savecourse",
+            success:function(response){
+                console.log(response);
+                if (response == 1) {
+                    $('#myModal').modal('hide');
+                    fetchdata()
+                } else {
+                    alert("Error while inserting")
+                }
+            }
+        })
 
 
-    $('.showEditModal').click(function(e) {
-      Teaching_Day = e.target.parentElement.previousElementSibling.innerText
-      Batch_Time = e.target.parentElement.previousElementSibling.previousElementSibling.innerText
-      Teacher_name = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.innerText
-      Course_Name = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText
-      // id = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText
-      id = e.target.getAttribute('cid')
-      console.log(id)
+    }
 
-      $('#Course_Name').val(Course_Name);
-      $('#Batch_Time').val(Batch_Time);
-      $('#Teaching_Day').val(Teaching_Day);
-      $('#Teacher_name').val(Teacher_name);
-      $('#submit').val('Edit course');
+    function editdata(id) {
+        event.preventDefault()
+        let token = $('#_token').val();
+        $('#save').val('Edit course');
       $('.modal-title').text('Edit Course');
-      $('#form').attr('action', 'editcourse/' + id);
-      $('#form').append('<input type="hidden" name="_method" value="POST" >')
+        
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            data:{id:id,_token:token},
+            url:"editcourse",
+            success:function(response){
+                $('#myModal').modal('show');
+                $('#Teaching_Day').val(response.Teaching_Day);
+                $('#Batch_Time').val(response.Batch_Time);
+                $('#Course_Name').val(response.Course_Name);
+                $('#Teacher_name').val(response.Teacher_name);
+                $('#save').attr("onclick","updetdata("+response.id+")");
+            }
+        })
 
-      $('#myModal').modal('show');
-    })
+    }
+    function updetdata(id){
+        event.preventDefault()
+        var result = {};
+        $.each($('#form').serializeArray(), function() {
+            result[this.name] = this.value;
+        });
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            data:result,
+            url:`/updatedata/${id}`,
+            success:function(response){
+                console.log(response);
+                if (response == 1) {
+                    $('#myModal').modal('hide');
+                    fetchdata()
+                } else {
+                    alert("Error while inserting")
+                }
+            }
+        })
+    }
+    // $('.showEditModal').click(function(e) {
+    //   $('#myModal').modal('show');
+    //   Teaching_Day = e.target.parentElement.previousElementSibling.innerText
+    //   Batch_Time = e.target.parentElement.previousElementSibling.previousElementSibling.innerText
+    //   Teacher_name = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.innerText
+    //   Course_Name = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText
+    //   id = e.target.getAttribute('cid')
+    //   console.log(id)
+
+    //   $('#Course_Name').val(Course_Name);
+    //   $('#Batch_Time').val(Batch_Time);
+    //   $('#Teaching_Day').val(Teaching_Day);
+    //   $('#Teacher_name').val(Teacher_name);
+    //   $('#submit').val('Edit course');
+    //   $('.modal-title').text('Edit Course');
+    //   $('#form').attr('action', 'editcourse/' + id);
+    //   $('#form').append('<input type="hidden" name="_method" value="POST" >')
+
+    // })
+
+    function deletecourse(id){
+       
+       $.ajax({
+           
+           
+           
+           url:`/deletecourse/${id}`,
+           success:function(response){
+               console.log(response);
+               if (response == 1) {
+                  
+                   fetchdata()
+               } else {
+                   alert("Error while inserting")
+               } 
+           }
+       })
+   }
   </script>
 
 </body>

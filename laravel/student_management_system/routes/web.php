@@ -17,11 +17,12 @@ Route::get('/', function () {
     return redirect('courses');      
     // return view('welcome');      
 });
-Route::get('/courses', [App\Http\Controllers\CourcesController::class, 'index']);
+Route::view('/courses','ShowAllCourses');
 Route::get('/showallcourses', [App\Http\Controllers\CourcesController::class, 'showallcourse']);
-Route::post('/savecourse', [App\Http\Controllers\CourcesController::class, 'store']);
-Route::get('/deletecourse/{courseid?}', [App\Http\Controllers\CourcesController::class, 'destroy']);
-Route::post('/editcourse/{courseid?}', [App\Http\Controllers\CourcesController::class, 'update']);
+Route::any('/savecourse', [App\Http\Controllers\CourcesController::class, 'store']);
+Route::post('/editcourse', [App\Http\Controllers\CourcesController::class, 'edit']);
+Route::post('/updatedata/{courseid}', [App\Http\Controllers\CourcesController::class, 'update']);
+Route::get('/deletecourse/{courseid}', [App\Http\Controllers\CourcesController::class, 'destroy']);
 
 Route::get('/students', [App\Http\Controllers\StudentsController::class, 'index']);
 Route::post('/savestudent', [App\Http\Controllers\StudentsController::class, 'store']);

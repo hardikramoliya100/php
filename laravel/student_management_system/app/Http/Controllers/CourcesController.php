@@ -42,6 +42,7 @@ class courcesController extends Controller
      */
     public function store(Request $request,courses $courses)
     {
+        // dd($request->all);
         $validated = $request->validate([
             'Course_Name' => 'required',
             'Teacher_name' => 'required',
@@ -53,8 +54,8 @@ class courcesController extends Controller
         $courses->Teacher_name = $request->Teacher_name;
         $courses->Batch_Time = $request->Batch_Time;
         $courses->Teaching_Day = $request->Teaching_Day;
-        $courses->save();
-        return redirect('courses');
+        $data = $courses->save();
+        return $data;
     }
 
     /**
@@ -74,9 +75,9 @@ class courcesController extends Controller
      * @param  \App\Models\courses  $courses
      * @return \Illuminate\Http\Response
      */
-    public function edit(courses $courses)
+    public function edit(Request $request,courses $courses)
     {
-        //
+        return $coursesid = $courses::find($request->id);
     }
 
     /**
@@ -94,8 +95,9 @@ class courcesController extends Controller
         $courses->Teacher_name = $request->Teacher_name;
         $courses->Batch_Time = $request->Batch_Time;
         $courses->Teaching_Day = $request->Teaching_Day;
-        $courses->save();
-        return redirect('courses');
+        $data=$courses->save();
+        return $data;
+        
 
     }
 
@@ -108,7 +110,7 @@ class courcesController extends Controller
     public function destroy($courseid,courses $courses)
     {
         $courses = $courses::find($courseid);
-        $courses->delete();
-        return redirect('courses');
+        $data =$courses->delete();
+        return $data;
     }
 }
