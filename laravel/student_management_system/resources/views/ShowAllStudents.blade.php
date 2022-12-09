@@ -19,7 +19,7 @@
   <div class="jumbotron text-center">
     <h1 class="bg-danger">Add New Student</h1>
     <div class="float-right mr-5">
-      <a href="" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add Students</a>
+      <a href="" class="btn btn-primary" onclick="submit()" data-toggle="modal" data-target="#myModal">Add Students</a>
     </div>
   </div>
 
@@ -70,7 +70,7 @@
                 <a href="deletestudent/{{$s->id}}" class="btn btn-danger  ">Delete</a>
               </td>
               <td>
-                <a href="javascript::void(0)"  mid="{{$s->id }}" class="btn btn-primary showmarkModal " >Mark</a>
+                <a href="javascript::void(0)" mid="{{$s->id }}" class="btn btn-primary showmarkModal ">Mark</a>
               </td>
             </tr>
             @php
@@ -90,6 +90,9 @@
 
 
   <div class="modal" id="myModal">
+    <!-- @php
+    flush();
+    @endphp -->
     <div class="modal-dialog">
       <div class="modal-content">
 
@@ -149,58 +152,58 @@
   </div>
 
   <div class="modal" id="mymarkModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
+    <div class="modal-dialog">
+      <div class="modal-content">
 
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-titles">Add Marks</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-titles">Add Marks</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
 
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <form action="savemark" method="POST" id="form">
-                        <div class="form-group">
-                            @csrf
-                            <label for="">physics</label>
-                            <input type="number" class="form-control" name="physics" id="physics">
-
-                        </div>
-                        <div class="form-group">
-                            <label for="">maths</label>
-                            <input type="number" class="form-control" name="maths" id="maths">
-
-                        </div>
-
-                        <div class="form-group">
-                            <label for="">chemisty</label>
-                            <input type="number" class="form-control" name="chemisty" id="chemisty">
-
-                        </div>
-
-                        <div class="form-group">
-                            <label for="">student_id</label>
-                            <!-- <input type="text" class="form-control" name="student_id" id="student_id" value="aaa"> -->
-                            <select name="student_id" id="student_id" class="form-control">
-                                <option selected disabled>-</option>
-                                @foreach($students as $stu)
-                                <option value="{{$stu->id}}">{{$stu->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" class="btn btn-primary form-control" id="submit" value="Add student">
-
-                        </div>
-                    </form>
-                </div>
-
-
+        <!-- Modal body -->
+        <div class="modal-body">
+          <form action="savemark" method="POST" id="form">
+            <div class="form-group">
+              @csrf
+              <label for="">physics</label>
+              <input type="number" class="form-control" name="physics" id="physics">
 
             </div>
+            <div class="form-group">
+              <label for="">maths</label>
+              <input type="number" class="form-control" name="maths" id="maths">
+
+            </div>
+
+            <div class="form-group">
+              <label for="">chemisty</label>
+              <input type="number" class="form-control" name="chemisty" id="chemisty">
+
+            </div>
+
+            <div class="form-group">
+              <label for="">student_id</label>
+              <!-- <input type="text" class="form-control" name="student_id" id="student_id" value="aaa"> -->
+              <select name="student_id" id="student_id" class="form-control">
+                <option selected disabled>-</option>
+                @foreach($students as $stu)
+                <option value="{{$stu->id}}">{{$stu->name}}</option>
+                @endforeach
+              </select>
+            </div>
+            <div class="form-group">
+              <input type="submit"    class="btn btn-primary form-control" id="submit" value="Add student">
+
+            </div>
+          </form>
         </div>
+
+
+
+      </div>
     </div>
+  </div>
 
 
   <script>
@@ -216,6 +219,11 @@
     $(document).ready(function() {
       $('#myTable').DataTable();
     });
+
+    function submit() {
+      /*Put all the data posting code here*/
+      document.getElementById("myModal").reset();
+    }
 
     $('.showEditModal').click(function(e) {
       phone = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText
@@ -237,21 +245,21 @@
     })
 
     $('.showmarkModal').click(function(e) {
-            
-            id = e.target.getAttribute('mid')
-            // console.log(course_id)
 
-            $('#student_id').val(id);
-            $('#maths').val();
-            $('#chemisty').val();
-            $('#physics').val();
-            $('#submit').val('Edit Mark');
-            $('.modal-titles').text('Edit Mark');
-            $('#form').attr('action', 'editmark/' + id);
-            $('#form').append('<input type="hidden" name="_method" value="POST" >')
+      id = e.target.getAttribute('mid')
+      // console.log(course_id)
 
-            $('#mymarkModal').modal('show');
-        })
+      $('#student_id').val(id);
+      $('#maths').val();
+      $('#chemisty').val();
+      $('#physics').val();
+      $('#submit').val('Edit Mark');
+      $('.modal-titles').text('Edit Mark');
+      $('#form').attr('action', 'editmark/' + id);
+      $('#form').append('<input type="hidden" name="_method" value="POST" >')
+
+      $('#mymarkModal').modal('show');
+    })
   </script>
 
 </body>

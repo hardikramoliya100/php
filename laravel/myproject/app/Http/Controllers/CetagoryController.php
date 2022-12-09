@@ -15,8 +15,8 @@ class CetagoryController extends Controller
     public function index(cetagory $cetagory)
     {
         return $cetagory->get();
-        dd($alldata);
-        return "somthing";
+        // dd($alldata);
+        // return "somthing";
     }
 
     /**
@@ -35,9 +35,12 @@ class CetagoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,cetagory $cetagory)
     {
-        //
+        $cetagory->cetagory_name  = $request->cetagory_name;   
+        $cetagory->cetagory_discription = $request->cetagory_discription;   
+        $data = $cetagory->save();
+        return $data;
     }
 
     /**
@@ -57,9 +60,10 @@ class CetagoryController extends Controller
      * @param  \App\Models\cetagory  $cetagory
      * @return \Illuminate\Http\Response
      */
-    public function edit(cetagory $cetagory)
+    public function edit(Request $request,cetagory $cetagory)
     {
-        //
+        return $cetagoryid = $cetagory::find($request->id);
+        
     }
 
     /**
@@ -69,19 +73,26 @@ class CetagoryController extends Controller
      * @param  \App\Models\cetagory  $cetagory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, cetagory $cetagory)
+    public function update(Request $request,$id, cetagory $cetagory)
     {
-        //
+        $cetagoryid = $cetagory::find($id);
+        $cetagoryid->cetagory_name  = $request->cetagory_name;   
+        $cetagoryid->cetagory_discription = $request->cetagory_discription;   
+        $data = $cetagoryid->save();
+        return $data;
     }
-
+    
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\cetagory  $cetagory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(cetagory $cetagory)
+    public function destroy($id,cetagory $cetagory)
     {
+        $cetagoryid = $cetagory::find($id);
+        $data = $cetagoryid->delete();
+        return $data;
         //
     }
 }

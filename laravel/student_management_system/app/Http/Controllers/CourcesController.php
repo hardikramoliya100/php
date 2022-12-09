@@ -17,7 +17,13 @@ class courcesController extends Controller
         $courses=$courses->get();
         return view('ShowAllcourses',compact(['courses']));
     }
-
+    
+    public function showallcourse(courses $courses)
+    {
+        // $courses=$courses->get();
+        return $courses->get();
+        // return view('ShowAllcourses',compact(['courses']));
+    }
     /**
      * Show the form for creating a new resource.
      *

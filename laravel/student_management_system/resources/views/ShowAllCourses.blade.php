@@ -8,10 +8,11 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  
   <link rel="stylesheet" href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
   <script src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
@@ -44,7 +45,8 @@
               <td>Delete</td>
             </tr>
           </thead>
-          <tbody>
+          
+          <tbody id="DispCourse">
             @php
             $a=1;
             @endphp
@@ -141,11 +143,44 @@
 
       }
     }
+    $(window).on('load', function(e) {
+      // alert("load")
+      <?php $a=1; ?>
+      var successCount = 0;
+      $.ajax({
+        url: "showallcourses",
+        success: function(response) {
+          console.log(response)
+          htmltabledata = ""
+          
+          response.forEach(element => {
+            successCount++
+            htmltabledata += `<tr>
+                <td>{{$a}}</td>
+                <td>${element.Course_Name}</td>
+                <td>${element.Teacher_name}</td>
+                <td>${element.Batch_Time}</td>
+                <td>${element.Teaching_Day}</td>
+                <td>
+                <a href="javascript::void(0)" cid="${element.id}" class="btn btn-success showEditModal ">Edit</a>
+                </td>
+                <td>
+                <a href="deletecourse/${element.id}" class="btn btn-danger  ">Delete</a>
+                </td>
+                </tr>`
+                
+                
+          });
+          $("#DispCourse").html(htmltabledata)
+        }
+      })
+    })
 
 
     $(document).ready(function() {
       $('#myTable').DataTable();
     });
+
 
     $('.showEditModal').click(function(e) {
       Teaching_Day = e.target.parentElement.previousElementSibling.innerText

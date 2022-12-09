@@ -14,9 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');      
+    return redirect('courses');      
+    // return view('welcome');      
 });
 Route::get('/courses', [App\Http\Controllers\CourcesController::class, 'index']);
+Route::get('/showallcourses', [App\Http\Controllers\CourcesController::class, 'showallcourse']);
 Route::post('/savecourse', [App\Http\Controllers\CourcesController::class, 'store']);
 Route::get('/deletecourse/{courseid?}', [App\Http\Controllers\CourcesController::class, 'destroy']);
 Route::post('/editcourse/{courseid?}', [App\Http\Controllers\CourcesController::class, 'update']);

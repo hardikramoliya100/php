@@ -34,6 +34,10 @@ Route::get('/datatable', [App\Http\Controllers\ProductController::class, 'index'
 
 Route::view('/getajex', 'ajexview');
 Route::get('/selectallcatogorydata', [App\Http\Controllers\CetagoryController::class, 'index']);
+Route::any('/savecetagory', [App\Http\Controllers\CetagoryController::class, 'store']);
+Route::any('/editcetagory', [App\Http\Controllers\CetagoryController::class, 'edit']);
+Route::any('/updatedata/{id}', [App\Http\Controllers\CetagoryController::class, 'update']);
+Route::any('/deletedata/{id}', [App\Http\Controllers\CetagoryController::class, 'destroy']);
 
 // Route::get('/test', function(){
     // echo "home";
