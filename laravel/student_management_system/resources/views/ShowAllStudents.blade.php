@@ -64,7 +64,7 @@
               <td>{{$s->mycourse[0]->Batch_Time}}</td>
               <td>{{$s->mycourse[0]->Teaching_Day}}</td>
               <td>
-                <a href="javascript::void(0)" data-id="{{$s->course_id}}" sid="{{$s->id }}" class="btn btn-success showEditModal ">Edit</a>
+                <a href="javascript::void(0)" data-id="{{$s->course_id}}" sid="{{$s->sid }}" class="btn btn-success showEditModal ">Edit</a>
               </td>
               <td>
                 <a href="deletestudent/{{$s->id}}" class="btn btn-danger  ">Delete</a>

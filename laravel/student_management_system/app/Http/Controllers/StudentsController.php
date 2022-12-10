@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\students;
 use App\Models\courses;
+use App\Models\students;
+use App\Models\mark;
 use Illuminate\Http\Request;
+Use DB;
 
 class StudentsController extends Controller
 {
@@ -118,13 +120,28 @@ class StudentsController extends Controller
      * @param  \App\Models\students  $students
      * @return \Illuminate\Http\Response
      */
-    public function destroy($studentsid, students $students)
+    public function destroy($studentid, students $students,mark $mark)
     {
         // dd($students->img);
-        $students = $students::find($studentsid);
+        
+        DB::connection()->enableQueryLog();
+
+        $students = $students::find($studentid);
+        $mdata=DB::table('marks')->where("marks.student_id", $studentid)->first();
+        if ($mdata != null) {
+            DB::table('marks')
+            ->where("marks.student_id", $studentid)
+            ->delete();
+            
+        }
+
+        $queries = DB::getQueryLog();
+
+        // dd($ddd);
         if ($students->img != 'noimg.png') {
             unlink(public_path('uplode_img') . "/" . $students->img);
         }
+        // $mark->delete();
         $students->delete();
         return redirect('students');
     }

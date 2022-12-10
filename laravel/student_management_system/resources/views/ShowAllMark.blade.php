@@ -8,10 +8,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
 
     <link rel="stylesheet" href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
     <script src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
@@ -29,6 +31,7 @@
                 <div class="list-group">
                     <a href="courses" class="list-group-item list-group-item-action">courses</a>
                     <a href="students" class="list-group-item list-group-item-action">Students</a>
+                    <a href="showmarks" class="list-group-item list-group-item-action">Result</a>
                 </div>
             </div>
             <div class="col-10 ">
@@ -46,7 +49,7 @@
 
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="Dispdata">
                         @php
                         $a=1;
                         @endphp
@@ -58,10 +61,10 @@
                             <td>{{$m->maths}}</td>
                             <td>{{$m->chemisty}}</td>
                             <td>
-                                <a href="javascript::void(0)" mark-id="{{$m->student_id}}" mid="{{$m->id }}" class="btn btn-success showeditModal ">Edit</a>
+                                <a href="javascript::void(0)" mark-id="{{$m->student_id}}" mid="{{$m->mid }}" class="btn btn-success showeditModal ">Edit</a>
                             </td>
                             <td>
-                                <a href="deletemark/{{$m->id}}" class="btn btn-danger ">Delete</a>
+                                <a href="deletemark/{{$m->mid}}" class="btn btn-danger ">Delete</a>
 
                             </td>
 
@@ -121,7 +124,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-primary form-control" id="submit" value="Add student">
+                            <input type="submit" class="btn btn-primary form-control" id="submit" value="Add Mark">
 
                         </div>
                     </form>
@@ -133,6 +136,40 @@
         </div>
     </div>
     <script>
+        // $(window).on('load', function(e) {
+
+        //     fetchdata()
+        // })
+
+        // function fetchdata() {
+        //     $.ajax({
+        //         url: "showallmark",
+        //         success: function(response) {
+        //             console.log("response",response)
+        //             let StudentArray = response[0]
+        //             let MarksArray = response[1]
+        //             htmltabledata = ""
+        //             for (let index = 0; index < MarksArray.length; index++) {
+        //                 const mrks = MarksArray[index];
+        //                 const std = StudentArray[index];
+        //                 // console.log("element",element);
+        //                 htmltabledata += `<tr>
+        //                     <td>${std.sid}</td>
+        //                     <td>${std.name}</td>
+        //                     <td>${mrks.physics}</td>
+        //                     <td>${mrks.maths}</td>
+        //                     <td>${mrks.chemisty}</td>
+                            
+        //                     <td>${mrks.mid}</td>
+        //                     <td>${std.sid}</td>
+                            
+        //                     </tr>`
+        //             }
+        //             $("#Dispdata").html(htmltabledata)
+                    
+        //         }
+        //     })
+        // }
         $(document).ready(function() {
             $('#myTable').DataTable();
         });

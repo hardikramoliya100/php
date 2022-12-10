@@ -20,7 +20,14 @@ class MarkController extends Controller
         $mark = $mark->get();
         return view('ShowAllMark', compact(['students', 'mark']));
     }
-
+    
+    public function showallmark(mark $mark ,students $students)
+    {
+        // $students = $students->get();
+        // $mark = $mark->get();
+        $markStudent=[$students->get(),$mark->get()];
+        return $markStudent;
+    }
     /**
      * Show the form for creating a new resource.
      *
