@@ -50,7 +50,7 @@
                         </tr>
                     </thead>
                     <tbody id="Dispdata">
-                        @php
+                        <!-- @php
                         $a=1;
                         @endphp
                         @foreach($mark as $m)
@@ -61,10 +61,10 @@
                             <td>{{$m->maths}}</td>
                             <td>{{$m->chemisty}}</td>
                             <td>
-                                <a href="javascript::void(0)" mark-id="{{$m->student_id}}" mid="{{$m->mid }}" class="btn btn-success showeditModal ">Edit</a>
+                                <a href="javascript::void(0)" mark-id="{{$m->student_id}}" mid="{{$m->id }}" class="btn btn-success showeditModal ">Edit</a>
                             </td>
                             <td>
-                                <a href="deletemark/{{$m->mid}}" class="btn btn-danger ">Delete</a>
+                                <a href="deletemark/{{$m->id}}" class="btn btn-danger ">Delete</a>
 
                             </td>
 
@@ -73,7 +73,7 @@
                         @php
                         $a++;
                         @endphp
-                        @endforeach
+                        @endforeach -->
 
                     </tbody>
                 </table>
@@ -94,9 +94,9 @@
 
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <form action="savemark" method="POST" id="form">
+                    <form action="" method="POST" id="form">
                         <div class="form-group">
-                            @csrf
+                        <input type="hidden" class="form-control" value={{csrf_token()}} name="_token" id="_token">
                             <label for="">physics</label>
                             <input type="number" class="form-control" name="physics" id="physics">
 
@@ -124,7 +124,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-primary form-control" id="submit" value="Add Mark">
+                            <input type="submit" onclick="savecatagorydata()" class="btn btn-primary form-control" id="save" value="Add Mark">
 
                         </div>
                     </form>
@@ -136,63 +136,151 @@
         </div>
     </div>
     <script>
-        // $(window).on('load', function(e) {
+        $(window).on('load', function(e) {
 
-        //     fetchdata()
-        // })
+            fetchdata()
+        })
 
-        // function fetchdata() {
-        //     $.ajax({
-        //         url: "showallmark",
-        //         success: function(response) {
-        //             console.log("response",response)
-        //             let StudentArray = response[0]
-        //             let MarksArray = response[1]
-        //             htmltabledata = ""
-        //             for (let index = 0; index < MarksArray.length; index++) {
-        //                 const mrks = MarksArray[index];
-        //                 const std = StudentArray[index];
-        //                 // console.log("element",element);
-        //                 htmltabledata += `<tr>
-        //                     <td>${std.sid}</td>
-        //                     <td>${std.name}</td>
-        //                     <td>${mrks.physics}</td>
-        //                     <td>${mrks.maths}</td>
-        //                     <td>${mrks.chemisty}</td>
+        function fetchdata() {
+            $.ajax({
+                url: "showallmark",
+                success: function(response) {
+                    console.log("response",response)
+                    // let StudentArray = response[0]
+                    // let MarksArray = response[1]
+                    htmltabledata = ""
+                    cont=1
+                    response.forEach(element => {
+                            htmltabledata += `<tr>
+                                <td>${cont}</td>
+                                <td>${element.name}</td>
+                                <td>${element.physics}</td>
+                                <td>${element.maths}</td>
+                                <td>${element.chemisty}</td>
+                                
+                                <td> <button onclick="editdata(${element.id} )" class="btn btn-success">Edit</button></td>
+                                <td><button onclick="deletemark(${element.id})" class="btn btn-danger">delete</button></td>
+                                
+                                </tr>`
+                                cont++
+                    });
+                    $("#Dispdata").html(htmltabledata)
+                    // for (let index = 0; index < MarksArray.length; index++) {
+                    //     const mrks = MarksArray[index];
+                    //     // const std = StudentArray[index];
+                    //     // console.log("element",element);
+                    //     htmltabledata += `<tr>
+                    //         <td>${mrks.id}</td>
+                    //         <td>${mrks.mystudent[0].name}</td>
+                    //         <td>${mrks.physics}</td>
+                    //         <td>${mrks.maths}</td>
+                    //         <td>${mrks.chemisty}</td>
                             
-        //                     <td>${mrks.mid}</td>
-        //                     <td>${std.sid}</td>
+                    //         <td>${mrks.id}</td>
+                    //         <td>${mrks.id}</td>
                             
-        //                     </tr>`
-        //             }
-        //             $("#Dispdata").html(htmltabledata)
+                    //         </tr>`
+                    // }
+                    // $("#Dispdata").html(htmltabledata)
                     
-        //         }
-        //     })
-        // }
+                }
+            })
+        }
         $(document).ready(function() {
             $('#myTable').DataTable();
         });
 
-        $('.showeditModal').click(function(e) {
-            chemisty = e.target.parentElement.previousElementSibling.innerText
-            maths = e.target.parentElement.previousElementSibling.previousElementSibling.innerText
-            physics = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.innerText
-            student_id = e.target.getAttribute('mark-id')
-            id = e.target.getAttribute('mid')
-            // console.log(course_id)
+        function savecatagorydata() {
+        event.preventDefault()
+        
+        var result = {};
+        $.each($('#form').serializeArray(), function() {
+            result[this.name] = this.value;
+        });
 
-            $('#student_id').val(student_id);
-            $('#maths').val(maths);
-            $('#chemisty').val(chemisty);
-            $('#physics').val(physics);
-            $('#submit').val('Edit Mark');
-            $('.modal-title').text('Edit Mark');
-            $('#form').attr('action', 'editmark/' + id);
-            $('#form').append('<input type="hidden" name="_method" value="POST" >')
-
-            $('#myModal').modal('show');
+        console.log(result)
+       
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            data:result,
+            url:"savemark",
+            success:function(response){
+                console.log(response);
+                if (response == 1) {
+                    $('#myModal').modal('hide');
+                    fetchdata()
+                } else {
+                    alert("Error while inserting")
+                }
+            }
         })
+
+
+    }
+
+        // $('.showeditModal').click(function(e) {
+        //     chemisty = e.target.parentElement.previousElementSibling.innerText
+        //     maths = e.target.parentElement.previousElementSibling.previousElementSibling.innerText
+        //     physics = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.innerText
+        //     student_id = e.target.getAttribute('mark-id')
+        //     id = e.target.getAttribute('mid')
+        //     // console.log(course_id)
+
+        //     $('#student_id').val(student_id);
+        //     $('#maths').val(maths);
+        //     $('#chemisty').val(chemisty);
+        //     $('#physics').val(physics);
+        //     $('#submit').val('Edit Mark');
+        //     $('.modal-title').text('Edit Mark');
+        //     $('#form').attr('action', 'editmark/' + id);
+        //     $('#form').append('<input type="hidden" name="_method" value="POST" >')
+
+        //     $('#myModal').modal('show');
+        // })
+        function editdata(id) {
+        event.preventDefault()
+        $('#myModal').modal('show');
+        let token = $('#_token').val();
+        $('#save').val('Edit Mark');
+      $('.modal-title').text('Edit Mark');
+      $('#student_id').modal("hide");
+        
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            data:{id:id,_token:token},
+            url:"editmark",
+            success:function(response){
+                console.log(response)
+                // $('#myModal').modal('show');
+                // $('#physics').val(response.physics);
+                // $('#maths').val(response.maths);
+                // $('#chemisty').val(response.chemisty);
+                // $('#save').attr("onclick","updetdata("+response.id+")");
+            }
+        })
+
+    }
+
+        function deletemark(id){
+       
+       $.ajax({
+           
+           
+           
+           url:`/deletemark/${id}`,
+           success:function(response){
+               console.log(response);
+               if (response == 1) {
+                  
+                   fetchdata()
+               } else {
+                   alert("Error while inserting")
+               } 
+           }
+       })
+   }
     </script>
 
 

@@ -23,9 +23,20 @@ class MarkController extends Controller
     
     public function showallmark(mark $mark ,students $students)
     {
-        // $students = $students->get();
-        // $mark = $mark->get();
-        $markStudent=[$students->get(),$mark->get()];
+        $students = $students->get();
+        $mark = $mark->get();
+        $markStudent=array();
+        foreach ($mark as $m) {
+            $markStudent[]= [
+                'id'=>$m->id,
+                'name'=> $m->mystudent[0]->name,
+                'physics'=>$m->physics,
+                'maths'=>$m->maths,
+                'chemisty'=>$m->chemisty,
+            ];
+        }
+        // dd($markStudent);
+        // $markStudent=[$students->get(),$mark->get()];
         return $markStudent;
     }
     /**
@@ -50,8 +61,8 @@ class MarkController extends Controller
         $mark->maths = $request->maths;
         $mark->chemisty = $request->chemisty;
         $mark->student_id = $request->student_id;
-        $mark->save();
-        return redirect('showmarks');
+        $data=$mark->save();
+        return $data;
     }
 
     /**
@@ -71,9 +82,11 @@ class MarkController extends Controller
      * @param  \App\Models\mark  $mark
      * @return \Illuminate\Http\Response
      */
-    public function edit(mark $mark)
+    public function edit(Request $request,mark $mark)
     {
-        //
+        //  $markid = $mark::find($request->id);
+        dd($request->id);
+        return $mark::find($request->id);
     }
 
     /**
@@ -100,10 +113,10 @@ class MarkController extends Controller
      * @param  \App\Models\mark  $mark
      * @return \Illuminate\Http\Response
      */
-    public function destroy($markid,mark $mark)
+    public function destroy(mark $mark,$markid)
     {
         $mark = $mark::find($markid);
-        $mark->delete();
-        return redirect('showmarks');
+        $data=$mark->delete();
+        return $data;
     }
 }

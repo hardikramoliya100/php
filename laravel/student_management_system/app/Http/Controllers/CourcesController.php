@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\courses;
+use App\Models\students;
+use App\Models\mark;
 use Illuminate\Http\Request;
+use DB;
  
 class courcesController extends Controller
 {
@@ -107,9 +110,26 @@ class courcesController extends Controller
      * @param  \App\Models\courses  $courses
      * @return \Illuminate\Http\Response
      */
-    public function destroy($courseid,courses $courses)
+    public function destroy($courseid,courses $courses,students $students,mark $mark)
     {
+        DB::connection()->enableQueryLog();
         $courses = $courses::find($courseid);
+        $sdata=DB::table('students')->where("students.course_id", $courseid)->first();
+        if ($sdata != null) {
+            DB::table('students')
+            ->where("students.course_id", $courseid)
+            ->delete();
+            $mdata=DB::table('marks')->where("marks.student_id", $sdata->id)->first();
+        if ($mdata != null) {
+            DB::table('marks')
+            ->where("marks.student_id", $sdata->id)
+            ->delete();
+            
+        }
+            
+        }
+        $queries = DB::getQueryLog();
+        // dd($sdata->id);
         $data =$courses->delete();
         return $data;
     }

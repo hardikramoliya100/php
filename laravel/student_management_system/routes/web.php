@@ -31,6 +31,7 @@ Route::get('/deletestudent/{studentid?}', [App\Http\Controllers\StudentsControll
 
 Route::get('/showmarks', [App\Http\Controllers\MarkController::class, 'index']);
 Route::get('/showallmark', [App\Http\Controllers\MarkController::class, 'showallmark']);
+Route::get('/editmark', [App\Http\Controllers\MarkController::class, 'edit']);
 Route::post('/savemark', [App\Http\Controllers\MarkController::class, 'store']);
-Route::get('/deletemark/{markid?}', [App\Http\Controllers\MarkController::class, 'destroy']);
+Route::get('/deletemark/{markid}', [App\Http\Controllers\MarkController::class, 'destroy']);
 Route::post('/editmark/{markid?}', [App\Http\Controllers\MarkController::class, 'update']);
