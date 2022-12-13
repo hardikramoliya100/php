@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-
-
+    
     <link rel="stylesheet" href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
     <script src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
@@ -165,23 +165,7 @@
                                 cont++
                     });
                     $("#Dispdata").html(htmltabledata)
-                    // for (let index = 0; index < MarksArray.length; index++) {
-                    //     const mrks = MarksArray[index];
-                    //     // const std = StudentArray[index];
-                    //     // console.log("element",element);
-                    //     htmltabledata += `<tr>
-                    //         <td>${mrks.id}</td>
-                    //         <td>${mrks.mystudent[0].name}</td>
-                    //         <td>${mrks.physics}</td>
-                    //         <td>${mrks.maths}</td>
-                    //         <td>${mrks.chemisty}</td>
-                            
-                    //         <td>${mrks.id}</td>
-                    //         <td>${mrks.id}</td>
-                            
-                    //         </tr>`
-                    // }
-                    // $("#Dispdata").html(htmltabledata)
+                    
                     
                 }
             })
@@ -240,27 +224,51 @@
         // })
         function editdata(id) {
         event.preventDefault()
-        $('#myModal').modal('show');
+        // $('#myModal').modal('show');
         let token = $('#_token').val();
         $('#save').val('Edit Mark');
       $('.modal-title').text('Edit Mark');
-      $('#student_id').modal("hide");
-        
+    //   $('#student_id').modal("hide");
+        console.log(id)
         $.ajax({
             type: "POST",
             dataType: "json",
             data:{id:id,_token:token},
-            url:"editmark",
+            url:"editmarks",
             success:function(response){
                 console.log(response)
-                // $('#myModal').modal('show');
-                // $('#physics').val(response.physics);
-                // $('#maths').val(response.maths);
-                // $('#chemisty').val(response.chemisty);
-                // $('#save').attr("onclick","updetdata("+response.id+")");
+                $('#myModal').modal('show');
+                $('#physics').val(response.physics);
+                $('#maths').val(response.maths);
+                $('#chemisty').val(response.chemisty);
+                $('#student_id').val(response.student_id);
+                $('#save').attr("onclick","updetdata("+response.id+")");
             }
         })
 
+    }
+    function updetdata(id){
+        event.preventDefault()
+        var result = {};
+        $.each($('#form').serializeArray(), function() {
+            result[this.name] = this.value;
+        });
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            data:result,
+            url:`/updatemarkdata/${id}`,
+            success:function(response){
+                console.log(response);
+                if (response == 1) {
+                    $('#myModal').modal('hide');
+                    fetchdata()
+                } else {
+                    alert("Error while inserting")
+                }
+            }
+        })
     }
 
         function deletemark(id){

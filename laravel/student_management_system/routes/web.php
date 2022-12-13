@@ -25,13 +25,14 @@ Route::post('/updatedata/{courseid}', [App\Http\Controllers\CourcesController::c
 Route::get('/deletecourse/{courseid}', [App\Http\Controllers\CourcesController::class, 'destroy']);
 
 Route::get('/students', [App\Http\Controllers\StudentsController::class, 'index']);
+Route::get('/showallstudent', [App\Http\Controllers\StudentsController::class, 'showallstudent']);
 Route::post('/savestudent', [App\Http\Controllers\StudentsController::class, 'store']);
 Route::post('/editstudent/{studentid?}', [App\Http\Controllers\StudentsController::class, 'update']);
 Route::get('/deletestudent/{studentid?}', [App\Http\Controllers\StudentsController::class, 'destroy']);
 
 Route::get('/showmarks', [App\Http\Controllers\MarkController::class, 'index']);
 Route::get('/showallmark', [App\Http\Controllers\MarkController::class, 'showallmark']);
-Route::get('/editmark', [App\Http\Controllers\MarkController::class, 'edit']);
+Route::any('/editmarks', [App\Http\Controllers\MarkController::class, 'edit']);
 Route::post('/savemark', [App\Http\Controllers\MarkController::class, 'store']);
+Route::post('/updatemarkdata/{markid}', [App\Http\Controllers\MarkController::class, 'update']);
 Route::get('/deletemark/{markid}', [App\Http\Controllers\MarkController::class, 'destroy']);
-Route::post('/editmark/{markid?}', [App\Http\Controllers\MarkController::class, 'update']);

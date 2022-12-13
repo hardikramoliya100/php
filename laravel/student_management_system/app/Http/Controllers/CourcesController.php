@@ -80,7 +80,7 @@ class courcesController extends Controller
      */
     public function edit(Request $request,courses $courses)
     {
-        return $coursesid = $courses::find($request->id);
+        return  $courses::find($request->id);
     }
 
     /**

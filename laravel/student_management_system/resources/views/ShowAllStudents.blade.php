@@ -46,7 +46,7 @@
               <td>Teaching_Day</td>
               <td>Edit</td>
               <td>Delete</td>
-              <td>Mark</td>
+              <!-- <td>Mark</td> -->
             </tr>
           </thead>
           <tbody>
@@ -69,9 +69,9 @@
               <td>
                 <a href="deletestudent/{{$s->id}}" class="btn btn-danger  ">Delete</a>
               </td>
-              <td>
+              <!-- <td>
                 <a href="javascript::void(0)" mid="{{$s->id }}" class="btn btn-primary showmarkModal ">Mark</a>
-              </td>
+              </td> -->
             </tr>
             @php
             $a++;

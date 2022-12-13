@@ -84,8 +84,9 @@ class MarkController extends Controller
      */
     public function edit(Request $request,mark $mark)
     {
+        // dd("called edit");
         //  $markid = $mark::find($request->id);
-        dd($request->id);
+        // dd($markid);
         return $mark::find($request->id);
     }
 
@@ -103,8 +104,8 @@ class MarkController extends Controller
         $mark->maths = $request->maths;
         $mark->chemisty = $request->chemisty;
         $mark->student_id = $request->student_id;
-        $mark->save();
-        return redirect('showmarks');
+        $data =$mark->save();
+        return $data;
     }
 
     /**

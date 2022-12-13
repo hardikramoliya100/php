@@ -21,6 +21,24 @@ class StudentsController extends Controller
         $courses = $courses->get();
         return view('ShowAllStudents', compact(['students', 'courses']));
     }
+    public function showallstudent(students $students, courses $courses)
+    {
+        $students = $students->get();
+        $courses = $courses->get();
+        $coustd=array();
+        foreach ($students as $s) {
+            $coustd[]=[
+                'name'=>$s->name,
+                'img'=>$s->img,
+                'phone'=>$s->phone,
+                'Course_Name'=>$s->mycourse[0]->Course_Name,
+                'Teacher_name'=>$s->mycourse[0]->Teacher_name,
+                'Batch_Time'=>$s->mycourse[0]->Batch_Time,
+                'Teaching_Day'=>$s->mycourse[0]->Teaching_Day,
+            ];
+        }
+        return $coustd;
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -59,8 +77,8 @@ class StudentsController extends Controller
         $students->img = $imageName;
         $students->phone = $request->phone;
         $students->course_id = $request->course_id;
-        $students->save();
-        return redirect('students');
+        $data=$students->save();
+        return $data;
     }
     /**
      * Display the specified resource.
