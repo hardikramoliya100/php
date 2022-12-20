@@ -18,6 +18,15 @@ class Model
         return $fechdata;
     }
 
+    public function insert($data){
+                        $fristname = $data['firstname'];
+                        $lastname = $data['lastname'];
+                        $email = $data['email'];
+                        $mobile = $data['mobile'];
+                        $query = "INSERT INTO user VALUES('','$fristname','$lastname','$email','$mobile')";
+                        mysqli_query($this->conn, $query);   
+    }
+
 }
 
 ?>

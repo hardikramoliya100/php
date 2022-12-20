@@ -18,10 +18,25 @@ class Controller extends Model{
                     include_once("view/showuser.php");
                     include_once("view/footer.php");
                     break;
-                case '/showalluserdata':
+
+                    case '/adduser':
+                           
+                        include_once("view/header.php");
+                        include_once("view/addnewuser.php");
+                        include_once("view/footer.php");
+                        break;
+                    case '/showalluserdata':
                     $data = $this->user();
                     // print_r($data);
                     echo json_encode($data);
+                    case '/newuserdata':
+                        $this->insert($_POST);
+                        
+
+                        
+                    
+
+                    
                     
                     break;
                 
