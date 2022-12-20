@@ -2,6 +2,7 @@
     <h1 class="">ALL CETAGORY</h1>
     <div class="float-right mr-5">
         <a href="addcetagory" class="btn btn-primary">Add Cetagory</a>
+        <a href="product" class="btn btn-primary">All Prouct</a>
     </div>
     <div class="float-right mr-5">
         <a href="" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add course</a>
@@ -78,7 +79,6 @@
                     <td>${a++}</td>
                     <td>${element.cetagory}</td>
                     <td>
-                    <button onclick="editdata(${element.id} )" class="btn btn-success">Edit</button>
                     <a class="btn btn-sm btn-primary" href="editcetagory?id=${element.id}">Edit</a>
                     <button onclick="deletecetagory(${element.id})" class="btn btn-danger">delete</button>
                     </td>

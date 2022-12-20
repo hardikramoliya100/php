@@ -1,9 +1,9 @@
 <div class="jumbotron text-center">
-    <h1 class="">ADD PRODUCT</h1>
+    <h1 class="">EDIT PRODUCT</h1>
     <div class="float-right mr-5">
         <a href="product" class="btn btn-primary">all product</a>
     </div>
-    
+
 </div>
 <div class="container">
     <div class="row">
@@ -22,6 +22,7 @@
                         </div>
                         <div class="row">
                             <div class="col">
+                                <input type="hidden" name="id" id="id">
                                 <input type="text" placeholder="Enter Product name " class="form-control" name="Product" id="Product">
                             </div>
                         </div>
@@ -60,7 +61,7 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col">
-                                <input type="radio" name="type" class="type" value="Return" id="return" > <label for="return"> Return</label>
+                                <input type="radio" name="type" class="type" value="Return" id="return"> <label for="return"> Return</label>
                                 <input type="radio" name="type" class="type" value="Nonreturn" id="nonreturn"> <label for="nonreturn"> Nonreturn</label>
                             </div>
                         </div>
@@ -84,7 +85,7 @@
 
                         <div class="row mt-3 ">
                             <div class="col text-center">
-                                <input type="submit" class="btn btn-primary" onclick="savedata()" name="save" id="save">
+                                <input type="submit" class="btn btn-primary" onclick="editdata()" name="edit" id="edit">
 
                             </div>
                         </div>
@@ -111,7 +112,7 @@
 
                 data.forEach(element => {
                     // console.log(element);
-                    htmldata += `<input type="checkbox" name="product_cetagory[]" class="cet" value="${element.id}" id="${element.cetagory}"> <label for="${element.cetagory}"> ${element.cetagory}</label>`
+                    htmldata += `<input type="checkbox" name="product_cetagory[]" class="cet" value="${element.id}" id="${element.id}"> <label for="${element.cetagory}"> ${element.cetagory}</label>`
 
                 });
                 $('#cetagorydata').html(htmldata)
@@ -120,33 +121,85 @@
     }
 
     $(window).on('load', function(e) {
-      
-      update()
+
+        update()
     })
 
-    function update(){
-        var id=<?php echo $id;?>;
+    function update() {
+        var id = <?php echo $id; ?>;
 
         $.ajax({
             type: "POST",
-            data:{id:id},
-            url:"fetcheditproductdata",
-            success:function(response){
+            data: {
+                id: id
+            },
+            url: "fetcheditproductdata",
+            success: function(response) {
                 data = JSON.parse(response)
-                console.log(data);
-                $('#Product').val(data.Product);   
-                $('#product_discription').val(data.product_discription);   
-                $('#Price').val(data.Price);   
-                $('#quantity').val(data.quantity);   
-                if (data.type == "Return" ) {
+                // console.log(data);
+                $('#id').val(data.id);
+                $('#Product').val(data.Product);
+                $('#product_discription').val(data.product_discription);
+                $('#Price').val(data.Price);
+                $('#quantity').val(data.quantity);
+                if (data.rtype == "Return") {
                     $('input:radio[class=type][id=return]').prop('checked', true);
-                }else{
+                } else {
+                    
                     $('input:radio[class=type][id=nonreturn]').prop('checked', true);
-                } 
-                var crtagorydata= data.product_cetagory; 
+                }
+                var crtagorydata = data.product_cetagory;
+                var numbersArray = crtagorydata.split(',');
+                $.each(numbersArray, function(i, val) {
+
+                    $("input[value='" + val + "']").prop('checked', true);
+
+                });
                 
-                console.log(crtagorydata);
             }
         })
     }
+    function editdata(){
+        event.preventDefault();
+        cetagory=[];
+        $(".cet").each(function(e){
+            if($(this).is(":checked")){
+                cetagory.push($(this).val());
+            }
+        });
+        cetagory = cetagory.toString();
+        // console.log(cetagory);
+        var type = $(".type:checked").val();
+        var data ={
+            id:$('#id').val(),
+            Product:$('#Product').val(),
+            product_discription:$('#product_discription').val(),
+            Price:$('#Price').val(),
+            quantity:$('#quantity').val(),
+            type:type,  
+            product_cetagory:cetagory,
+            profile_pic:$('#profile_pic').val(),
+            
+        };
+
+        console.log(data);
+        $.ajax({
+        type:"POST",
+        data:data,
+        url:"editdataproduct",
+        success:function(response){
+            // data = JSON.parse(response)
+            // console.log(data);
+            // if(isset($_POST['edit'])){
+
+            //     if(data==1){
+                    
+            //     }
+            // }
+        }
+
+
+    });
+    }
+
 </script>

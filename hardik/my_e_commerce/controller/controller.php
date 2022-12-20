@@ -102,6 +102,11 @@ class Controller extends Model
                         
                     break;
                     
+                    case '/editdataproduct':
+                        $data = $this->updsateproduct($_POST);
+                        
+                    break;
+                    
 
 
                 default:

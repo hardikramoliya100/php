@@ -3,6 +3,9 @@
     <div class="float-right mr-5">
         <a href="addproduct" class="btn btn-primary">Add product</a>
     </div>
+    <div class="float-right mr-5">
+        <a href="cetagory" class="btn btn-primary">All Cetagory</a>
+    </div>
     
 </div>
 <div class="container">
@@ -45,7 +48,7 @@
                     <td>${element.product_discription}</td>
                     <td>${element.Price}</td>
                     <td>${element.quantity}</td>
-                    <td>${element.type}</td>
+                    <td>${element.rtype}</td>
                     <td>${element.product_cetagory}</td>
                     <td>${element.id}</td>
                     <td>

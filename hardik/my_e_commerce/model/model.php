@@ -69,7 +69,7 @@ public function insertproduct($data){
     $product_discription=$data['product_discription'];
     $Price=$data['Price'];
     $quantity=$data['quantity'];
-    $type=$data['type'];
+    $rtype=$data['type'];
     $product_cetagory=$data['product_cetagory'];
 
     // $profile_pic = 'noimg.png';
@@ -84,7 +84,7 @@ public function insertproduct($data){
             
     //     }
         
-        $query = "INSERT INTO  product VALUES('','$Product','$product_discription','$Price','$quantity','$product_cetagory','$type','')";
+        $query = "INSERT INTO  product VALUES('','$Product','$product_discription','$Price','$quantity','$product_cetagory','$rtype','')";
         $data=mysqli_query($this->conn, $query);
 }
 public function product(){
@@ -114,6 +114,18 @@ public function editproductdata($get){
     $data = mysqli_fetch_assoc(mysqli_query($this->conn,$query)) ;
     
     return $data;
+}
+public function updsateproduct($data){
+    $id=$data['id'];
+    $Product=$data['Product'];
+    $product_discription=$data['product_discription'];
+    $Price=$data['Price'];
+    $quantity=$data['quantity'];
+    $rtype=$data['type'];
+    $product_cetagory=$data['product_cetagory'];
+
+    $query = "UPDATE product SET Product='$Product',product_discription='$product_discription',rtype='$rtype',Price='$Price',quantity='$quantity',product_cetagory='$product_cetagory' WHERE id='$id'";
+    $data = mysqli_query($this->conn, $query);
 }
     
 }
