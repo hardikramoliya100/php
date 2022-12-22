@@ -73,7 +73,7 @@
                                 <input type="date" placeholder="Enter Password " class="form-control" name="date" id="date" required>
                             </div>
                         </div>
-                        
+
 
 
 
@@ -108,15 +108,15 @@
 <script>
     document.getElementById('email').addEventListener("keyup", function() {
 
-var RegX = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
-if (RegX.test(this.value)) {
-  document.getElementById("emailerrer").innerHTML = "";
+        var RegX = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
+        if (RegX.test(this.value)) {
+            document.getElementById("emailerrer").innerHTML = "";
 
 
-} else {
-  document.getElementById("emailerrer").innerHTML = "invalid item";
+        } else {
+            document.getElementById("emailerrer").innerHTML = "invalid item";
 
-}
+        }
 
-})
+    })
 </script>

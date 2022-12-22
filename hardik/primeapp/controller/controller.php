@@ -20,30 +20,30 @@ class Controller extends Model
                     if (isset($_POST['save'])) {
                         if ($_POST['username'] != $_POST['password']) {
                             $name = ($_POST["username"]);
-                            if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
-                              echo "<script>alert('Invalid username format') </script>";
-                              header("location:Registration");
+                            if (!preg_match("/^[a-zA-Z-' ]*$/", $name)) {
+                                echo "<script>alert('Invalid username format') </script>";
+                                header("location:Registration");
                             }
                             $fname = ($_POST["firstname"]);
-                            if (!preg_match("/^[a-zA-Z-' ]*$/",$fname)) {
+                            if (!preg_match("/^[a-zA-Z-' ]*$/", $fname)) {
                                 echo "<script>alert('Invalid firstname format') </script>";
                                 header("location:Registration");
                             }
                             $lname = ($_POST["lastname"]);
-                            if (!preg_match("/^[a-zA-Z-' ]*$/",$lname)) {
+                            if (!preg_match("/^[a-zA-Z-' ]*$/", $lname)) {
                                 echo "<script>alert('Invalid lastname format') </script>";
                                 header("location:Registration");
                             }
-                            
-                            $email =($_POST["email"]);
+
+                            $email = ($_POST["email"]);
                             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                                
+
                                 echo "<script>alert('Invalid email format') </script>";
-                                
+
                                 header("location:Registration");
                             }
                             $password = $_POST["password"];
-                            if (strpos($password,$name) !== false) {
+                            if (strpos($password, $name) !== false) {
                                 echo 'Username found in the password';
                                 echo "<script>alert('Username found in the password') </script>";
                             }
@@ -85,9 +85,9 @@ class Controller extends Model
                             $LoginData = $this->login($_POST['username'], $_POST['password']);
 
                             $this->addlog($LoginData['id']);
-                            
 
-                            
+
+
                             if (isset($LoginData['id'])) {
                                 $_SESSION['userdata'] = $LoginData;
 
@@ -121,7 +121,7 @@ class Controller extends Model
 
                     break;
             }
-        }else{
+        } else {
             header("location:login");
         }
     }
