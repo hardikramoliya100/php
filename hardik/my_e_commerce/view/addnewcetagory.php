@@ -50,9 +50,15 @@
             type:"POST",
             data:data,
             success:function(response){
-                if(response==1){
-                    
-                }
+                data = JSON.parse(response)
+                console.log(data);
+               
+
+                    if (data == 2) {
+                        window.location.href="cetagory"
+                    } else {
+                        alert("Error")
+                    }
             }
 
 

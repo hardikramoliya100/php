@@ -77,12 +77,11 @@ function editdata(){
         success:function(response){
             data = JSON.parse(response)
             console.log(data);
-            if(isset($_POST['edit'])){
+            
 
-                if(data==1){
-                    
+                if(data==2){
+                    window.location.href="cetagory"
                 }
-            }
         }
 
 

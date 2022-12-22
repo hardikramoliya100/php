@@ -3,7 +3,7 @@
     <div class="float-right mr-5">
         <a href="product" class="btn btn-primary">all product</a>
     </div>
-    
+
 </div>
 <div class="container">
     <div class="row">
@@ -78,7 +78,9 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <input type="file" class="" name="profile_pic" id="profile_pic">
+
+                                <input type="file" name="fileToUpload" id="fileToUpload">
+                                <input type="button" value="Upload Image" name="upload_file" id="upload_file" onclick="image_upload(this.form);">
                             </div>
                         </div>
 
@@ -121,41 +123,61 @@
 
     function savedata() {
         event.preventDefault();
-        cetagory=[];
-        $(".cet").each(function(e){
-            if($(this).is(":checked")){
+        cetagory = [];
+        $(".cet").each(function(e) {
+            if ($(this).is(":checked")) {
                 cetagory.push($(this).val());
             }
         });
         cetagory = cetagory.toString();
         // console.log(cetagory);
         var type = $(".type:checked").val();
-        var data ={
-            Product:$('#Product').val(),
-            product_discription:$('#product_discription').val(),
-            Price:$('#Price').val(),
-            quantity:$('#quantity').val(),
-            type:type,  
-            product_cetagory:cetagory,
-            profile_pic:$('#profile_pic').val(),
-            
+        var data = {
+            Product: $('#Product').val(),
+            product_discription: $('#product_discription').val(),
+            Price: $('#Price').val(),
+            quantity: $('#quantity').val(),
+            type: type,
+            product_cetagory: cetagory,
+            profile_pic: $('#profile_pic').val(),
+
         };
-      
+
         $.ajax({
-            url:"newproductdata",
-            type:"POST",
-            data:data,
-            success:function(response){
-                if(response==1){
-                    
+            url: "newproductdata",
+            type: "POST",
+            data: data,
+            success: function(response) {
+                data = JSON.parse(response)
+                console.log(data);
+
+
+                if (data == 2) {
+                    window.location.href = "product"
+                } else {
+                    alert("Error")
                 }
+
             }
 
 
         });
-        
-     
-        
-        
+    }
+
+    function image_upload(form) {
+        console.log(form);
+        jQuery.ajax({
+
+            type: 'POST',
+            url: 'uploadimg',
+            data: new FormData(form),
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(result) {
+                ///alert(result);  
+
+            }
+        });
     }
 </script>

@@ -7,8 +7,10 @@ include_once("model/model.php");
 
 class Controller extends Model
 {
+   
     public function __construct()
     {
+        ob_start();
         parent::__construct();
      
 
@@ -83,7 +85,7 @@ class Controller extends Model
 
                     case '/deletecourse':
                         $data = $this->delete($_POST['id']);   
-                        return $data;
+                        echo json_encode($data);
                         
                     break;
                     
@@ -94,6 +96,7 @@ class Controller extends Model
                     break;
                     case '/newproductdata':
                         $data = $this->insertproduct($_POST);
+                        echo json_encode($data);
                         
                     break;
                     case '/fetcheditproductdata':
@@ -103,7 +106,18 @@ class Controller extends Model
                     break;
                     
                     case '/editdataproduct':
-                        $data = $this->updsateproduct($_POST);
+                        $data = $this->updateproduct($_POST);
+                        echo json_encode($data);
+                        
+                    break;
+                    case '/onecetagory':
+                        $data = $this->name($_POST);
+                        echo json_encode($data);
+                        
+                    break;
+                    case '/uploadimg':
+                        $data = $this->updateproduct($_POST);
+                        echo json_encode($data);
                         
                     break;
                     
@@ -114,6 +128,7 @@ class Controller extends Model
                     break;
             }
         }
+        ob_flush();
     }
 }
 

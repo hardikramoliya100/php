@@ -26,10 +26,9 @@ class Model
     public function insert($data){
         $cetagory = $data['cetagory'];
         $query = "INSERT INTO  cetagories VALUES('','$cetagory')";
-        $yes = mysqli_query($this->conn, $query);   
-        $a=0;
-        if($yes){
-            $a=1;
+        $data = mysqli_query($this->conn, $query);   
+        if($data>0){
+            $a=2;
         }
         return $a;
 }
@@ -44,10 +43,8 @@ class Model
             $query = "UPDATE cetagories SET cetagory='$cetagory' WHERE id='$id'";
             $data = mysqli_query($this->conn, $query);
 
-            if ($data>0) {
-                $a=1;
-            }else{
-                $a=0;
+            if($data>0){
+                $a=2;
             }
             return $a;
         
@@ -57,8 +54,10 @@ class Model
 public function delete($get){
     // $id=$get['id'];
     $query = "DELETE FROM cetagories WHERE id='$get'";
-    mysqli_query($this->conn, $query);
-    $a=1;
+    $data=mysqli_query($this->conn, $query);
+    if($data>0){
+        $a=2;
+    }
     return $a;
 }
 public function insertproduct($data){
@@ -86,6 +85,10 @@ public function insertproduct($data){
         
         $query = "INSERT INTO  product VALUES('','$Product','$product_discription','$Price','$quantity','$product_cetagory','$rtype','')";
         $data=mysqli_query($this->conn, $query);
+        if($data>0){
+            $a=2;
+        }
+        return $a;
 }
 public function product(){
     $query = "SELECT * FROM  product";
@@ -115,7 +118,7 @@ public function editproductdata($get){
     
     return $data;
 }
-public function updsateproduct($data){
+public function updateproduct($data){
     $id=$data['id'];
     $Product=$data['Product'];
     $product_discription=$data['product_discription'];
@@ -126,6 +129,18 @@ public function updsateproduct($data){
 
     $query = "UPDATE product SET Product='$Product',product_discription='$product_discription',rtype='$rtype',Price='$Price',quantity='$quantity',product_cetagory='$product_cetagory' WHERE id='$id'";
     $data = mysqli_query($this->conn, $query);
+    if($data>0){
+        $a=2;
+    }
+    return $a;
+}
+public function name($data){
+    $id=$data['id'];
+    
+
+    $query = "SELECT cetagory FROM  cetagories WHERE id='$id'";
+    $data = mysqli_fetch_assoc(mysqli_query($this->conn,$query)) ;
+    return $data;
 }
     
 }

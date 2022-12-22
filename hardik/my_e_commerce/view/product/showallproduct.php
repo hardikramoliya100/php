@@ -6,7 +6,7 @@
     <div class="float-right mr-5">
         <a href="cetagory" class="btn btn-primary">All Cetagory</a>
     </div>
-    
+
 </div>
 <div class="container">
     <table class="table table-bordered">
@@ -42,6 +42,8 @@
                 htmldata = "";
                 a = 1;
                 data.forEach(element => {
+                    callback(element.product_cetagory);
+                    
                     htmldata += `<tr>
                     <td>${a++}</td>
                     <td>${element.Product}</td>
@@ -60,36 +62,57 @@
                     
                     </tr>
                     `
-
+                    // var img =callback(element.product_cetagory);
+                    // console.log( callback(element.product_cetagory));
                 });
                 $('#formdata').html(htmldata)
             }
         })
     }
 
+    function callback(data) {
+        var crtagorydata = data;
+        var numbersArray = crtagorydata.split(',');
+        $.each(numbersArray, function(i, val) {
+            $.ajax({
+                url: "onecetagory",
+                type: "POST",
+                data: {id:val},
+                success: function(response) {
+                    data = JSON.parse(response)
+                    var ceta = data.cetagory;
+                    console.log(ceta);
+
+                }
+
+
+            });
+
+
+        })
+    }
+
     function deletecetagory(id) {
 
-$.ajax({
+        $.ajax({
 
 
-    type: "post",
-    data: {
-        id: id
-    },
-    url: "deleteprouduct",
-    success: function(response) {
-        console.log(response);
-        data = JSON.parse(response)
-        if (data == 2) {
+            type: "post",
+            data: {
+                id: id
+            },
+            url: "deleteprouduct",
+            success: function(response) {
+                console.log(response);
+                data = JSON.parse(response)
+                console.log(data);
+                if (data == 2) {
 
-            fetchdata();
-        } else {
-            alert("Error while inserting")
-        }
+                    fectchdata();
+                } else {
+                    alert("Error")
+                }
+            }
+        })
     }
-})
-}
 </script>
-
-
-
