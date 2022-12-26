@@ -3,8 +3,7 @@
     <div class="float-right mr-5">
         <a href="addcetagory" class="btn btn-primary">Add Cetagory</a>
         <a href="product" class="btn btn-primary">All Prouct</a>
-    </div>
-    
+    </div>  
 </div>
 <div class="container">
     <table class="table table-bordered">
@@ -70,7 +69,6 @@
                 data = JSON.parse(response)
                 // console.log(data);
                 if (data == 2) {
-
                     fectchdata();
                 } else {
                     alert("Error")

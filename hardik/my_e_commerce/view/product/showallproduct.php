@@ -42,8 +42,8 @@
                 htmldata = "";
                 a = 1;
                 data.forEach(element => {
-                    callback(element.product_cetagory);
-                    
+                    ab = callback(element.product_cetagory);
+                    console.log(ab);
                     htmldata += `<tr>
                     <td>${a++}</td>
                     <td>${element.Product}</td>
@@ -57,9 +57,8 @@
                     
                     <a class="btn btn-sm btn-primary" href="productedit?id=${element.id}">Edit</a>
                     <button onclick="deletecetagory(${element.id})" class="btn btn-danger">delete</button>
+
                     </td>
-                    
-                    
                     </tr>
                     `
                     // var img =callback(element.product_cetagory);
@@ -81,26 +80,16 @@
                 success: function(response) {
                     data = JSON.parse(response)
                     var ceta = data.cetagory;
-                    console.log(ceta);
-
                 }
-
-
             });
-
-
         })
     }
 
     function deletecetagory(id) {
 
         $.ajax({
-
-
             type: "post",
-            data: {
-                id: id
-            },
+            data: {id: id},
             url: "deleteprouduct",
             success: function(response) {
                 console.log(response);
