@@ -10,6 +10,8 @@
             <th>Tage</th>
             <th>Comment</th>
             <th>Date</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
     </thead>
     <tbody>
@@ -47,7 +49,18 @@
             echo "<td>$post_id</td>";
             echo "<td>$post_author</td>";
             echo "<td>$post_title</td>";
-            echo "<td>$post_category_id</td>";
+
+            $query = "SELECT * FROM category WHERE cat_id='{$post_category_id}'";
+            $category_edit = mysqli_query($connection, $query);
+
+            while ($row = mysqli_fetch_assoc($category_edit)) {
+                $cat_title = $row['cat_title'];
+
+                echo "<td>$cat_title</td>";
+            }
+
+
+
             echo "<td>$post_status</td>";
             echo "<td><img width='100' src='../images/$post_image' alt=''></td>";
             echo "<td>$post_tage</td>";
