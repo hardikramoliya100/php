@@ -66,8 +66,8 @@
             echo "<td>$post_tage</td>";
             echo "<td>$post_comment_count</td>";
             echo "<td>$post_date</td>";
-            echo "<td><a href='posts.php?sourse=edit_post&p_id=$post_id'>EDIT</a></td>";
-            echo "<td><a href='posts.php?delete=$post_id'>DELETE</a></td>";
+            echo "<td><a class='btn btn-warning btn-sm' href='posts.php?sourse=edit_post&p_id=$post_id'>EDIT</a></td>";
+            echo "<td><a class='btn btn-danger btn-sm ' href='posts.php?delete=$post_id'>DELETE</a></td>";
             echo "</tr>";
         }
 

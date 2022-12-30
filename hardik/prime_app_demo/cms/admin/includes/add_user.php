@@ -7,7 +7,7 @@ if (isset($_POST['add_user'])) {
     $password = $_POST['password'];
     $user_firstname = $_POST['user_firstname'];
     $user_lastname = $_POST['user_lastname'];
-    $user_email	 = $_POST['user_email	'];
+    $user_email	= $_POST['user_email'];
 
     $user_image = $_FILES['image']['name'];
     $user_image_temp = $_FILES['image']['tmp_name'];
@@ -17,10 +17,12 @@ if (isset($_POST['add_user'])) {
 
     move_uploaded_file($user_image_temp, "images/$user_image");
 
-    $query = "INSERT INTO `posts`(`post_category_id`, `post_title`, `post_author`, `post_date`, `post_image`, `post_content`, `post_tage`, `post_status`) ";
-    $query .= "VALUES ('$post_category_id', '$post_title', '$post_author', now(), '$post_image', '$post_content', '$post_tage', '$post_status')";
+    $query="INSERT INTO `user`( `username`, `password`, `user_firstname`, `user_lastname`, `user_email`, `user_image`, `user_role`) ";
+    $query .="VALUES('$username', '$password', '$user_firstname', '$user_lastname', '$user_email', '$user_image', '$user_role')";
 
-    $insert_post = mysqli_query($connection, $query);
+    $insert_user = mysqli_query($connection, $query);
+
+   
 
     header("location:user.php");
 }
@@ -58,18 +60,24 @@ if (isset($_POST['add_user'])) {
 
     <div class="form-group">
         <label for="image">User Image</label>
-        <input type="file" name="user_image">
+        <input type="file" name="image">
     </div>
 
     <div class="form-group">
         <label for="user_role">Role</label>
-        <input type="text" class="form-control" name="user_role" required>
+        
+        <select class="form-control" style="width: 20%;" name="user_role" id="">
+            <option value="admin">Select Role</option>
+            <option value="admin">Admin</option>
+            <option value="subcraibar">subcraibar</option>
+
+        </select>
     </div>
 
    
 
     <div class="form-group">
-        <input type="submit" class="btn btn-primary" name="add_user" value="Public Post">
+        <input type="submit" class="btn btn-success" name="add_user" value="Add New User">
     </div>
 
 </form>

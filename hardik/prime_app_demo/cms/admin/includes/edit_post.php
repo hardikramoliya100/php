@@ -46,6 +46,8 @@ if(isset($_POST['update_post'])){
 
     $update_post = mysqli_query($connection,$query); 
 
+  
+
     header("location:posts.php");
 }
 
@@ -60,7 +62,7 @@ if(isset($_POST['update_post'])){
     <div class="form-group">
         <label for="post_category_id">Post category</label>
         
-        <select name="post_category_id" id="">
+        <select class="form-control" style="width: 20%;" name="post_category_id" id="">
             <?php
             
             $query = "SELECT * FROM category";
@@ -69,8 +71,13 @@ if(isset($_POST['update_post'])){
             while ($row = mysqli_fetch_assoc($category_data)) {
                 $cat_title = $row['cat_title'];
                 $cat_id = $row['cat_id'];
-                 echo "<option value='$cat_id'>$cat_title</option>";
-                
+                ?>
+
+                 <option value='<?php echo $cat_id; ?>' selected='<?php if ($post_category_id == $cat_id) {
+                                        echo "selected";
+                                    } ?>'><?php echo $cat_title; ?></option>
+               
+               <?php
             }
             
             ?>
@@ -105,7 +112,7 @@ if(isset($_POST['update_post'])){
     </div>
 
     <div class="form-group">
-        <input type="submit" class="btn btn-primary" name="update_post" value="Update Post">
+        <input type="submit" class="btn btn-warning" name="update_post" value="Update Post">
     </div>
 
 </form>

@@ -45,7 +45,7 @@ if (isset($_POST['creat_post'])) {
 
     <div class="form-group">
         <label for="post_category_id">Post category id</label>
-        <select name="post_category_id" id="">
+        <select class="form-control" style="width: 20%;" name="post_category_id" id="">
             <?php
 
             $query = "SELECT * FROM category";
@@ -87,7 +87,7 @@ if (isset($_POST['creat_post'])) {
     </div>
 
     <div class="form-group">
-        <input type="submit" class="btn btn-primary" name="creat_post" value="Public Post">
+        <input type="submit" class="btn btn-success" name="creat_post" value="Public Post">
     </div>
 
 </form>

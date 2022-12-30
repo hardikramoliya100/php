@@ -19,7 +19,7 @@
             if (isset($_POST['submit'])) {
                 $search = $_POST['search'];
 
-                $query = "SELECT * FROM posts WHERE post_tage LIKE '%$search%'";
+                $query = "SELECT * FROM posts WHERE post_tage LIKE '%$search%' OR post_title LIKE '%$search%' OR post_content LIKE '%$search%' OR post_author LIKE '%$search%'";
                 $search_data = mysqli_query($connection, $query);
 
                 if (!$search_data) {
