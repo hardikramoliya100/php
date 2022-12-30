@@ -8,8 +8,7 @@
             <th>Email</th>
             <th>Image</th>
             <th>Role</th>
-            <!-- <th>Admin</th>
-            <th>Subscriber</th> -->
+          
             <th>Edit</th>
             <th>Delete</th>
         </tr>
@@ -77,7 +76,7 @@
 
 
             echo "<td><a class='btn btn-warning btn-sm' href='user.php?sourse=edit_user&u_id=$user_id'>EDIT</a></td>";
-            echo "<td><a class='btn btn-danger btn-sm' href='user.php?delete=$user_id'>DELETE</a></td>";
+            echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delete'); \" class='btn btn-danger btn-sm' href='user.php?delete=$user_id'>DELETE</a></td>";
             echo "</tr>";
         }
 

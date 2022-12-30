@@ -19,6 +19,10 @@
                 $the_post_id = $_GET['p_id'];
             }
 
+            $query = "UPDATE posts SET post_view_count = post_view_count + 1 ";
+            $query .= "WHERE post_id ='$the_post_id'";
+            mysqli_query($connection, $query);
+
             $query = "SELECT * FROM posts WHERE post_id =' $the_post_id'";
             $posts_data = mysqli_query($connection, $query);
 
@@ -52,7 +56,6 @@
                 <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="" width="500" height="200">
                 <hr>
                 <p><?php echo $post_content; ?></p>
-                <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
                 <hr>
             <?php }  ?>
@@ -60,80 +63,80 @@
             <?php
 
 
-if (isset($_POST['creat_comment'])) {
+            if (isset($_POST['creat_comment'])) {
 
-    $the_post_id = $_GET['p_id'];
-    $comment_author = $_POST['comment_author'];
-    $comment_email = $_POST['comment_email'];
-    $comment_content = $_POST['comment_content'];
+                $the_post_id = $_GET['p_id'];
+                $comment_author = $_POST['comment_author'];
+                $comment_email = $_POST['comment_email'];
+                $comment_content = $_POST['comment_content'];
 
-    $query = "INSERT INTO comments(comment_post_id,comment_author,comment_email,comment_content,comment_status,comment_date) ";
-    $query .= "VALUES ('$the_post_id','$comment_author','$comment_email','$comment_content','unapproved',now())";
+                $query = "INSERT INTO comments(comment_post_id,comment_author,comment_email,comment_content,comment_status,comment_date) ";
+                $query .= "VALUES ('$the_post_id','$comment_author','$comment_email','$comment_content','unapproved',now())";
 
-    $insert_comment = mysqli_query($connection, $query);
-    
-    $query = "UPDATE posts SET post_comment_count = post_comment_count + 1 ";
-    $query .= "WHERE post_id ='$the_post_id'";
-    
-    $add_commnet_count = mysqli_query($connection, $query);
-}
+                $insert_comment = mysqli_query($connection, $query);
 
-?>
+                $query = "UPDATE posts SET post_comment_count = post_comment_count + 1 ";
+                $query .= "WHERE post_id ='$the_post_id'";
 
-    <div class="well">
+                $add_commnet_count = mysqli_query($connection, $query);
+            }
 
-        <h4>Leave a comment</h4>
-        <form action="" method="POST">
-            <div class="form-group">
-                <label for="comment_author">Author</label>
-                <input type="text" class="form-control" name="comment_author" required>
+            ?>
+
+            <div class="well">
+
+                <h4>Leave a comment</h4>
+                <form action="" method="POST">
+                    <div class="form-group">
+                        <label for="comment_author">Author</label>
+                        <input type="text" class="form-control" name="comment_author" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment_email">Email</label>
+                        <input type="email" class="form-control" name="comment_email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment_content">Comment</label>
+                        <textarea name="comment_content" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" name="creat_comment" class="btn btn-primary">Comment</button>
+                    </div>
+
+                </form>
             </div>
-            <div class="form-group">
-                <label for="comment_email">Email</label>
-                <input type="email" class="form-control" name="comment_email" required>
-            </div>
-            <div class="form-group">
-                <label for="comment_content">Comment</label>
-                <textarea name="comment_content" class="form-control" rows="3" required></textarea>
-            </div>
-            <div class="form-group">
-                <button type="submit" name="creat_comment" class="btn btn-primary">Comment</button>
-            </div>
 
-        </form>
-    </div>
+            <hr>
 
-    <hr>
+            <?php
 
-    <?php
+            $query = "SELECT * FROM comments WHERE comment_post_id='$the_post_id' ";
+            $query .= "AND comment_status='approved' ";
+            $query .= "ORDER BY comment_id DESC ";
 
-    $query = "SELECT * FROM comments WHERE comment_post_id='$the_post_id' ";
-    $query .= "AND comment_status='approved' ";
-    $query .= "ORDER BY comment_id DESC ";
+            $select_comment = mysqli_query($connection, $query);
 
-    $select_comment = mysqli_query($connection, $query);
-
-    while ($row = mysqli_fetch_assoc($select_comment)) {
-        $comment_author = $row['comment_author'];
-        $comment_content = $row['comment_content'];
-        $comment_date = $row['comment_date'];
-    ?>
+            while ($row = mysqli_fetch_assoc($select_comment)) {
+                $comment_author = $row['comment_author'];
+                $comment_content = $row['comment_content'];
+                $comment_date = $row['comment_date'];
+            ?>
 
 
-        <div class="media">
-            <a class="pull-left" href="#">
-                <img class="media-object" src="" alt="">
-            </a>
-            <div class="media-body">
-                <h4 class="media-body"><?php echo $comment_author; ?>
-                    <small><?php echo $comment_date; ?></small>
-                </h4>
-                <?php echo $comment_content; ?>
-            </div>
-        </div>
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="" alt="">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-body"><?php echo $comment_author; ?>
+                            <small><?php echo $comment_date; ?></small>
+                        </h4>
+                        <?php echo $comment_content; ?>
+                    </div>
+                </div>
 
 
-    <?php } ?>
+            <?php } ?>
 
 
 
@@ -156,7 +159,7 @@ if (isset($_POST['creat_comment'])) {
     <!-- /.row -->
 
     <hr>
-    
+
 
 
 

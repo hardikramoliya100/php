@@ -39,6 +39,18 @@ if (isset($_POST['edit_user'])) {
         $user_image = $old_image;
     }
 
+
+    $query = "SELECT randslot FROM user";
+    $select_randslot = mysqli_query($connection, $query);
+
+    $row = mysqli_fetch_array($select_randslot);
+    $salt = $row['randslot'];
+    $password = crypt($password, $salt);
+
+
+
+
+
     $query = "UPDATE `user` SET `username` = '$username', `password` = '$password', `user_firstname` = '$user_firstname', `user_lastname` = '$user_lastname',
      `user_email` = '$user_email', `user_image` = '$user_image', `user_role` = '$user_role' WHERE `user_id` = '$u_id';";
 
@@ -65,7 +77,7 @@ if (isset($_POST['edit_user'])) {
 
     <div class="form-group">
         <label for="password">Password</label>
-        <input type="text" value="<?php echo $password; ?>" class="form-control" name="password" required>
+        <input type="password" value="<?php echo $password; ?>" class="form-control" name="password" required>
     </div>
 
     <div class="form-group">

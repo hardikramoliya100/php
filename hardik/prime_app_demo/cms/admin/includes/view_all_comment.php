@@ -8,8 +8,8 @@
             <th>Status</th>
             <th>In Respons To</th>
             <th>Date</th>
-            <th>Approve</th>
-            <th>Unapprove</th>
+            <th>Change Status</th>
+            <!-- <th>Unapprove</th> -->
             <th>Delete</th>
         </tr>
     </thead>
@@ -108,9 +108,15 @@
 
             echo "<td>$comment_date</td>";
 
-            echo "<td><a href='comments.php?approve=$comment_id'>Approve</a></td>";
-            echo "<td><a href='comments.php?unapprove=$comment_id'>Unapprove</a></td>";
-            echo "<td><a href='comments.php?delete=$comment_id'>DELETE</a></td>";
+            if ($comment_status == 'unapproved') {
+                echo "<td><a href='comments.php?approve=$comment_id'>Approve</a></td>";
+                
+            }else {
+                
+                echo "<td><a href='comments.php?unapprove=$comment_id'>Unapprove</a></td>";
+            }
+
+            echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delete'); \" class='btn btn-danger btn-sm' href='comments.php?delete=$comment_id'>DELETE</a></td>";
             echo "</tr>";
         }
 

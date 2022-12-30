@@ -47,12 +47,13 @@ if(isset($_POST['update_post'])){
     $update_post = mysqli_query($connection,$query); 
 
   
-
-    header("location:posts.php");
+    echo "<p class='bg-success'>Post Update.<a href='../post.php?p_id={$post_id}'>View Post</a>  or  <a href='posts.php'>Edit more Post</a></p>";
+    // header("location:posts.php");
 }
 
 
 ?>
+<a href="../posts.php?p_id={$post_id}"></a>
 <form action="" method="POST" enctype="multipart/form-data">
     <div class="form-group">
         <label for="post_title">Post Title</label>
@@ -91,7 +92,24 @@ if(isset($_POST['update_post'])){
 
     <div class="form-group">
         <label for="post_status">Post Status</label>
-        <input type="text" value="<?php echo $post_status; ?>" class="form-control" name="post_status">
+        <select class="form-control" style="width: 20%;" name="post_status" id="">
+
+            <?php
+
+            if ($post_status == 'draft') {
+
+                echo "<option value='draft' >Draft</option>";
+            } else {
+
+                echo "<option value='published' >Published</option>";
+            }
+            ?>
+
+
+            <option value="draft">Draft</option>
+            <option value="published">published</option>
+
+        </select>
     </div>
 
     <div class="form-group">
@@ -108,7 +126,7 @@ if(isset($_POST['update_post'])){
 
     <div class="form-group">
         <label for="post_content">Post Contnt</label>
-        <textarea name="post_content"  class="form-control" id="" cols="30" rows="10"><?php echo $post_content; ?></textarea>
+        <textarea name="post_content"  class="form-control" id="summernote" cols="30" rows="10"><?php echo $post_content; ?></textarea>
     </div>
 
     <div class="form-group">

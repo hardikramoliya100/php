@@ -33,8 +33,8 @@ function selectAllCategories()
         echo "<tr>";
         echo "<th>{$cat_id}</th>";
         echo "<th>{$cat_title}</th>";
-        echo "<th><a href='categories.php?delete={$cat_id}'>DELETE</a></th>";
-        echo "<th><a href='categories.php?edit={$cat_id}'>EDIT</a></th>";
+        echo "<th><a onClick=\"javascript: return confirm('Are you sure you want to delete'); \" class='btn btn-danger btn-sm' href='categories.php?delete={$cat_id}'>DELETE</a></th>";
+        echo "<th><a class='btn btn-success btn-sm' href='categories.php?edit={$cat_id}'>EDIT</a></th>";
         echo "</tr>";
     }
 }

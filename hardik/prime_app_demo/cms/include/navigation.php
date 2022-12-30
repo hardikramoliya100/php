@@ -43,11 +43,41 @@
                 }
 
                 ?>
+                <?php
+
+                if (isset($_SESSION['user_role'])) {
+                    if ($_SESSION['user_role'] == 'admin') {
+                        if (isset($_GET['p_id'])) {
+                            $p_id =  $_GET['p_id'];
+                            echo "<li><a href='admin/posts.php?sourse=edit_post&p_id={$p_id}'>Edit Post</a></li>";
+                        }
+                    }
+                }
+
+                ?>
+
 
                 <li>
-                        <a href="include/logout.php">Logout</a>
-                    </li>
-                    <!-- <li>
+                    <a href="registration.php">Registration</a>
+                </li>
+
+                <?php
+
+                if (isset($_SESSION['user_role'])) {
+                    if ($_SESSION['user_role'] == 'admin') { ?>
+
+
+                        <li>
+                            <a href="include/logout.php">Logout</a>
+                        </li>
+
+                <?php
+                    }
+                }
+
+                ?>
+
+                <!-- <li>
                         <a href="#">Contact</a>
                     </li> -->
             </ul>
