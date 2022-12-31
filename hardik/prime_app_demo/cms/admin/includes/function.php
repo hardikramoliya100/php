@@ -49,5 +49,53 @@ function deleteCategory()
 
         header("location:categories.php");
     }
-    
 }
+// function redirect($location){
+//     return header(header:"Location".$location);
+// }
+
+function online_user()
+{
+
+    // if (isset($_GET['onlineuser'])) {
+
+        global $connection;
+
+        if (!$connection) {
+            session_start();
+            include("../../include/db.php");
+
+
+
+
+            $session = session_id();
+            $time = time();
+            $time_in_second = 30;
+            $time_out = $time - $time_in_second;
+
+            $query = "SELECT * FROM user_online WHERE session = '$session'";
+
+            $count = mysqli_num_rows(mysqli_query($connection, $query));
+
+            if ($count == NULL) {
+
+                $query = "INSERT INTO user_online(session,time) VALUE('$session','$time')";
+
+                $insert_session = mysqli_query($connection, $query);
+            } else {
+
+                $query = "UPDATE user_online SET time='$time' WHERE session='$session'";
+
+                $update_session = mysqli_query($connection, $query);
+            }
+
+            $query = "SELECT * FROM user_online WHERE time > '$time_out'";
+
+            $count_online_user = mysqli_num_rows(mysqli_query($connection, $query));
+
+            echo $count_online_user;
+        }
+    // }
+}
+
+online_user();

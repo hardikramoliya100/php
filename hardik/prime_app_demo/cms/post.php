@@ -39,10 +39,7 @@
 
 
 
-                <h1 class="page-header">
-                    Page Heading
-                    <small>Secondary Text</small>
-                </h1>
+               
 
                 <!-- First Blog Post -->
                 <h2>
@@ -79,6 +76,8 @@
                 $query .= "WHERE post_id ='$the_post_id'";
 
                 $add_commnet_count = mysqli_query($connection, $query);
+
+                // redirect(location:"cms/post.php?p_id=$the_post_id");
             }
 
             ?>

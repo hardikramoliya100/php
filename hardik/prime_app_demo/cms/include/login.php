@@ -21,16 +21,9 @@ if(isset($_POST['login'])){
     $user_role = $login_user['user_role'];
     $user_email = $login_user['user_email'];
     
-    $l_password= crypt($l_password,$password);
+    // $l_password= crypt($l_password,$password);
 
-    if($l_username !== $username && $l_password !== $password
-     ){
-        echo '<script>alert("anvalid Username and Password")</script>';
-        header("location:../index.php");
-    }else{
-
-
-
+    if(password_verify($l_password,$password)){
         $_SESSION['user_id']=$user_id;
         $_SESSION['username']=$username;
         $_SESSION['user_firstname']=$user_firstname;
@@ -45,6 +38,12 @@ if(isset($_POST['login'])){
         } else {
             header("location:../index.php");
         }
+    }else{
+        
+        echo '<script>alert("anvalid Username and Password")</script>';
+        header("location:../index.php");
+
+
         
     }
 

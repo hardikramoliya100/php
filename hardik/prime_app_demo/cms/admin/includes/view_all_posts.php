@@ -168,7 +168,7 @@ if (isset($_POST['checkBoxArray'])) {
                 echo "<td>$post_status</td>";
                 echo "<td><img width='100' src='../images/$post_image' alt=''></td>";
                 echo "<td>$post_tage</td>";
-                echo "<td>$post_comment_count</td>";
+                echo "<td><a href='post_comment.php?p_id=$post_id'>$post_comment_count</a></td>";
                 echo "<td>$post_date</td>";
                 echo "<td><a class='btn btn-success btn-sm' href='../post.php?p_id={$post_id}'>VIEW</a></td>";
                 echo "<td><a class='btn btn-warning btn-sm' href='posts.php?sourse=edit_post&p_id=$post_id'>EDIT</a></td>";

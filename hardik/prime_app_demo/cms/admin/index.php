@@ -2,7 +2,11 @@
 
 <div id="wrapper">
 
+<?php
 
+online_user();
+
+?>
     <?php include "includes/navigation.php"; ?>
 
 
@@ -17,6 +21,7 @@
                         Welcom Admin
                         <small><?php echo $_SESSION['username']; ?></small>
                     </h1>
+                   
 
                 </div>
             </div>

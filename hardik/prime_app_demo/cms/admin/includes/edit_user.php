@@ -5,10 +5,10 @@ if (isset($_GET['u_id'])) {
 
     $query = "SELECT * FROM user WHERE user_id='$u_id'";
     $user_data = mysqli_query($connection, $query);
-
+    
     while ($row = mysqli_fetch_assoc($user_data)) {
         $username = $row['username'];
-        $password = $row['password'];
+        $l_password = $row['password'];
         $user_firstname = $row['user_firstname'];
         $user_lastname = $row['user_lastname'];
         $user_email    = $row['user_email'];
@@ -19,7 +19,10 @@ if (isset($_GET['u_id'])) {
 
 
 if (isset($_POST['edit_user'])) {
-
+    // echo $l_password;
+    // echo "<br>";
+    // echo $_POST['password'];
+    // exit;
     $username = $_POST['username'];
     $password = $_POST['password'];
     $user_firstname = $_POST['user_firstname'];
@@ -29,26 +32,38 @@ if (isset($_POST['edit_user'])) {
 
     $user_image = $_FILES['image']['name'];
     $user_image_temp = $_FILES['image']['tmp_name'];
-
+    
     $user_role = $_POST['user_role'];
 
 
     move_uploaded_file($user_image_temp, "images/$user_image");
-
+    
     if (empty($user_image)) {
         $user_image = $old_image;
     }
-
-
-    $query = "SELECT randslot FROM user";
-    $select_randslot = mysqli_query($connection, $query);
-
-    $row = mysqli_fetch_array($select_randslot);
-    $salt = $row['randslot'];
-    $password = crypt($password, $salt);
-
-
-
+    
+    
+    // $query = "SELECT randslot FROM user";
+    // $select_randslot = mysqli_query($connection, $query);
+    
+    // $row = mysqli_fetch_array($select_randslot);
+    // $salt = $row['randslot'];
+    // $password = crypt($password, $salt);
+    if($l_password != $password){
+        
+        $password = password_hash($password , PASSWORD_BCRYPT ,array('cost'=>12));
+    }
+    
+    
+    // if(!empty($password)){
+        
+    //     $query = "SELECT password FROM user WHERE user_id='$u_id'";
+    //     $user_password =mysqli_fetch_array(mysqli_query($connection, $query));
+    //     $db_password = $user_password['password'];
+        
+    // }
+    
+    
 
 
     $query = "UPDATE `user` SET `username` = '$username', `password` = '$password', `user_firstname` = '$user_firstname', `user_lastname` = '$user_lastname',
@@ -77,7 +92,7 @@ if (isset($_POST['edit_user'])) {
 
     <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" value="<?php echo $password; ?>" class="form-control" name="password" required>
+        <input type="password" value="<?php echo $l_password; ?>" class="form-control" name="password" required>
     </div>
 
     <div class="form-group">

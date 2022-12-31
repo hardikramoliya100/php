@@ -13,44 +13,44 @@
             <div class="row">
                 <div class="col-lg-12">
 
-                <h1 class="page-header">
+                    <h1 class="page-header">
                         Welcom Admin
                         <small><?php echo $_SESSION['username']; ?></small>
                     </h1>
 
                     <?php
-                    
-                    if(isset($_GET['sourse'])){
-                        $sourse=$_GET['sourse'];
-                    }else{
-                        
-                        $sourse='';
+
+                    if (isset($_GET['sourse'])) {
+                        $sourse = $_GET['sourse'];
+                    } else {
+
+                        $sourse = '';
                     }
                     switch ($sourse) {
                         case 'add_post':
-                           
+
                             include "includes/add_post.php";
                             break;
 
                         case 'edit_post':
-                           
+
                             include "includes/edit_post.php";
                             break;
-                        
+
                         default:
 
-                        include "includes/view_all_comment.php";
+                            include "includes/view_all_comment.php";
                             # code...
                             break;
                     }
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+
+
+
+
+
+
+
+
                     ?>
 
 

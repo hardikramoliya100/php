@@ -16,6 +16,8 @@ if (isset($_POST['add_user'])) {
 
 
     move_uploaded_file($user_image_temp, "images/$user_image");
+    
+    $password = password_hash($password , PASSWORD_BCRYPT ,array('cost'=>12));
 
     $query="INSERT INTO `user`( `username`, `password`, `user_firstname`, `user_lastname`, `user_email`, `user_image`, `user_role`) ";
     $query .="VALUES('$username', '$password', '$user_firstname', '$user_lastname', '$user_email', '$user_image', '$user_role')";

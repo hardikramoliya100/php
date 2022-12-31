@@ -15,13 +15,15 @@ if (isset($_POST['submit'])) {
         $username = mysqli_real_escape_string($connection, $username);
         $password = mysqli_real_escape_string($connection, $password);
         $email = mysqli_real_escape_string($connection, $email);
+
+        $password = password_hash($password , PASSWORD_BCRYPT ,array('cost'=>12));
     
-        $query = "SELECT randslot FROM user";
-        $select_randslot = mysqli_query($connection, $query);
+        // $query = "SELECT randslot FROM user";
+        // $select_randslot = mysqli_query($connection, $query);
     
-        $row = mysqli_fetch_array($select_randslot);
-        $salt = $row['randslot'];
-        $password= crypt($password,$salt);
+        // $row = mysqli_fetch_array($select_randslot);
+        // $salt = $row['randslot'];
+        // $password= crypt($password,$salt);
 
         $query= "INSERT INTO `user` (`username`,`user_email`,`password`,`user_role`) VALUE ('$username','$email','$password','subscriber')";
     

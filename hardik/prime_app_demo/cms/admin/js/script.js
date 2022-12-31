@@ -19,3 +19,14 @@ $(document).ready(function() {
     });
 
   });
+
+  function loadUserOnline(){
+    $.get("includes/function.php?onlineuser=result",function(data){
+        $(".useronline").text(data);
+    });
+}
+
+
+setInterval(function(){
+    loadUserOnline();
+},500);

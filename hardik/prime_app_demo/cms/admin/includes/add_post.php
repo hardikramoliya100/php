@@ -4,7 +4,19 @@
 if (isset($_POST['creat_post'])) {
 
     $post_title = $_POST['post_title'];
-    $post_author = $_POST['post_author'];
+
+    if ($_POST['post_user'] == '') {
+        
+        $post_author = $_POST['post_author'];
+    }else{
+        
+        $post_author = $_POST['post_user'];
+
+    }
+
+//  echo $post_author;
+//  exit;
+
     $post_category_id = $_POST['post_category_id'];
     $post_status = $_POST['post_status'];
 
@@ -65,10 +77,32 @@ if (isset($_POST['creat_post'])) {
             ?>
         </select>
     </div>
-
+    
     <div class="form-group">
-        <label for="post_author">Post Author</label>
-        <input type="text" class="form-control" name="post_author" required >
+        <label for="">Post Author</label>
+
+
+        <select class="form-control" style="width: 20%;" name="post_user" id="">
+            <?php
+              echo "<option value=''>--------</option>";
+    
+            $query = "SELECT * FROM user";
+            $user_data = mysqli_query($connection, $query);
+    
+            while ($row = mysqli_fetch_assoc($user_data)) {
+                $user_id = $row['user_id'];
+                $username = $row['username'];
+                echo "<option value='$username'>$username</option>";
+            }
+    
+            ?>
+        </select>
+
+
+        <h5>or</h5>
+
+
+        <input type="text" class="form-control" name="post_author" >
     </div>
 
     <div class="form-group">
