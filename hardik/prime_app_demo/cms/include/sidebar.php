@@ -6,7 +6,7 @@
         <h4>Blog Search</h4>
 
 
-        <form action="search.php" method="post">
+        <form action="<?php echo $GLOBALS['url']; ?>search.php" method="post">
             <div class="input-group">
                 <input type="text" class="form-control" name="search">
                 <span class="input-group-btn">
@@ -32,7 +32,7 @@
             <h4>Login</h4>
 
 
-            <form action="include/login.php" method="post">
+            <form action="<?php echo $GLOBALS['url']; ?>include/login.php" method="post">
                 <div class="form-group">
                     <input type="text" class="form-control" name="username" placeholder="Enter Username">
                 </div>
@@ -41,6 +41,9 @@
                     <span class="input-group-btn">
                         <button class="btn btn-primary" name="login" type="submit">Submit</button>
                     </span>
+                </div>
+                <div class="form-group">
+                    <a href="<?php echo $GLOBALS['url']; ?>forgot.php">Forgot Password</a>
                 </div>
 
             </form>
@@ -64,11 +67,11 @@
             <div class="col-lg-12">
                 <ul class="list-unstyled">
                     <?php
-
+                    $url=$GLOBALS['url'];
                     while ($row = mysqli_fetch_assoc($category_data)) {
                         $cat_title = $row['cat_title'];
                         $cat_id = $row['cat_id'];
-                        echo "<li><a href='category.php?cat_id={$cat_id}'>{$cat_title}</a></li>";
+                        echo "<li><a href='".$url."category/{$cat_id}'>{$cat_title}</a></li>";
                     }
 
                     ?>

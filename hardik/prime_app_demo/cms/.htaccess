@@ -1,0 +1,7 @@
+RewriteEngine On
+
+RewriteRule ^(index|contact|registration)$ $1.php [NC,L]
+
+RewriteRule ^post/(\d+)$ post.php?p_id=$1
+
+RewriteRule ^category/(\d+)$ category.php?cat_id=$1

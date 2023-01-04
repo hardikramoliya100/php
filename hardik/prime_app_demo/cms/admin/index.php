@@ -2,11 +2,11 @@
 
 <div id="wrapper">
 
-<?php
+    <?php
 
-online_user();
+    online_user();
 
-?>
+    ?>
     <?php include "includes/navigation.php"; ?>
 
 
@@ -21,7 +21,7 @@ online_user();
                         Welcom Admin
                         <small><?php echo $_SESSION['username']; ?></small>
                     </h1>
-                   
+
 
                 </div>
             </div>
@@ -38,18 +38,10 @@ online_user();
                                     <i class="fa fa-file-text fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <?php
-
-                                    $query = "SELECT * FROM posts";
-
-                                    $total_post = mysqli_num_rows(mysqli_query($connection, $query));
-
-                                    echo "<div class='huge'>$total_post</div>"
+                                    
 
 
-                                    ?>
-
-
+                                    <div class='huge'><?php echo $total_post = datacount('posts'); ?></div>
 
 
 
@@ -76,15 +68,8 @@ online_user();
                                     <i class="fa fa-comments fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <?php
-                                    $query = "SELECT * FROM comments";
 
-                                    $total_comments = mysqli_num_rows(mysqli_query($connection, $query));
-
-                                    echo "<div class='huge'>$total_comments</div>"
-
-
-                                    ?>
+                                    <div class='huge'><?php echo $total_comments = datacount('comments'); ?></div>
                                     <div>Comments</div>
                                 </div>
                             </div>
@@ -107,15 +92,8 @@ online_user();
                                 </div>
                                 <div class="col-xs-9 text-right">
 
-                                    <?php
-                                    $query = "SELECT * FROM user";
 
-                                    $total_user = mysqli_num_rows(mysqli_query($connection, $query));
-
-                                    echo "<div class='huge'>$total_user</div>"
-
-
-                                    ?>
+                                    <div class='huge'><?php echo $total_user = datacount('user'); ?></div>
                                     <div> Users</div>
                                 </div>
                             </div>
@@ -139,15 +117,7 @@ online_user();
                                 <div class="col-xs-9 text-right">
 
 
-                                    <?php
-                                    $query = "SELECT * FROM category";
-
-                                    $total_category = mysqli_num_rows(mysqli_query($connection, $query));
-
-                                    echo "<div class='huge'>$total_category</div>"
-
-
-                                    ?>
+                                    <div class='huge'><?php echo $total_category = datacount('category'); ?></div>
                                     <div>Categories</div>
                                 </div>
                             </div>
@@ -166,27 +136,12 @@ online_user();
             <div class="row">
                 <?php
 
-                $query = "SELECT * FROM posts WHERE post_status = 'published'";
+                
 
-                $publised_post = mysqli_num_rows(mysqli_query($connection, $query));
-
-                $query = "SELECT * FROM posts WHERE post_status = 'draft'";
-
-                $draft_post = mysqli_num_rows(mysqli_query($connection, $query));
-
-                $query = "SELECT * FROM comments WHERE comment_status = 'unapproved'";
-
-                $unapproved_comment = mysqli_num_rows(mysqli_query($connection, $query));
-
-                $query = "SELECT * FROM user WHERE user_role ='subscriber'";
-
-                $subscriber_user = mysqli_num_rows(mysqli_query($connection, $query));
-
-
-
-
-
-
+                $publised_post = tabledata('posts', 'post_status', 'published');
+                $draft_post = tabledata('posts', 'post_status', 'draft');
+                $unapproved_comment = tabledata('comments', 'comment_status', 'unapproved');
+                $subscriber_user = tabledata('user', 'user_role', 'subscriber');
 
 
                 ?>
@@ -202,8 +157,8 @@ online_user();
                             ['data', 'count'],
                             <?php
 
-                            $element_text = ['All Post','Activ Post','Draft Post', 'Categories', 'User','subscriber', 'Comments','unapproved comment'];
-                            $element_count = [$total_post,$publised_post,$draft_post, $total_category, $total_user,$subscriber_user, $total_comments,$unapproved_comment];
+                            $element_text = ['All Post', 'Activ Post', 'Draft Post', 'Categories', 'User', 'subscriber', 'Comments', 'unapproved comment'];
+                            $element_count = [$total_post, $publised_post, $draft_post, $total_category, $total_user, $subscriber_user, $total_comments, $unapproved_comment];
 
                             for ($i = 0; $i < 8; $i++) {
                                 echo "['{$element_text[$i]}'" . "," . "{$element_count[$i]}],";

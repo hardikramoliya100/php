@@ -1,5 +1,6 @@
 <?php include "include/db.php"; ?>
 <?php include "include/header.php"; ?>
+<?php include "admin/includes/function.php"; ?>
 <?php
 
 if (isset($_POST['submit'])) {
@@ -8,32 +9,91 @@ if (isset($_POST['submit'])) {
     $password = $_POST['password'];
     $email = $_POST['email'];
 
-    if(!empty($username) && !empty($password) && !empty($email)){
 
+    $error=[
+        'username'=>'',
+        'password'=>'',
+        'email'=>''
+    ];
 
-
-        $username = mysqli_real_escape_string($connection, $username);
-        $password = mysqli_real_escape_string($connection, $password);
-        $email = mysqli_real_escape_string($connection, $email);
-
-        $password = password_hash($password , PASSWORD_BCRYPT ,array('cost'=>12));
-    
-        // $query = "SELECT randslot FROM user";
-        // $select_randslot = mysqli_query($connection, $query);
-    
-        // $row = mysqli_fetch_array($select_randslot);
-        // $salt = $row['randslot'];
-        // $password= crypt($password,$salt);
-
-        $query= "INSERT INTO `user` (`username`,`user_email`,`password`,`user_role`) VALUE ('$username','$email','$password','subscriber')";
-    
-        $insert_user = mysqli_query($connection,$query);
-    }else{
-        echo "<script>alert('Filed not be empty!!!!')</script>";
+    if(strlen($username) < 4){
+        $error['username']='Username is to longer';
     }
 
-}
+    if($username == ''){
+        $error['username']='Username cannot be empty';
+    }
+    
+    if(username_exist($username)){
+        $error['username']='Username Already Exist';
+    }
 
+    if(email_exist($email)){
+        $error['email']='Email Already Exist, <a href="index.php">Please Login</a>';
+    }
+    
+    if($email == ''){
+        $error['email']='Email cannot be empty';
+    }
+    
+    if($password == ''){
+        $error['password']='Password cannot be empty';
+    }
+
+
+    foreach ($error as $key => $value) {
+        
+        if (empty($value)) {
+            
+            unset($error[$key]);
+        }
+    }
+
+    
+    if(empty($error)){
+        
+        
+        register_user($username,$email,$password);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    // if(!empty($username) && !empty($password) && !empty($email)){
+        
+    //     if (username_exist($username)) {
+    //         echo "<script>alert('Username Already Exist!!!!')</script>";
+            
+    //     }else{
+
+    //         $username = mysqli_real_escape_string($connection, $username);
+    //         $password = mysqli_real_escape_string($connection, $password);
+    //         $email = mysqli_real_escape_string($connection, $email);
+    
+    //         $password = password_hash($password , PASSWORD_BCRYPT ,array('cost'=>12));
+    
+    //         $query= "INSERT INTO `user` (`username`,`user_email`,`password`,`user_role`) VALUE ('$username','$email','$password','subscriber')";
+        
+    //         $insert_user = mysqli_query($connection,$query);
+    //     }
+
+
+    // }else{
+    //     echo "<script>alert('Filed not be empty!!!!')</script>";
+    // }
+
+}
 
 ?>
 

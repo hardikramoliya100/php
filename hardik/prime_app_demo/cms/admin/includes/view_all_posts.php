@@ -1,5 +1,7 @@
 <?php
 
+include ("delete_model.php");
+
 if (isset($_POST['checkBoxArray'])) {
 
     $bulkoption = $_POST['bulkoption'];
@@ -172,7 +174,8 @@ if (isset($_POST['checkBoxArray'])) {
                 echo "<td>$post_date</td>";
                 echo "<td><a class='btn btn-success btn-sm' href='../post.php?p_id={$post_id}'>VIEW</a></td>";
                 echo "<td><a class='btn btn-warning btn-sm' href='posts.php?sourse=edit_post&p_id=$post_id'>EDIT</a></td>";
-                echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delete'); \" class='btn btn-danger btn-sm ' href='posts.php?delete=$post_id'>DELETE</a></td>";
+                echo "<td><a rel='$post_id' class='btn btn-danger btn-sm delete_link' href='javascript:void(0)'>DELETE</a></td>";
+                // echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delete'); \" class='btn btn-danger btn-sm ' href='posts.php?delete=$post_id'>DELETE</a></td>";
                 echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to reset'); \" href='posts.php?reset=$post_id'>$post_view_count</a></td>";
                 echo "</tr>";
             }
@@ -182,3 +185,21 @@ if (isset($_POST['checkBoxArray'])) {
         </tbody>
     </table>
 </form>
+
+<script>
+
+    $(document).ready(function(){
+
+        $('.delete_link').on('click',function(){
+            var id = $(this).attr("rel");
+            var delete_url = "posts.php?delete="+id+"";
+            $(".model_delete_link").attr("href",delete_url);
+
+            $("#exampleModal").modal('show');
+
+        });
+
+
+    });
+
+</script>

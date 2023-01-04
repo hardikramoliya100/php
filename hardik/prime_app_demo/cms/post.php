@@ -1,8 +1,55 @@
 <?php include "include/db.php" ?>
+<?php
+
+if (isset($_POST['liked'])) {
+
+    $post_id = $_POST['post_id'];
+    $user_id = $_POST['user_id'];
+
+    $query = "SELECT * FROM posts WHERE post_id='$post_id'";
+    $postresult = mysqli_query($connection, $query);
+    $post = mysqli_fetch_array($postresult);
+
+    $like = $_POST['liked'];
+
+    mysqli_query($connection, "UPDATE posts SET likes=likes+1 WHERE post_id='$post_id'");
+
+    mysqli_query($connection, "INSERT INTO likes(user_id,post_id) VALUE('$user_id','$post_id')");
+
+    $data = mysqli_num_rows(mysqli_query($connection, "SELECT * FROM likes WHERE post_id='$post_id'"));
+    print_r($data);
+    return $data;
+}
+
+if (isset($_POST['unliked'])) {
+    
+    $post_id = $_POST['post_id'];
+    $user_id = $_POST['user_id'];
+    
+    // $query = "SELECT * FROM posts WHERE post_id='$post_id'";
+    // $postresult = mysqli_query($connection, $query);
+    // $post = mysqli_fetch_array($postresult);
+    
+    // $like = $_POST['liked'];
+    
+    mysqli_query($connection, "UPDATE posts SET likes=likes-1 WHERE post_id='$post_id'");
+    
+    mysqli_query($connection, "DELETE FROM likes WHERE user_id='$user_id' AND post_id='$post_id'");
+    
+    $data = mysqli_num_rows(mysqli_query($connection, "SELECT * FROM likes WHERE post_id='$post_id'"));
+    
+    print_r($data);
+    return $data;
+}
+
+?>
 <?php include "include/header.php" ?>
 
 <!-- Navigation -->
 <?php include "include/navigation.php" ?>
+
+
+<!-- <script>alert('itwork')</script> -->
 
 <!-- Page Content -->
 <div class="container">
@@ -39,7 +86,7 @@
 
 
 
-               
+
 
                 <!-- First Blog Post -->
                 <h2>
@@ -50,11 +97,65 @@
                 </p>
                 <p><span class="glyphicon glyphicon-time"></span> <?php echo $post_date; ?></p>
                 <hr>
-                <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="" width="500" height="200">
+                <img class="img-responsive" src="/php/hardik/prime_app_demo/cms/images/<?php echo $post_image; ?>" alt="" width="500" height="200">
                 <hr>
                 <p><?php echo $post_content; ?></p>
 
                 <hr>
+
+                <?php
+
+
+                if (isset($_SESSION['user_id'])) {
+
+                    $user_id = $_SESSION['user_id'];
+
+
+
+                    $like_result = mysqli_query($connection, "SELECT * FROM likes WHERE post_id='$the_post_id'");
+
+                    if (mysqli_num_rows($like_result) >= 1) { ?>
+
+
+                        <div class="row">
+                            <p class="pull-right"><span class="glyphicon glyphicon-thumbs-up"></span> <input type="button" id="event" value="Unlike" onclick="unlike(<?php echo $the_post_id; ?>,<?php echo $user_id; ?>)"></p>
+                            
+                        </div>
+                    <?php
+                    } else { ?>
+                        <div class="row">
+                            <p class="pull-right"><span class="glyphicon glyphicon-thumbs-up"></span> <input type="button" value="Like" id="event"  onclick="like(<?php echo $the_post_id; ?>,<?php echo $user_id; ?>)"></p>
+                        </div>
+
+                    <?php
+
+                    }
+
+
+                    ?>
+
+
+                <?php
+                } else {
+                    echo "You Need login for Like ";
+                }
+
+
+                $how_many_like = mysqli_num_rows(mysqli_query($connection, "SELECT * FROM likes WHERE post_id='$the_post_id'"));
+
+                ?>
+
+                <div class="row">
+                    <p class="pull-right total-like">Like:<?php echo $how_many_like; ?></p>
+                </div>
+                <div class="clearfix"></div>
+
+
+
+
+
+
+
             <?php }  ?>
 
             <?php
@@ -167,3 +268,61 @@
 
     <!-- Footer -->
     <?php include "include/footer.php" ?>
+
+    <script>
+        $(document).ready(function() {
+                    
+                    
+                    
+        });
+
+        function unlike(post_id, user_id) {
+            
+            $('#event').attr("onclick","like("+post_id+","+user_id+")");
+            $('#event').attr("value","Like");
+
+            $.ajax({
+
+                url: "/php/hardik/prime_app_demo/cms/post.php?p_id=<?php echo $the_post_id; ?>",
+                type: "POST",
+                data: {
+                    'unliked': 1,
+                    'post_id': post_id,
+                    'user_id': user_id
+                },
+                success: function(response) {
+
+                    $('.total-like').html('Like:'+response);
+                }
+                
+            });
+            
+            
+        }
+        
+        function like(post_id, user_id) {
+            $('#event').attr("onclick","unlike("+post_id+","+user_id+")");
+            $('#event').attr("value","Unlike");
+
+            
+            $.ajax({
+                
+                 url: "/php/hardik/prime_app_demo/cms/post.php?p_id=<?php echo $the_post_id; ?>",
+                 type: "POST",
+                 data: {
+                     'liked': 1,
+                     'post_id': post_id,
+                     'user_id': user_id
+                    },
+                    success:function(response){
+
+                        $('.total-like').html('Like:'+response);
+                    }
+                    
+                });
+
+
+        }
+
+
+    </script>

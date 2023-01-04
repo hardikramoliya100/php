@@ -9,7 +9,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.php">CMS Frent</a>
+            <a class="navbar-brand" href="<?php echo $url; ?>">CMS Frent</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -24,7 +24,7 @@
                 while ($row = mysqli_fetch_assoc($category_data)) {
                     $cat_title = $row['cat_title'];
                     $cat_id = $row['cat_id'];
-                    echo "<li><a href='category.php?cat_id={$cat_id}'>{$cat_title}</a></li>";
+                    echo "<li><a href='/php/hardik/prime_app_demo/cms/category/{$cat_id}'>{$cat_title}</a></li>";
                 }
 
                 ?>
@@ -35,7 +35,7 @@
 
 
                         <li>
-                            <a href="admin">Admin</a>
+                            <a href="<?php echo $GLOBALS['url']; ?>admin">Admin</a>
                         </li>
 
                 <?php
@@ -49,7 +49,7 @@
                     if ($_SESSION['user_role'] == 'admin') {
                         if (isset($_GET['p_id'])) {
                             $p_id =  $_GET['p_id'];
-                            echo "<li><a href='admin/posts.php?sourse=edit_post&p_id={$p_id}'>Edit Post</a></li>";
+                            echo "<li><a href='/php/hardik/prime_app_demo/cms/admin/posts.php?sourse=edit_post&p_id={$p_id}'>Edit Post</a></li>";
                         }
                     }
                 }
@@ -58,21 +58,32 @@
 
 
                 <li>
-                    <a href="registration.php">Registration</a>
+                    <a href="<?php echo $GLOBALS['url']; ?>registration">Registration</a>
+                </li>
+                <li>
+                    <a href="<?php echo $GLOBALS['url']; ?>emailSend/contact.php">Contact</a>
                 </li>
 
                 <?php
 
                 if (isset($_SESSION['user_role'])) {
-                    if ($_SESSION['user_role'] == 'admin') { ?>
+                ?>
 
 
-                        <li>
-                            <a href="include/logout.php">Logout</a>
-                        </li>
+                    <li>
+                        <a href="/php/hardik/prime_app_demo/cms/include/logout.php">Logout</a>
+                    </li>
 
                 <?php
-                    }
+
+                } else { ?>
+
+
+                    <li>
+                        <a href="/php/hardik/prime_app_demo/cms/login.php">Login</a>
+                    </li>
+
+                <?php
                 }
 
                 ?>
