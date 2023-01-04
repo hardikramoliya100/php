@@ -4,6 +4,7 @@
  <!-- Navigation -->
  <?php include "include/navigation.php" ?>
 
+
  <!-- Page Content -->
  <div class="container">
 
@@ -23,7 +24,7 @@
 
                     $query = "SELECT * FROM posts WHERE post_status='published'";
                 }
-                
+
                 $total_post = mysqli_num_rows(mysqli_query($connection, $query));
                 $total_post = ceil($total_post / 5);
 
@@ -55,11 +56,11 @@
                     $query = "SELECT * FROM posts WHERE post_status='published' LIMIT $page_1,5";
                 }
 
-               
+
 
                 $posts_data = mysqli_query($connection, $query);
 
-                if(!mysqli_num_rows($posts_data)){
+                if (!mysqli_num_rows($posts_data)) {
 
                     echo "<h1>NO POST</h1>";
                 }
@@ -95,11 +96,11 @@
                  <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id; ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
                  <hr>
-             <?php 
-            
-            
-            
-            } ?>
+             <?php
+
+
+
+                } ?>
 
          </div>
 
@@ -134,6 +135,41 @@
 
 
      </ul>
-
+     <!-- Modal -->
+     <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+             <div class="modal-content">
+                 <div class="modal-header">
+                     <h5 class="modal-title" id="exampleModalLongTitle">Shoe Errer</h5>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                         <span aria-hidden="true">&times;</span>
+                     </button>
+                 </div>
+                 <div class="modal-body">
+                     <p class="error"></p>
+                 </div>
+                 <div class="modal-footer">
+                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    
+                 </div>
+             </div>
+         </div>
+     </div>
      <!-- Footer -->
+
+     
+     
+     <!-- unset($_SESSION['errorMessage']); -->
+     
+     
      <?php include "include/footer.php" ?>
+
+     <?php if (isset($_SESSION['errorMessage'])) : $errormessege = $_SESSION["errorMessage"];?>
+
+         <script>
+            var messege = '<?php echo $errormessege; ?>';
+            $('#exampleModalLong').modal('show');
+            $('.error').html(messege);
+         </script>
+
+     <?php unset($_SESSION['errorMessage']); endif; ?>

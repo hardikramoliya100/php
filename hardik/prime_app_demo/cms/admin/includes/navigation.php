@@ -45,6 +45,9 @@
                     <li>
                         <a href="posts.php?sourse=add_post">Add New Post</a>
                     </li>
+                    <li>
+                        <a href="userdata.php">User Post Item</a>
+                    </li>
                 </ul>
             </li>
             <li>

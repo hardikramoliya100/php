@@ -99,11 +99,10 @@ function username_exist($username)
 
     if ($data > 0) {
         return true;
-    }else{
-        
+    } else {
+
         return false;
     }
-
 }
 
 function email_exist($email)
@@ -116,34 +115,32 @@ function email_exist($email)
 
     if ($data > 0) {
         return true;
-    }else{
-        
+    } else {
+
         return false;
     }
-
 }
 
 // REGISTRASAN USER
 
-function register_user($username,$password,$email)
+function register_user($username, $password, $email)
 {
     global $connection;
 
 
-            $username = mysqli_real_escape_string($connection, $username);
-            $password = mysqli_real_escape_string($connection, $password);
-            $email = mysqli_real_escape_string($connection, $email);
-    
-            $password = password_hash($password , PASSWORD_BCRYPT ,array('cost'=>12));
-    
-            $query= "INSERT INTO `user` (`username`,`user_email`,`password`,`user_role`) VALUE ('$username','$email','$password','subscriber')";
-        
-            $insert_user = mysqli_query($connection,$query);
-       
+    $username = mysqli_real_escape_string($connection, $username);
+    $password = mysqli_real_escape_string($connection, $password);
+    $email = mysqli_real_escape_string($connection, $email);
 
+    $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
+
+    $query = "INSERT INTO `user` (`username`,`user_email`,`password`,`user_role`) VALUE ('$username','$email','$password','subscriber')";
+
+    $insert_user = mysqli_query($connection, $query);
 }
 
-function email_exists($email){
+function email_exists($email)
+{
 
     global $connection;
 
@@ -152,36 +149,31 @@ function email_exists($email){
     $result = mysqli_query($connection, $query);
 
 
-    if(mysqli_num_rows($result) > 0) {
+    if (mysqli_num_rows($result) > 0) {
 
         return true;
-
     } else {
 
         return false;
-
     }
-
-
-
 }
 
 // for login user
 
-function login_user($username,$password)
+function login_user($username, $password)
 {
     global $connection;
 
-    $l_username=$_POST['username'];
-    $l_password=$_POST['password'];
+    $l_username = $_POST['username'];
+    $l_password = $_POST['password'];
 
-    $l_username = mysqli_real_escape_string($connection,$l_username); 
-    $l_password = mysqli_real_escape_string($connection,$l_password); 
+    $l_username = mysqli_real_escape_string($connection, $l_username);
+    $l_password = mysqli_real_escape_string($connection, $l_password);
 
-    
+
     $query = "SELECT * FROM user WHERE username='$l_username'";
-    $login_user= mysqli_fetch_assoc(mysqli_query($connection,$query));
-    
+    $login_user = mysqli_fetch_assoc(mysqli_query($connection, $query));
+
     $user_id = $login_user['user_id'];
     $username = $login_user['username'];
     $password = $login_user['password'];
@@ -189,15 +181,15 @@ function login_user($username,$password)
     $user_lastname = $login_user['user_lastname'];
     $user_role = $login_user['user_role'];
     $user_email = $login_user['user_email'];
-    
+
     // $l_password= crypt($l_password,$password);
 
-    if(password_verify($l_password,$password)){
-        $_SESSION['user_id']=$user_id;
-        $_SESSION['username']=$username;
-        $_SESSION['user_firstname']=$user_firstname;
-        $_SESSION['user_lastname']=$user_lastname;
-        $_SESSION['user_role']=$user_role;
+    if (password_verify($l_password, $password)) {
+        $_SESSION['user_id'] = $user_id;
+        $_SESSION['username'] = $username;
+        $_SESSION['user_firstname'] = $user_firstname;
+        $_SESSION['user_lastname'] = $user_lastname;
+        $_SESSION['user_role'] = $user_role;
         if ($user_role == 'admin') {
 
 
@@ -205,33 +197,42 @@ function login_user($username,$password)
 
             header("location:../admin");
         } else {
+
             header("location:../index.php");
         }
-    }else{
-        
-       echo '<script>alert("anvalid Username and Password")</script>';
+    } else {
+
+        //    echo '<script>
+        //    alert("unvalid Username and Password");
+        //    window.location.replace(../index.php);
+        //    </script>';
+        session_start();
+        $_SESSION['errorMessage'] = "WARNING You dont have access to this area.";
         header("location:../index.php");
-
-
-        
     }
-
 }
 
-function login_users($username,$password)
+function login_users($username, $password)
 {
     global $connection;
 
-    $l_username=$_POST['username'];
-    $l_password=$_POST['password'];
+    $l_username = $_POST['username'];
+    $l_password = $_POST['password'];
 
-    $l_username = mysqli_real_escape_string($connection,$l_username); 
-    $l_password = mysqli_real_escape_string($connection,$l_password); 
+    $l_username = mysqli_real_escape_string($connection, $l_username);
+    $l_password = mysqli_real_escape_string($connection, $l_password);
 
-    
+
     $query = "SELECT * FROM user WHERE username='$l_username'";
-    $login_user= mysqli_fetch_assoc(mysqli_query($connection,$query));
-    
+    $login = mysqli_query($connection, $query);
+    $login_user = mysqli_fetch_assoc($login);
+
+    if(mysqli_num_rows($login) <= 0){
+        session_start();
+        $_SESSION['errorMessage'] = "Worng Username And Password .";
+        header("location:index.php");
+    }
+
     $user_id = $login_user['user_id'];
     $username = $login_user['username'];
     $password = $login_user['password'];
@@ -239,15 +240,15 @@ function login_users($username,$password)
     $user_lastname = $login_user['user_lastname'];
     $user_role = $login_user['user_role'];
     $user_email = $login_user['user_email'];
-    
+
     // $l_password= crypt($l_password,$password);
 
-    if(password_verify($l_password,$password)){
-        $_SESSION['user_id']=$user_id;
-        $_SESSION['username']=$username;
-        $_SESSION['user_firstname']=$user_firstname;
-        $_SESSION['user_lastname']=$user_lastname;
-        $_SESSION['user_role']=$user_role;
+    if (password_verify($l_password, $password)) {
+        $_SESSION['user_id'] = $user_id;
+        $_SESSION['username'] = $username;
+        $_SESSION['user_firstname'] = $user_firstname;
+        $_SESSION['user_lastname'] = $user_lastname;
+        $_SESSION['user_role'] = $user_role;
         if ($user_role == 'admin') {
 
 
@@ -257,15 +258,12 @@ function login_users($username,$password)
         } else {
             header("location:index.php");
         }
-    }else{
-        
-       echo '<script>alert("anvalid Username and Password")</script>';
+    } else {
+
+        session_start();
+        $_SESSION['errorMessage'] = "Worng Username And Password.";
         header("location:index.php");
-
-
-        
     }
-
 }
 
 
@@ -276,42 +274,42 @@ function online_user()
 
     if (isset($_GET['onlineuser'])) {
 
-    global $connection;
+        global $connection;
 
-    if (!$connection) {
-        session_start();
-        include("../../include/db.php");
-
-
+        if (!$connection) {
+            session_start();
+            include("../../include/db.php");
 
 
-        $session = session_id();
-        $time = time();
-        $time_in_second = 30;
-        $time_out = $time - $time_in_second;
 
-        $query = "SELECT * FROM user_online WHERE session = '$session'";
 
-        $count = mysqli_num_rows(mysqli_query($connection, $query));
+            $session = session_id();
+            $time = time();
+            $time_in_second = 30;
+            $time_out = $time - $time_in_second;
 
-        if ($count == NULL) {
+            $query = "SELECT * FROM user_online WHERE session = '$session'";
 
-            $query = "INSERT INTO user_online(session,time) VALUE('$session','$time')";
+            $count = mysqli_num_rows(mysqli_query($connection, $query));
 
-            $insert_session = mysqli_query($connection, $query);
-        } else {
+            if ($count == NULL) {
 
-            $query = "UPDATE user_online SET time='$time' WHERE session='$session'";
+                $query = "INSERT INTO user_online(session,time) VALUE('$session','$time')";
 
-            $update_session = mysqli_query($connection, $query);
+                $insert_session = mysqli_query($connection, $query);
+            } else {
+
+                $query = "UPDATE user_online SET time='$time' WHERE session='$session'";
+
+                $update_session = mysqli_query($connection, $query);
+            }
+
+            $query = "SELECT * FROM user_online WHERE time > '$time_out'";
+
+            $count_online_user = mysqli_num_rows(mysqli_query($connection, $query));
+
+            echo $count_online_user;
         }
-
-        $query = "SELECT * FROM user_online WHERE time > '$time_out'";
-
-        $count_online_user = mysqli_num_rows(mysqli_query($connection, $query));
-
-        echo $count_online_user;
-    }
     }
 }
 

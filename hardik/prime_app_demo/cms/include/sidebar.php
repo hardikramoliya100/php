@@ -43,7 +43,7 @@
                     </span>
                 </div>
                 <div class="form-group">
-                    <a href="<?php echo $GLOBALS['url']; ?>forgot.php">Forgot Password</a>
+                    <a href="<?php echo $GLOBALS['url']; ?>emailSend/forgot.php">Forgot Password</a>
                 </div>
 
             </form>

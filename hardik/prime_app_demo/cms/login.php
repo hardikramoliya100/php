@@ -10,8 +10,7 @@
 if(isset($_POST['login'])){
 
     
-    // $l_username=$_POST['username'];
-    // $l_password=$_POST['password'];
+    
 
     login_users($_POST['username'],$_POST['password']);
 

@@ -16,6 +16,9 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="<?php echo $GLOBALS['url'];?>js/bootstrap.min.js"></script>
+    
+    <script src="<?php echo $GLOBALS['url'];?>js/script.js"></script>
+
 
 </body>
 
