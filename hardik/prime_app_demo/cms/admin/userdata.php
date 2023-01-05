@@ -112,7 +112,7 @@ class modal
                     // file_put_contents('/php/hardik/prime_app_demo/cms/images/car1.txt ', "img");
                     // exit;
              
-                    
+
                     $split_image = pathinfo($post_image);
                     
                     $ch = curl_init($post_image);
@@ -125,7 +125,7 @@ class modal
                     curl_setopt($ch, CURLOPT_HEADER, 0);
                     curl_exec($ch);
                     curl_close($ch);
-                    fclose($file);
+                    fclose($file); 
                     // exit;
                     // curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.13 (KHTML, like Gecko) Chrome/0.A.B.C Safari/525.13");
                     // curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
