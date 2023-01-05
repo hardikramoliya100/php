@@ -1,11 +1,39 @@
 <?php include("delete_model.php"); ?>
 <?php
 
-if(isset($_POST['export'])){
+if (isset($_POST['export'])) {
     $obj->exportdata();
 }
 
+if (isset($_POST['importSubmit'])) {
+    $obj->importdata();
+}
+
+if (!empty($_GET['status'])) {
+    switch ($_GET['status']) {
+        case 'succ':
+            $statusType = 'alert-success';
+            $statusMsg = 'Members data has been imported successfully.';
+            break;
+        case 'err':
+            $statusType = 'alert-danger';
+            $statusMsg = 'Some problem occurred, please try again.';
+            break;
+        case 'invalid_file':
+            $statusType = 'alert-danger';
+            $statusMsg = 'Please upload a valid CSV file.';
+            break;
+        default:
+            $statusType = '';
+            $statusMsg = '';
+    }
+}
 ?>
+<?php if (!empty($statusMsg)) { ?>
+    <div class="col-xs-12">
+        <div class="alert <?php echo $statusType; ?>"><?php echo $statusMsg; ?></div>
+    </div>
+<?php } ?>
 
 
 <form action="" method="post">
@@ -15,11 +43,22 @@ if(isset($_POST['export'])){
     <table class="table table-bordered table-hover ">
 
 
-        <div class="col-xs-4">
-            <a class="btn btn-primary" href="">Import</a>
-            <!-- <a class="btn btn-primary" href="">Export</a> -->
-            <form action="userdata.php" method="post"><input class="btn btn-primary" type="submit" value="Export" name="export"></form>
+        <div class="col-xs-12">
+            <div class="float-lg-right" style=" float:right; ">
+                <a href="javascript:void(0);" class="btn btn-success" onclick="formToggle('importFrm');"><i class="plus"></i> Import</a>
+                <!-- <a class="btn btn-primary" href="">Import</a> -->
+                <!-- <a class="btn btn-primary" href="">Export</a> -->
+                <form action="userdata.php" method="post"><input class="btn btn-primary" type="submit" value="Export" name="export"></form>
 
+            </div>
+
+        </div>
+
+        <div class="col-md-12" id="importFrm" style="display: none;">
+            <form action="userdata.php" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" />
+                <input type="submit" class="btn btn-primary" name="importSubmit" value="IMPORT">
+            </form>
         </div>
 
         <thead>
@@ -80,7 +119,7 @@ if(isset($_POST['export'])){
 
                 echo "<tr>";
             ?>
-                >
+
             <?php
                 echo "<td>$post_id</td>";
                 echo "<td>$post_author</td>";
@@ -131,4 +170,13 @@ if(isset($_POST['export'])){
 
 
     });
+
+    function formToggle(ID) {
+        var element = document.getElementById(ID);
+        if (element.style.display === "none") {
+            element.style.display = "block";
+        } else {
+            element.style.display = "none";
+        }
+    }
 </script>
