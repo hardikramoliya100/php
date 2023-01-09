@@ -1,7 +1,9 @@
 <?php include("delete_model.php"); ?>
+<?php include("ModalClassForUser.php"); ?>
 <?php
-
+$obj = new modal;
 if (isset($_POST['export'])) {
+
     $obj->exportdata();
 }
 
@@ -38,32 +40,43 @@ if (!empty($_GET['status'])) {
 
 <form action="" method="post">
 
-
-
     <table class="table table-bordered table-hover ">
-
 
         <div class="col-xs-12">
             <div class="float-lg-right" style=" float:right; ">
-                <a href="javascript:void(0);" class="btn btn-success" onclick="formToggle('importFrm');"><i class="plus"></i> Import</a>
-                <!-- <a class="btn btn-primary" href="">Import</a> -->
-                <!-- <a class="btn btn-primary" href="">Export</a> -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">Import</button>
                 <form action="userdata.php" method="post"><input class="btn btn-primary" type="submit" value="Export" name="export"></form>
-
             </div>
-
         </div>
 
-        <div class="col-md-12" id="importFrm" style="display: none;">
-            <form action="userdata.php" method="post" enctype="multipart/form-data">
-                <input type="file" name="file" />
-                <input type="submit" class="btn btn-primary" name="importSubmit" value="IMPORT">
-            </form>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="userdata.php" method="post" enctype="multipart/form-data">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Import Data</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input class="form-control" type="file" name="file" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary" name="importSubmit" value="IMPORT">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
 
         <thead>
             <tr>
-
                 <th>Id</th>
                 <th>Author</th>
                 <th>Title</th>
@@ -84,7 +97,6 @@ if (!empty($_GET['status'])) {
 
             if (isset($_GET['delete'])) {
                 $post_delete = $_GET['delete'];
-
                 $obj->deletepost($post_delete);
 
                 header("location:userdata.php");
@@ -97,12 +109,10 @@ if (!empty($_GET['status'])) {
                 header("location:userdata.php");
             }
 
-
             ?>
 
             <?php
             $posts_data = $obj->fechdata();
-
 
             while ($row = mysqli_fetch_assoc($posts_data)) {
                 $post_id = $row['post_id'];
@@ -127,14 +137,11 @@ if (!empty($_GET['status'])) {
 
                 $category_edit = $obj->fechcategorydata($post_category_id);
 
-
                 while ($row = mysqli_fetch_assoc($category_edit)) {
                     $cat_title = $row['cat_title'];
 
                     echo "<td>$cat_title</td>";
                 }
-
-
 
                 echo "<td>$post_status</td>";
                 echo "<td><img width='100' src='../images/$post_image' alt=''></td>";
@@ -144,7 +151,6 @@ if (!empty($_GET['status'])) {
                 echo "<td><a class='btn btn-success btn-sm' href='../post.php?p_id={$post_id}'>VIEW</a></td>";
                 echo "<td><a class='btn btn-warning btn-sm' href='posts.php?sourse=edit_post&p_id=$post_id'>EDIT</a></td>";
                 echo "<td><a rel='$post_id' class='btn btn-danger btn-sm delete_link' href='javascript:void(0)'>DELETE</a></td>";
-                // echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delete'); \" class='btn btn-danger btn-sm ' href='posts.php?delete=$post_id'>DELETE</a></td>";
                 echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to reset'); \" href='userdata.php?reset=$post_id'>$post_view_count</a></td>";
                 echo "</tr>";
             }
@@ -155,20 +161,14 @@ if (!empty($_GET['status'])) {
     </table>
 </form>
 
-
 <script>
     $(document).ready(function() {
-
         $('.delete_link').on('click', function() {
             var id = $(this).attr("rel");
             var delete_url = "userdata.php?delete=" + id + "";
             $(".model_delete_link").attr("href", delete_url);
-
             $("#exampleModal").modal('show');
-
         });
-
-
     });
 
     function formToggle(ID) {

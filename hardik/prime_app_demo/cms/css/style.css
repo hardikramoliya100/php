@@ -21,7 +21,7 @@ input {
   
   /* Style the container for inputs */
   .container {
-    background-color: #f1f1f1;
+    background-color:  rgba(0,0,0,.0001);
     padding: 20px;
   }
   

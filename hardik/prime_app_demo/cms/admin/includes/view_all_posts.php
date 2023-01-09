@@ -171,7 +171,11 @@ if (isset($_POST['checkBoxArray'])) {
                 echo "<td><img width='100' src='../images/$post_image' alt=''></td>";
                 echo "<td>$post_tage</td>";
                 echo "<td><a href='post_comment.php?p_id=$post_id'>$post_comment_count</a></td>";
-                echo "<td>$post_date</td>";
+
+                $newDate = date("d-m-Y", strtotime($post_date));
+
+
+                echo "<td>$newDate</td>";
                 echo "<td><a class='btn btn-success btn-sm' href='../post.php?p_id={$post_id}'>VIEW</a></td>";
                 echo "<td><a class='btn btn-warning btn-sm' href='posts.php?sourse=edit_post&p_id=$post_id'>EDIT</a></td>";
                 echo "<td><a rel='$post_id' class='btn btn-danger btn-sm delete_link' href='javascript:void(0)'>DELETE</a></td>";

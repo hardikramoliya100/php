@@ -141,7 +141,7 @@
                 $publised_post = tabledata('posts', 'post_status', 'published');
                 $draft_post = tabledata('posts', 'post_status', 'draft');
                 $unapproved_comment = tabledata('comments', 'comment_status', 'unapproved');
-                $subscriber_user = tabledata('user', 'user_role', 'subscriber');
+                $subscriber_user = tabledata('user', 'user_role', 'subcraibr');
 
 
                 ?>

@@ -31,7 +31,7 @@ if (isset($_POST['creat_post'])) {
     move_uploaded_file($post_image_temp, "../images/$post_image");
 
     $query = "INSERT INTO `posts`(`post_category_id`, `post_title`, `post_author`, `post_date`, `post_image`, `post_content`, `post_tage`, `post_status`) ";
-    $query .= "VALUES ('$post_category_id', '$post_title', '$post_author', now(), '$post_image', '$post_content', '$post_tage', '$post_status')";
+    $query .= "VALUES ('$post_category_id', '$post_title', '$post_author',now(), '$post_image', '$post_content', '$post_tage', '$post_status')";
 
     $insert_post = mysqli_query($connection, $query);
 
