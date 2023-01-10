@@ -13,7 +13,7 @@
     <!-- Top Menu Items -->
     <ul class="nav navbar-right top-nav">
         <!-- <li><a href="">USER ONLINE : <?php //echo online_user(); ?></a></li> -->
-        <li><a href="">USER ONLINE : <samp class="useronline"></samp></a></li>
+        <!-- <li><a href="">USER ONLINE : <samp class="useronline"></samp></a></li> -->
         <li><a href="../">HOME SIDE</a></li>
 
 

@@ -4,7 +4,7 @@
 
     <?php
 
-    online_user();
+    // online_user();
 
     ?>
     <?php include "includes/navigation.php"; ?>

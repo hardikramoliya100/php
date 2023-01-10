@@ -269,48 +269,48 @@ function login_users($username, $password)
 
 
 
-function online_user()
-{
+// function online_user()
+// {
 
-    if (isset($_GET['onlineuser'])) {
+//     if (isset($_GET['onlineuser'])) {
 
-        global $connection;
+//         global $connection;
 
-        if (!$connection) {
-            session_start();
-            include("../../include/db.php");
-
-
+//         if (!$connection) {
+//             session_start();
+//             include("../../include/db.php");
 
 
-            $session = session_id();
-            $time = time();
-            $time_in_second = 30;
-            $time_out = $time - $time_in_second;
 
-            $query = "SELECT * FROM user_online WHERE session = '$session'";
 
-            $count = mysqli_num_rows(mysqli_query($connection, $query));
+//             $session = session_id();
+//             $time = time();
+//             $time_in_second = 30;
+//             $time_out = $time - $time_in_second;
 
-            if ($count == NULL) {
+//             $query = "SELECT * FROM user_online WHERE session = '$session'";
 
-                $query = "INSERT INTO user_online(session,time) VALUE('$session','$time')";
+//             $count = mysqli_num_rows(mysqli_query($connection, $query));
 
-                $insert_session = mysqli_query($connection, $query);
-            } else {
+//             if ($count == NULL) {
 
-                $query = "UPDATE user_online SET time='$time' WHERE session='$session'";
+//                 $query = "INSERT INTO user_online(session,time) VALUE('$session','$time')";
 
-                $update_session = mysqli_query($connection, $query);
-            }
+//                 $insert_session = mysqli_query($connection, $query);
+//             } else {
 
-            $query = "SELECT * FROM user_online WHERE time > '$time_out'";
+//                 $query = "UPDATE user_online SET time='$time' WHERE session='$session'";
 
-            $count_online_user = mysqli_num_rows(mysqli_query($connection, $query));
+//                 $update_session = mysqli_query($connection, $query);
+//             }
 
-            echo $count_online_user;
-        }
-    }
-}
+//             $query = "SELECT * FROM user_online WHERE time > '$time_out'";
 
-online_user();
+//             $count_online_user = mysqli_num_rows(mysqli_query($connection, $query));
+
+//             echo $count_online_user;
+//         }
+//     }
+// }
+
+// online_user();

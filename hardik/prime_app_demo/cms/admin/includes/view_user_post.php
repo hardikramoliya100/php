@@ -40,12 +40,26 @@ if (!empty($_GET['status'])) {
 
 <form action="" method="post">
 
-    <table class="table table-bordered table-hover ">
+    <table class="table table-bordered table-hover " id="table">
 
-        <div class="col-xs-12">
+        <div class="col-xs-8">
+            <div class="float-lg-left" style=" float:left; ">
+                <select class="form-control" name="select_option" id="select_option">
+
+                    <!-- <option value="">--select option--</option> -->
+                    <option value="post_author">author</option>
+                    <option value="post_title">title</option>
+                </select>
+                <input type="text" id="search_name" class="form-control" placeholder="serch">
+                <button type="button" class="btn btn-primary" onclick="search()">search</button>
+
+            </div>
+        </div>
+        <div class="col-xs-4">
             <div class="float-lg-right" style=" float:right; ">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">Import</button>
-                <form action="userdata.php" method="post"><input class="btn btn-primary" type="submit" value="Export" name="export"></form>
+                <!-- <form action="userdata.php" method="post"><input class="btn btn-primary" type="submit" value="Export" name="export"></form> -->
+                <button type="button" class="btn btn-primary" onclick="exportdata()">Export</button>
             </div>
         </div>
 
@@ -92,7 +106,7 @@ if (!empty($_GET['status'])) {
                 <th>View</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="tdata">
             <?php
 
             if (isset($_GET['delete'])) {
@@ -162,6 +176,127 @@ if (!empty($_GET['status'])) {
 </form>
 
 <script>
+    function search() {
+
+        // console.log("helle");
+        let search_value = document.getElementById("select_option").value;
+        let search_name = document.getElementById("search_name").value;
+
+
+
+        const xhttp = new XMLHttpRequest();
+
+        xhttp.onload = function(event) {
+
+
+
+            myobj = JSON.parse(this.responseText);
+
+            console.log(myobj);
+            if (myobj == 0) {
+                // alert("NO DATA");
+                let tabledata = "<h1>NO DATA FOUND</h1>";
+                document.getElementById("table").style.textAlign = "center" ;
+                document.getElementById("table").innerHTML = tabledata;
+                
+            } else {
+
+
+
+                let tabledata = "";
+
+                for (let x in myobj) {
+                    tabledata += `<tr>
+
+                <td>${myobj[x].post_id}</td>
+                <td>${myobj[x].post_author}</td>
+                <td>${myobj[x].post_title}</td>
+                <td>${myobj[x].cat_title}</td>
+                <td>${myobj[x].post_status}</td>
+                <td><img width='100' src='../images/${myobj[x].post_image}' alt=''></td>
+                <td>${myobj[x].post_tage}</td>
+                <td>${myobj[x].post_comment_count}</td>
+                <td>${myobj[x].post_date}</td>
+                <td><a class='btn btn-success btn-sm' href='../post.php?p_id=${myobj[x].post_id}'>VIEW</a></td>
+                <td><a class='btn btn-warning btn-sm' href='posts.php?sourse=edit_post&p_id=${myobj[x].post_id}'>EDIT</a></td>
+                <td><a rel='${myobj[x].post_id}' class='btn btn-danger btn-sm delete_link' href='javascript:void(0)'>DELETE</a></td>
+                <td>${myobj[x].post_view_count}</td>
+
+                </tr> `
+                }
+
+                document.getElementById("tdata").innerHTML = tabledata;
+            }
+        }
+
+
+
+        xhttp.open("GET", "http://localhost/php/hardik/prime_app_demo/cms/admin/includes/feachdata.php?value=" + search_value + "&name=" + search_name, true);
+        xhttp.send();
+        // xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        // xhttp.send("value=Henry&name=Ford");
+        // xhttp.open("POST", "demo_post2.asp", true);
+    }
+
+    function exportdata() {
+
+
+        let search_value = document.getElementById("select_option").value;
+
+        let search_name = document.getElementById("search_name").value;
+        if (search_name === "") {
+
+            search_name = 0
+        }
+        // console.log(search_name);
+
+        // const edata = new XMLHttpRequest();
+
+        // edata.onload = function(event){
+        //     mydata = JSON.parse(this.responseText);
+        //     console.log(mydata); 
+        // }
+
+        // edata.open("GET","http://localhost/php/hardik/prime_app_demo/cms/admin/includes/feachexportdata.php?value="+search_value+"&name="+search_name,true);
+        // edata.send();
+
+        document.location.href = "http://localhost/php/hardik/prime_app_demo/cms/admin/includes/feachexportdata.php?value=" + search_value + "&name=" + search_name;
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     $(document).ready(function() {
         $('.delete_link').on('click', function() {
             var id = $(this).attr("rel");
