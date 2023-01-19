@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class PostFactory extends Factory
+class CategoryFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +17,7 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-            'title' =>$this->faker->name(),
-            'description' =>$this->faker->paragraph(6),
-            'user_id'=> \App\Models\User::all()->random()->id
+            'name' =>$this->faker->name(),
         ];
     }
 }
