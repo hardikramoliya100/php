@@ -8,10 +8,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Contect;
+use Laravel\Scout\Searchable;
+
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -43,11 +45,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function contact(){
+    public function contact()
+    {
         return $this->hasOne(Contect::class);
     }
 
-    public function post(){
+    public function post()
+    {
         return $this->hasMany(Post::class);
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            
+            'name' => $this->name,
+            'email' => $this->email,
+           
+        ];
     }
 }

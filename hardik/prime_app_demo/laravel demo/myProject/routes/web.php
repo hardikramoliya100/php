@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [\App\Http\Controllers\TestUser::class,'index']);
+
 // Route::get('/', function () {
 //     // Mail::to('abc@gmail.com')->send(new \App\Mail\jobmail);
 //     dispatch(new \App\Jobs\SendmailJob);
@@ -54,3 +55,5 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/group/{id}', [App\Http\Controllers\HomeController::class, 'group']);
+
+Route::get('/user', [App\Http\Controllers\UserController::class, 'index']);
