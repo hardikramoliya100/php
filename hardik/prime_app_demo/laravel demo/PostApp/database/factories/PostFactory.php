@@ -20,8 +20,12 @@ class PostFactory extends Factory
         return [
             'author' => fake()->name(),
             'title' => fake()->paragraph(),
-            'name' => fake()->name(),
-            'remember_token' => Str::random(10),
+            'slug' => fake()->paragraph(),
+            'category' => fake()->paragraph(),
+            'tag' => fake()->name(),
+            'description' => fake()->paragraph(),
+            'status' => 'publiced',
+            
         ];
     }
 
