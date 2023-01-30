@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('showallpost');
 });
 
 Route::view('/post','showallpost');
@@ -27,3 +27,6 @@ Route::post('/savenewpost',[\App\Http\Controllers\PostController::class,'store']
 Route::get('/editpost/{id}',[\App\Http\Controllers\PostController::class,'edit']);
 Route::post('/updatepost',[\App\Http\Controllers\PostController::class,'update']);
 Route::get('/deletepost/{id?}',[\App\Http\Controllers\PostController::class,'destroy']);
+
+Route::get('/exportfile',[\App\Http\Controllers\PostController::class,'exportdata']);
+Route::post('/importfile',[\App\Http\Controllers\PostController::class,'importdata']);

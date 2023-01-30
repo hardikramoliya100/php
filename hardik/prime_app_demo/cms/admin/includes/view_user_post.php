@@ -50,16 +50,16 @@ if (!empty($_GET['status'])) {
                     <option value="post_author">author</option>
                     <option value="post_title">title</option>
                 </select>
-                
+
             </div>
         </div>
         <div class="col-lg-2">
-            
+
             <input type="text" id="search_name" class="form-control" placeholder="serch">
 
         </div>
         <div class="col-lg-2">
-            
+
             <button type="button" class="btn btn-primary" onclick="search()">search</button>
 
         </div>
@@ -170,11 +170,11 @@ if (!empty($_GET['status'])) {
                 echo "<td><a href='post_comment.php?p_id=$post_id'>$post_comment_count</a></td>";
 
 
-                $newDate = date("m-d-Y", strtotime($post_date)); 
+                $newDate = date("m-d-Y", strtotime($post_date));
 
                 echo "<td>$newDate</td>";
 
-                        
+
 
                 echo "<td><a class='btn btn-success btn-sm' href='../post.php?p_id={$post_id}'>VIEW</a></td>";
                 echo "<td><a class='btn btn-warning btn-sm' href='posts.php?sourse=edit_post&p_id=$post_id'>EDIT</a></td>";
@@ -190,5 +190,5 @@ if (!empty($_GET['status'])) {
 </form>
 
 <script>
-   
+
 </script>

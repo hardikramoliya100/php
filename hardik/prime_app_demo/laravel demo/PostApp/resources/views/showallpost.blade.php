@@ -16,10 +16,25 @@
 <body>
 
     <div class="container mt-5 md-12">
+        @php
+        if(isset($_GET['messege'])){
+           if($_GET['messege'] == "no_file"){
+            echo "pleash uplode file";
+           }elseif($_GET['messege'] == "uploded"){
+            echo "file is uplode";
+           }elseif($_GET['messege'] == "no_csv"){
+            echo "pleash uplode csv file";
+           }
+        }
+        @endphp
         <h2 class="text-center">ALL POST</h2>
         <div>
             <a href="addpost" class="btn btn-success float-right">Add Post</a>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">Import</button>
+            <!-- <button type="button" class="btn btn-primary" onclick="exportdata()">Export</button> -->
+            <a href="exportfile" class="btn btn-success">Export</a>
         </div>
+        <!--  -->
         <table class="table table-bordered yajra-datatable">
             <thead class="bg-dark text-light">
                 <tr>
@@ -38,6 +53,32 @@
             <tbody>
             </tbody>
         </table>
+
+        <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="/importfile" method="post" enctype="multipart/form-data">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Import Data</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" class="form-control" value={{csrf_token()}} name="_token" id="_token">
+                            <div class="form-group">
+                                <input class="form-control" type="file" name="file" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary" name="importSubmit" value="IMPORT">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
@@ -50,7 +91,7 @@
 
             fetchdata()
         })
-        
+
         function fetchdata() {
 
             var table = $('.yajra-datatable').DataTable({
@@ -104,10 +145,10 @@
                 ]
             });
         }
-       
+
 
         function deletepost(id) {
-        
+
             $.ajax({
                 url: 'deletepost/' + id,
                 success: function(response) {

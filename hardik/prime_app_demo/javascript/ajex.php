@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html>
+
 <body>
 
-<h2>The XMLHttpRequest Object</h2>
+    <h2>The XMLHttpRequest Object</h2>
 
-<div id="demo">
-<p>Let AJAX change this text.</p>
-<button type="button" onclick="loadDoc()">Change Content</button>
-</div>
+    <div id="demo">
+        <p>Let AJAX change this text.</p>
+        <button type="button" onclick="loadDoc()">Change Content</button>
+    </div>
 
-<script>
+    <script>
+        function loadDoc() {
 
-function loadDoc(){
+            xhttp = new XMLHttpRequest;
 
-    xhttp = new XMLHttpRequest;
+            xhttp.onload = function(event) {
+                document.getElementById("demo").innerHTML = this.responseText;
+            }
 
-    xhttp.onload = function(event){
-        document.getElementById("demo").innerHTML = this.responseText;
-    }
+            xhttp.open("GET", "ajex_intro.txt");
+            xhttp.send();
 
-    xhttp.open("GET","ajex_intro.txt");
-    xhttp.send();
-
-}
-
-</script>
+        }
+    </script>
 
 </body>
+
 </html>

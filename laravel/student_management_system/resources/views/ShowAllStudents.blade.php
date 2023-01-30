@@ -193,7 +193,7 @@
               </select>
             </div>
             <div class="form-group">
-              <input type="submit"    class="btn btn-primary form-control" id="submit" value="Add student">
+              <input type="submit" class="btn btn-primary form-control" id="submit" value="Add student">
 
             </div>
           </form>

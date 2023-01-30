@@ -29,9 +29,3 @@ $value = $_GET['value'];
 
         echo json_encode(0);
     }
-
-
-
-    
-
-?>
