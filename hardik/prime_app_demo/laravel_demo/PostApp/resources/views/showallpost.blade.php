@@ -40,12 +40,18 @@
         @endif
 
         <h2 class="text-center">ALL POST</h2>
-        <div>
-            <a href="addpost" class="btn btn-success ">Add Post</a>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">Import</button>
-            <!-- <button type="button" class="btn btn-primary" onclick="exportdata()">Export</button> -->
-            <a href="exportfile" class="btn btn-success">Export</a>
+        <div class="row">
+            <div class="col-lg-6 ">
+                <a href="addpost" class="btn btn-success ">Add Post</a>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">Import</button>
+                <a href="exportfile" class="btn btn-success">Export</a>
+            </div>
+            <div class="col-lg-6">
+                <div class="float-right" id="newSearchPlace"></div>
+            </div>
         </div>
+        
+       
         <!--  -->
         <table class="table table-bordered yajra-datatable">
             <thead class="bg-dark text-light">
@@ -100,13 +106,8 @@
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
     <script type="text/javascript">
         // $(window).on('ready', function(e) {
-
-        //     $('.dataTables_filter').addClass('float-right');
-        // })
-        $(document).ready(function() {
-                $('.dataTables_filter').addClass('float-right');
-                // $.fn.dataTableExt.oStdClasses["sFilter"] = "my-style-class";
-        });
+        $("#newSearchPlace").html($(".dataTables_filter").html());
+      
         $(window).on('load', function(e) {
 
             fetchdata()
@@ -117,10 +118,10 @@
             var table = $('.yajra-datatable').DataTable({
                 processing: true,
                 serverSide: true,
-                "bInfo" : false,
+                "bInfo": false,
+                "searching": true,
                 lengthChange: false,
-                // "lengthChange": false,
-                // responsive: true,
+               
 
                 ajax: "{{ route('post.list') }}",
                 columns: [{
@@ -167,7 +168,9 @@
                     },
                 ]
             });
-            $('.dataTables_filter').addClass('float-right');
+
+            $("#newSearchPlace").html($(".dataTables_filter"));
+            
         }
 
 
@@ -187,9 +190,6 @@
             })
         }
     </script>
-    <!-- <script>
-        $('.dataTables_filter').addClass('float-right');
-    </script> -->
 </body>
 
 </html>

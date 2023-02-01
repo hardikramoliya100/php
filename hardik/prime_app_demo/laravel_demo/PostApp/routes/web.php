@@ -30,3 +30,6 @@ Route::get('/deletepost/{id?}',[\App\Http\Controllers\PostController::class,'des
 
 Route::get('/exportfile',[\App\Http\Controllers\PostController::class,'exportdata']);
 Route::post('/importfile',[\App\Http\Controllers\PostController::class,'importdata']);
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
