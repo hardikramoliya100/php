@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -24,11 +25,22 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('products', ProductController::class);
+    Route::resource('posts', PostController::class);
 });
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::prefix('posts')->group(function() {
+//     Route::match(['get', 'head'], '/', 'PostsController@index')->name('post.index');
+//     // Route::match(['get', 'head'], '/show', 'departmentcontroller@show')->name('department.show');
+
+// });
+
+// Route::prefix('users')->group(function() {
+//     Route::match(['get', 'head'], '/', 'UserController@index')->name('user.index');
+//     // Route::match(['get', 'head'], '/show', 'departmentcontroller@show')->name('department.show');
+
+// });

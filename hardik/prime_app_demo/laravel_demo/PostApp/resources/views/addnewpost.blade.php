@@ -25,7 +25,7 @@
                     <div class="card-body">
                         <form action="" method="post" id="post_data">
                             <div class="form-group">
-                            <input type="hidden" class="form-control" value={{csrf_token()}} name="_token" id="_token">
+                                <input type="hidden" class="form-control" value={{csrf_token()}} name="_token" id="_token">
                                 <label for="">Author Name</label>
                                 <input type="text" class="form-control" name="author" id="author" placeholder="Enter Name">
                             </div>
@@ -72,11 +72,11 @@
             console.log(result);
 
             $.ajax({
-                type:'POST',
-                dataType:'json',
-                data:result,
-                url:'savenewpost',
-                success:function(response){
+                type: 'POST',
+                dataType: 'json',
+                data: result,
+                url: 'savenewpost',
+                success: function(response) {
                     console.log(response);
                     if (response == 1) {
                         window.location.href = "post"
