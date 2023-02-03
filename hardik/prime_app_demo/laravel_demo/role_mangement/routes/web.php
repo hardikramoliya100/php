@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
@@ -24,7 +25,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::get('post/list', [PostController::class, 'getpost'])->name('post.list');
+Route::get('/deletepost/{id?}',[PostController::class,'destroy']);
+// Route::get('/post/{id}',[PostController::class,'show']);
 
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
@@ -32,6 +37,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('products', ProductController::class);
     Route::resource('posts', PostController::class);
 });
+
+
 
 // Route::prefix('posts')->group(function() {
 //     Route::match(['get', 'head'], '/', 'PostsController@index')->name('post.index');

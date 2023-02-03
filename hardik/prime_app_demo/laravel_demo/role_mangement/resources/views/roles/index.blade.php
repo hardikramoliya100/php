@@ -22,11 +22,11 @@
 @endif
 
 
-<table class="table table-bordered">
+<table class="table table-bordered mt-3">
   <tr>
      <th>No</th>
      <th>Name</th>
-     <th width="280px">Action</th>
+     <th width="230px" class="text-center">Action</th>
   </tr>
     @foreach ($roles as $key => $role)
     <tr>
@@ -39,7 +39,8 @@
             @endcan
             @can('role-delete')
                 {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
-                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                    <!-- {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!} -->
+                    <input type="submit" onclick="return confirm('Are you sure?')" value="Delete" class="btn btn-danger">
                 {!! Form::close() !!}
             @endcan
         </td>

@@ -21,61 +21,124 @@
 </div>
 @endif
 
-<table class="table table-bordered mt-4">
-    <tr>
-        <th>Id</th>
-        <th>Author</th>
-        <th>Title</th>
-        <th>slug</th>
-        <th>Category</th>
-        <th>Tag</th>
-        <th>Discription</th>
-        <th>Status</th>
-        <th>Publich Date</th>
-        <th width="280px">Action</th>
-    </tr>
-    @foreach ($posts as $post)
-    <tr>
-        <td>{{ ++$i }}</td>
-        <td>{{ $post->name }}</td>
-        <td>{{ $post->title }}</td>
-        <td>{{ $post->slug }}</td>
-        <td>{{ $post->category }}</td>
-        <td>{{ $post->tag }}</td>
-        <td>{{ $post->description }}</td>
-        <td>{{ $post->status }}</td>
-        <td>{{ date('m/d/Y', strtotime($post->created_at)) }}</td>
-        <td>
-            <form action="{{ route('posts.destroy',$post->id) }}" method="POST">
-                <a class="btn btn-info" href="{{ route('posts.show',$post->id) }}">Show</a>
-               
-                @can('post-edit')
-                <a class="btn btn-primary" href="{{ route('posts.edit',$post->id) }}">Edit</a>
-                @endcan
+<div class="row mt-2">
+    <div class="col-lg-12">
+        <div class="float-right" id="newSearchPlace"></div>
+    </div>
+</div>
 
-                @if($post->user_id == $id)
-                <a class="btn btn-primary" href="{{ route('posts.edit',$post->id) }}">Edit</a>
-                @endif
-
-
-                @csrf
-                @method('DELETE')
-
-                @can('post-delete')
-                <button type="submit" class="btn btn-danger">Delete</button>
-                @endcan
-                
-                @if($post->user_id == $id)
-                <button type="submit" class="btn btn-danger">Delete</button>
-                @endif
-            </form>
-        </td>
-    </tr>
-    @endforeach
+<div class="float-" id="newSearchPlace"></div>
+<table class="table table-bordered mt-3 yajra-datatable">
+    <thead class="bg-dark text-light">
+        <tr>
+            <th>Id</th>
+            <th>Author</th>
+            <th>Title</th>
+            <th>slug</th>
+            <th>Category</th>
+            <th>Tag</th>
+            <th>Discription</th>
+            <th>Status</th>
+            <th>Publich Date</th>
+            <th width="190px" class="text-center">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
 </table>
 
-{!! $posts->links() !!}
+
+@endsection
+
+@section('scripts')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript">
+    // $("#newSearchPlace").html($(".dataTables_filter").html());
+
+    $(window).on('load', function(e) {
+
+        fetchdata()
+    })
+
+    function fetchdata() {
+
+        var table = $('.yajra-datatable').DataTable({
+            processing: true,
+            serverSide: true,
+            "bInfo": false,
+            "searching": true,
+            lengthChange: false,
 
 
+            ajax: "{{ route('post.list') }}",
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'title',
+                    name: 'title'
+                },
+                {
+                    data: 'slug',
+                    name: 'slug'
+                },
+                {
+                    data: 'category',
+                    name: 'category'
+                },
+                {
+                    data: 'tag',
+                    name: 'tag'
+                },
+                {
+                    data: 'description',
+                    name: 'description'
+                },
+                {
+                    data: 'status',
+                    name: 'status'
+                },
+                {
+                    data: 'created_at',
+                    name: 'created_at'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: true,
+                    searchable: true
+                },
+            ]
+        });
+
+        $("#newSearchPlace").html($(".dataTables_filter"));
+
+    }
+
+    function deletepost(id) {
+
+        $.ajax({
+            url: 'deletepost/' + id,
+            success: function(response) {
+                if (response == 1) {
+                    $('.yajra-datatable').DataTable().destroy();
+                    alert('post was delete');
+                    fetchdata();
+                } else {
+                    alert("somting Wrong");
+                }
+            }
+        })
+    }
+</script>
 
 @endsection

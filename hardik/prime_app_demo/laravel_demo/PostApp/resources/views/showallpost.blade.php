@@ -173,7 +173,7 @@
             
         }
 
-
+        
         function deletepost(id) {
 
             $.ajax({

@@ -6,6 +6,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use DataTables;
 
 class PostController extends Controller
 {
@@ -26,15 +27,63 @@ class PostController extends Controller
     {
         // $posts = Post::all();
         $id = Auth::user()->id;
-        // dd($id);
+        // dd(Auth::user()->can('post-edit'));                                                                               
         $posts =  DB::table('posts')
             ->select('posts.*','users.name')
             ->join('users', 'posts.user_id', '=', 'users.id')
             ->latest('posts.created_at')->paginate(5);
-        // dd($posts);
-        // $newdate = $posts->created_at->format('d/m/Y');
+            // dd($posts);
+            // $newdate = $posts->created_at->format('d/m/Y');
         return view('posts.index', compact('posts','id'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        ->with('i', (request()->input('page', 1) - 1) * 5);
+    }
+    public function getpost(Request $request)
+    {
+        $id = Auth::user()->id;
+
+
+        if ($request->ajax()) {
+            // $data = post::latest()->get();
+            
+            $posts =  DB::table('posts')
+            ->select('posts.*','users.name')
+            ->join('users', 'posts.user_id', '=', 'users.id')
+            ->latest('posts.created_at')->get();
+
+            return Datatables::of($posts)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+
+                    $actionBtn = '<a class="btn btn-info btn-sm" href="posts/' . $row->id . '">Show</a>  ';
+                    
+                    // For edit
+                    if (Auth::user()->id == $row->user_id) {
+                        $actionBtn .= '<a href="posts/' . $row->id . '/edit" class="edit btn btn-success btn-sm">Edit</a>';
+                    }else{
+
+                        if(Auth::user()->can('post-edit')){
+                            $actionBtn .= '<a href="posts/' . $row->id . '/edit" class="edit btn btn-success btn-sm">Edit</a>';
+                        }
+                    }
+                    // For delete
+                    if (Auth::user()->id == $row->user_id) {
+                        $actionBtn.= ' <button class="btn btn-danger btn-sm" onclick="deletepost(' . $row->id . ')" >Delete</button>';
+                    }else{
+
+                        if(Auth::user()->can('post-delete')){
+                            $actionBtn.= ' <button class="btn btn-danger btn-sm" onclick="deletepost(' . $row->id . ')" >Delete</button>';
+                        }
+                    }
+
+                    return $actionBtn;
+                })
+                ->editColumn('created_at', function ($posts) {
+
+                    return date('m-d-Y', strtotime($posts->created_at));
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
     }
 
     /**
@@ -168,11 +217,12 @@ class PostController extends Controller
      * @param  \App\Models\Post  $Post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(Post $post,$id)
     {
-        $post->delete();
-
-        return redirect()->route('posts.index')
-            ->with('success', 'post deleted successfully');
+        $post = $post->find($id);
+        $data = $post->delete();
+        return $data;
+        // return redirect()->route('posts.index')
+        //     ->with('success', 'post deleted successfully');
     }
 }

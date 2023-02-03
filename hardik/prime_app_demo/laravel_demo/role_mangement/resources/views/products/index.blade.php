@@ -44,14 +44,13 @@
                     @csrf
                     @method('DELETE')
                     @can('product-delete')
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                    @endcan
+                    <input type="submit" onclick="return confirm('Are you sure?')" value="Delete" class="btn btn-danger">                    @endcan
                 </form>
 	        </td>
 	    </tr>
 	    @endforeach
     </table>
 
-    {!! $products->links() !!}
+    {!! $products->links('pagination::bootstrap-4') !!}
 
 @endsection
