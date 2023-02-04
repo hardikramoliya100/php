@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use DataTables;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -19,31 +20,28 @@ class PostController extends Controller
     {
         $this->middleware('permission:post-list|post-create|post-edit|post-delete', ['only' => ['index', 'show']]);
         $this->middleware('permission:post-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:post-edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:post-delete', ['only' => ['destroy']]);
-    }
+        $this->middleware('permission:only-own-post|post-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:only-own-post|post-delete', ['only' => ['destroy']]);
+    } 
 
     public function index()
     {
-        // $posts = Post::all();
+        
         $id = Auth::user()->id;
-        // dd(Auth::user()->can('post-edit'));                                                                               
+                                                                                       
         $posts =  DB::table('posts')
             ->select('posts.*','users.name')
             ->join('users', 'posts.user_id', '=', 'users.id')
             ->latest('posts.created_at')->paginate(5);
-            // dd($posts);
-            // $newdate = $posts->created_at->format('d/m/Y');
+            
         return view('posts.index', compact('posts','id'))
         ->with('i', (request()->input('page', 1) - 1) * 5);
     }
     public function getpost(Request $request)
     {
-        $id = Auth::user()->id;
-
+        // $id = Auth::user()->id;
 
         if ($request->ajax()) {
-            // $data = post::latest()->get();
             
             $posts =  DB::table('posts')
             ->select('posts.*','users.name')
@@ -109,17 +107,16 @@ class PostController extends Controller
             'category' => 'required',
             'tag' => 'required',
             'description' => 'required',
-            // 'radio' => 'required'
+            'status' => 'required|in:published,draft'
         ]);
 
         $id = Auth::user()->id;
-        // dd($id);
 
-        $delimiter = '-';
-        $str = $request->title;
+        // $delimiter = '-';
+        // $str = $request->title;
 
-        $slug = strtolower(trim(preg_replace('/[\s-]+/', $delimiter, preg_replace('/[^A-Za-z0-9-]+/', $delimiter, preg_replace('/[&]/', 'and', preg_replace('/[\']/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $str))))), $delimiter));
-
+        // $slug = strtolower(trim(preg_replace('/[\s-]+/', $delimiter, preg_replace('/[^A-Za-z0-9-]+/', $delimiter, preg_replace('/[&]/', 'and', preg_replace('/[\']/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $str))))), $delimiter));
+        $slug = Str::slug($request->title,'-');
         $post->user_id = $id;
         $post->title = $request->title;
         $post->slug = $slug;
@@ -127,9 +124,7 @@ class PostController extends Controller
         $post->tag = $request->tag;
         $post->description = $request->description;
         $post->status    = $request->status;
-
         $data = $post->save();
-
 
         return redirect()->route('posts.index')
             ->with('success', 'Posts created successfully.');
@@ -143,19 +138,12 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        // $post = Post::find($id);
-        // $post_auther = DB::table("users")
-        // ->select('name')
-        // ->where('id' , '=' , $post->user_id)
-        // ->get();
-
+     
         $post =  DB::table('posts')
             ->select('posts.*','users.name')
             ->join('users', 'posts.user_id', '=', 'users.id')
             ->where('posts.id',$id)
             ->get();
-
-        // dd($post);
         
         return view('posts.show', compact('post'));
     }
@@ -168,8 +156,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        // dd($post);
-        // dd($post->id);
+  
         return view('posts.edit',compact('post'));
     }
 
@@ -187,28 +174,22 @@ class PostController extends Controller
             'category' => 'required',
             'tag' => 'required',
             'description' => 'required',
+            'status' => 'required|in:published,draft'
         ]);
         
         $post = Post::find($id);
 
-        $delimiter = '-';
-        $str = $request->title;
-
-        $slug = strtolower(trim(preg_replace('/[\s-]+/', $delimiter, preg_replace('/[^A-Za-z0-9-]+/', $delimiter, preg_replace('/[&]/', 'and', preg_replace('/[\']/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $str))))), $delimiter));
-
-        
+        $slug = Str::slug($request->title,'-');
         $post->title = $request->title;
         $post->slug = $slug;
         $post->category = $request->category;
         $post->tag = $request->tag;
         $post->description = $request->description;
         $post->status = $request->status;
-
         $data = $post->save();
 
         return redirect()->route('posts.index')
             ->with('success', 'Post updated successfully');
-        // dd($post->title);
     }
 
     /**
@@ -222,7 +203,5 @@ class PostController extends Controller
         $post = $post->find($id);
         $data = $post->delete();
         return $data;
-        // return redirect()->route('posts.index')
-        //     ->with('success', 'post deleted successfully');
     }
 }

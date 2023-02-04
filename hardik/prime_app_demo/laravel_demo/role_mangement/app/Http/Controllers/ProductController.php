@@ -26,9 +26,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->paginate(5);
-        return view('products.index', compact('products'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        $products = Product::get();
+        // dd($products);
+        return view('products.index', compact('products'))->with('i');
+            // ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -51,10 +52,14 @@ class ProductController extends Controller
     {
         request()->validate([
             'name' => 'required',
-            'detail' => 'required',
+            // 'detail' => 'required',
         ]);
+ 
+        $input = $request->all();
+        // $input['detail'] = json_encode($request->input('detail'),JSON_FORCE_OBJECT);
+        // dd($input);
 
-        Product::create($request->all());
+        Product::create($input);
 
         return redirect()->route('products.index')
             ->with('success', 'Product created successfully.');
@@ -79,8 +84,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        // dd($product->name);
-        return view('products.edit', compact('product'));
+        $box = array("Red","Blue","Green","Yellow");
+        return view('products.edit', compact('product','box'));
     }
 
     /**

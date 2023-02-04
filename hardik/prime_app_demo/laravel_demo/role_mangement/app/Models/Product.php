@@ -12,4 +12,14 @@ class Product extends Model
     protected $fillable = [
         'name', 'detail'
     ];
+
+    public function setDetailAttribute($value)
+    {
+        return $this->attributes['detail'] = json_encode($value);
+    }
+
+    public function getDetailAttribute($value)
+    {
+        return $this->attributes['detail'] = json_decode($value);
+    }
 }

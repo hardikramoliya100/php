@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@extends('header.header')
 
 @section('content')
     <div class="row">
@@ -32,7 +33,14 @@
 	    <tr>
 	        <td>{{ ++$i }}</td>
 	        <td>{{ $product->name }}</td>
-	        <td>{{ $product->detail }}</td>
+            
+            <td>
+
+                @foreach($product->detail as $d)
+                {{ $d }},
+                
+                @endforeach
+            </td>
 	        <td>
                 <form action="{{ route('products.destroy',$product->id) }}" method="POST">
                     <a class="btn btn-info" href="{{ route('products.show',$product->id) }}">Show</a>
@@ -51,6 +59,5 @@
 	    @endforeach
     </table>
 
-    {!! $products->links('pagination::bootstrap-4') !!}
-
+  
 @endsection

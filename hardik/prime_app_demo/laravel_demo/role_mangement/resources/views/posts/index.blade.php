@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@extends('header.header')
 
 @section('content')
 <div class="row">
@@ -27,7 +28,6 @@
     </div>
 </div>
 
-<div class="float-" id="newSearchPlace"></div>
 <table class="table table-bordered mt-3 yajra-datatable">
     <thead class="bg-dark text-light">
         <tr>
@@ -57,7 +57,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 <script type="text/javascript">
-    // $("#newSearchPlace").html($(".dataTables_filter").html());
+ 
 
     $(window).on('load', function(e) {
 
@@ -123,21 +123,23 @@
         $("#newSearchPlace").html($(".dataTables_filter"));
 
     }
-
+ 
     function deletepost(id) {
+        if(confirm("Are You Sure to delete this")){
 
-        $.ajax({
-            url: 'deletepost/' + id,
-            success: function(response) {
-                if (response == 1) {
-                    $('.yajra-datatable').DataTable().destroy();
-                    alert('post was delete');
-                    fetchdata();
-                } else {
-                    alert("somting Wrong");
+            $.ajax({
+                url: 'deletepost/' + id,
+                success: function(response) {
+                    if (response == 1) {
+                        $('.yajra-datatable').DataTable().destroy();
+                        alert('post was delete');
+                        fetchdata();
+                    } else {
+                        alert("somting Wrong");
+                    }
                 }
-            }
-        })
+            })
+        }
     }
 </script>
 
