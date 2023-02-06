@@ -22,7 +22,7 @@
         </div>
     @endif
 
-    <table class="table table-bordered">
+    <table class="table table-bordered mt-3">
         <tr>
             <th>No</th>
             <th>Name</th>
