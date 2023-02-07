@@ -69,9 +69,6 @@
               <td>
                 <a href="deletestudent/{{$s->id}}" class="btn btn-danger  ">Delete</a>
               </td>
-              <!-- <td>
-                <a href="javascript::void(0)" mid="{{$s->id }}" class="btn btn-primary showmarkModal ">Mark</a>
-              </td> -->
             </tr>
             @php
             $a++;
