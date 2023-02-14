@@ -46,7 +46,6 @@
               <td>Teaching_Day</td>
               <td>Edit</td>
               <td>Delete</td>
-              <!-- <td>Mark</td> -->
             </tr>
           </thead>
           <tbody>
