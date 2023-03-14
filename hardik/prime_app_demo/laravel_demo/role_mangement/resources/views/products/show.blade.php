@@ -10,7 +10,7 @@
                 <a class="btn btn-primary" href="{{ route('products.index') }}"> Back </a>
             </div>
         </div>
-    </div>
+    </div> 
 
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">

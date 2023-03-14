@@ -21,7 +21,7 @@
         @endforeach
     </ul>
 </div>
-@endif
+@endif 
 
 <form action="{{ route('products.store') }}" method="POST">
     @csrf
